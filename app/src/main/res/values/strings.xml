@@ -1,3 +1,31 @@
 <resources>
-    <string name="app_name">App</string>
+    <string name="app_name">newLogin</string>
+
+    <string name="save_the_pl">
+
+SAVE THE PLANET
+</string>
+
+
+
+
+    <string name="email">
+
+Email
+</string>
+
+
+    <string name="l_senord">
+
+Lösenord
+</string>
+
+    <string name="gl_mt_l_sen">
+
+Glömt Lösenord?
+</string>
+
+
+
+
 </resources>

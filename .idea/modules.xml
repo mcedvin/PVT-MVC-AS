@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PVT.iml" filepath="$PROJECT_DIR$/PVT.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PVT-MVC-AS.iml" filepath="$PROJECT_DIR$/PVT-MVC-AS.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
