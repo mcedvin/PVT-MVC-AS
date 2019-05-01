@@ -21,7 +21,7 @@
         android:background="@drawable/rectangle_2"
         android:onClick="onStart"
         android:elevation="4dp"
-        android:text="Sätt igång!"
+        android:text="Sätt igång!!"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
