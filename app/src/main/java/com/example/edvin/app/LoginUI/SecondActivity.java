@@ -1,4 +1,4 @@
-package com.example.edvin.app;
+package com.example.edvin.app.LoginUI;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.edvin.app.LoginData.LoginBackground;
+import com.example.edvin.app.R;
 
 public class SecondActivity extends AppCompatActivity {
 
@@ -39,7 +42,7 @@ public class SecondActivity extends AppCompatActivity {
 
 
 
-        BackgroundWorker bgw = new BackgroundWorker(this);
+        LoginBackground bgw = new LoginBackground(this);
         bgw.execute(type,username,password);
 
 
