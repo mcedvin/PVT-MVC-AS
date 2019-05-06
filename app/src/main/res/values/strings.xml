@@ -6,7 +6,8 @@
 SAVE THE PLANET
 </string>
 
-
+    <string name="facebook_app_id">346891772846562</string> //add later
+    <string name="fb_login_protocol_scheme">fb346891772846562</string> //add later
 
 
     <string name="email">
