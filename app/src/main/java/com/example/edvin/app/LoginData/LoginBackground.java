@@ -1,16 +1,16 @@
-package com.example.edvin.app;
+package com.example.edvin.app.LoginData;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-public class BackgroundWorker extends AsyncTask<String,Void,String> {
+public class LoginBackground extends AsyncTask<String,Void,String> {
     Context context;
 
     AlertDialog alert;
 
-    BackgroundWorker(Context ctx){
+    public LoginBackground(Context ctx){
         context = ctx;
     }
 

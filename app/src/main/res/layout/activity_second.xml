@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SecondActivity">
+    tools:context=".LoginUI.SecondActivity">
 
 
     <ImageView
@@ -73,26 +73,11 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/user_name_fi"
+        android:hint="@string/email"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView" />
-
-    <TextView
-        android:id="@+id/email"
-        android:layout_width="111dp"
-        android:layout_height="17dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:gravity="top"
-        android:text="@string/email"
-        android:textAppearance="@style/email"
-        app:layout_constraintBottom_toBottomOf="@+id/userTxt"
-        app:layout_constraintEnd_toEndOf="@+id/userTxt"
-        app:layout_constraintHorizontal_bias="0.132"
-        app:layout_constraintStart_toStartOf="@+id/userTxt"
-        app:layout_constraintTop_toTopOf="@+id/userTxt"
-        app:layout_constraintVertical_bias="0.321" />
 
     <EditText
         android:id="@+id/passTxt"
@@ -106,6 +91,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:background="@drawable/password_fi"
+        android:hint="@string/l_senord"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -115,23 +101,7 @@
 
 
     <TextView
-        android:id="@+id/l_senord"
-        android:layout_width="111dp"
-        android:layout_height="17dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:gravity="top"
-        android:text="@string/l_senord"
-        android:textAppearance="@style/l_senord"
-        app:layout_constraintBottom_toBottomOf="@+id/passTxt"
-        app:layout_constraintEnd_toEndOf="@+id/passTxt"
-        app:layout_constraintHorizontal_bias="0.176"
-        app:layout_constraintStart_toStartOf="@+id/passTxt"
-        app:layout_constraintTop_toTopOf="@+id/passTxt" />
-
-
-    <TextView
-        android:id="@+id/gl_mt_l_sen"
+        android:id="@+id/noPass"
         android:layout_width="229dp"
         android:layout_height="27dp"
         android:layout_alignParentLeft="true"
@@ -142,6 +112,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:clickable="true"
+
         android:focusable="true"
         android:gravity="center_horizontal|top"
 
