@@ -59,6 +59,18 @@
 
     </style>
 
+    <style name="sparad_co2">
+
+        <item name="android:textSize">
+            15sp
+        </item>
+
+        <item name="android:textColor">
+            #FFFFFF
+        </item>
+
+    </style>
+
 
 
 </resources>
