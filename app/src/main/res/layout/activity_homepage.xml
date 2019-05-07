@@ -34,4 +34,28 @@
         app:menu="@menu/nav_bar_menu" />
 
 
+    <Button
+        android:id="@+id/ellipse"
+        android:layout_width="164dp"
+        android:layout_height="163dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/avatarcircle"
+        android:elevation="4dp"
+        android:text="@string/sparad_co2"
+        android:textColor="#FFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/nav_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bakgrund"
+        app:layout_constraintVertical_bias="0.014" />
+
+
 </android.support.constraint.ConstraintLayout>
