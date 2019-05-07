@@ -66,18 +66,18 @@ public class SecondActivity extends AppCompatActivity {
         startBtn = findViewById(R.id.startBtn);
 
         callbackManager = CallbackManager.Factory.create();
-        txtBirthday = (TextView)findViewById(R.id.txtBirthday);
-        txtEmail = (TextView)findViewById(R.id.txtEmail);
-        txtFriends = (TextView)findViewById(R.id.txtFriends);
+        txtBirthday = (TextView) findViewById(R.id.txtBirthday);
+        txtEmail = (TextView) findViewById(R.id.txtEmail);
+        txtFriends = (TextView) findViewById(R.id.txtFriends);
 
-        imgAvatar = (ImageView)findViewById(R.id.avatar);
+        imgAvatar = (ImageView) findViewById(R.id.avatar);
 
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.setReadPermissions(Arrays.asList("public_profile", "email", "user_birthday", "user_friends"));
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                mDialog  = new ProgressDialog(SecondActivity.this);
+                mDialog = new ProgressDialog(SecondActivity.this);
                 mDialog.setMessage("Retrieving data...");
                 mDialog.show();
 
@@ -87,7 +87,7 @@ public class SecondActivity extends AppCompatActivity {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         mDialog.dismiss();
-                        Log.d( "response" , object.toString());
+                        Log.d("response", object.toString());
                         getData(object);
                     }
                 });
@@ -112,7 +112,7 @@ public class SecondActivity extends AppCompatActivity {
         });
 
         //If already logged in
-        if(AccessToken.getCurrentAccessToken() != null){
+        if (AccessToken.getCurrentAccessToken() != null) {
             //Set the userID
             txtEmail.setText(AccessToken.getCurrentAccessToken().getUserId());
         }
@@ -122,14 +122,13 @@ public class SecondActivity extends AppCompatActivity {
 
     private void getData(JSONObject object) {
         try {
-            URL profile_picture = new URL("https://graph.facebook.com/"+object.getString( "id")+ "/picture?width=250&height=250");
+            URL profile_picture = new URL("https://graph.facebook.com/" + object.getString("id") + "/picture?width=250&height=250");
 
             Picasso.with(this).load(profile_picture.toString()).into(imgAvatar);
 
             txtEmail.setText(object.getString("Email"));
-            txtBirthday.setText(object.getString( "Birthday"));
-            txtFriends.setText("Friends: "+ object.getJSONObject("friends").getJSONObject("summary").getString( "total_count"));
-
+            txtBirthday.setText(object.getString("Birthday"));
+            txtFriends.setText("Friends: " + object.getJSONObject("friends").getJSONObject("summary").getString("total_count"));
 
 
         } catch (MalformedURLException e) {
@@ -140,8 +139,7 @@ public class SecondActivity extends AppCompatActivity {
     }
 
 
-    public void onClick(View view){
-
+    public void onClick(View view) {
 
 
         String type = "login";
@@ -150,11 +148,8 @@ public class SecondActivity extends AppCompatActivity {
         String password = passTxt.getText().toString();
 
 
-
-
         LoginBackground bgw = new LoginBackground(this);
-        bgw.execute(type,username,password);
-
+        bgw.execute(type, username, password);
 
 
     }
