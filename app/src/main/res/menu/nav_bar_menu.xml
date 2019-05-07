@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/medalMenuItem"
+        android:icon="@drawable/medal"
+        android:title="Översikt" />
+
+    <item
+        android:id="@+id/stationMenuItem"
+        android:icon="@drawable/compass"
+        android:title="Stationer" />
+
+    <item
+        android:id="@+id/guideMenuItem"
+        android:icon="@drawable/Guide"
+        android:title="Guide" />
+
+    <item
+        android:id="@+id/tipsMenuItem"
+        android:icon="@drawable/idea"
+        android:title="Tips" />
+
+
+
+
+</menu>
