@@ -4,17 +4,17 @@
     <item
         android:id="@+id/medalMenuItem"
         android:icon="@drawable/medal"
-        android:title="Översikt" />
+        android:title="Översiiikt" />
 
     <item
         android:id="@+id/stationMenuItem"
         android:icon="@drawable/compass"
-        android:title="Stationer" />
+        android:title="Statiuuoner" />
 
     <item
         android:id="@+id/guideMenuItem"
         android:icon="@drawable/guide"
-        android:title="Guide" />
+        android:title="Guiiide" />
 
     <item
         android:id="@+id/tipsMenuItem"
