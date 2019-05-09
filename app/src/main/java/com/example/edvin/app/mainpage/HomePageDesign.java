@@ -1,4 +1,4 @@
-package com.example.edvin.app.HomePageUI;
+package com.example.edvin.app.mainpage;
 
 import android.support.v7.app.AppCompatActivity;
 

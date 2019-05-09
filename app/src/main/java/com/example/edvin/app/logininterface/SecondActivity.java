@@ -1,4 +1,4 @@
-package com.example.edvin.app.LoginUI;
+package com.example.edvin.app.logininterface;
 
 
 import android.app.ProgressDialog;
@@ -17,11 +17,8 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.Login;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.squareup.picasso.Picasso;
@@ -31,10 +28,9 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
-import com.example.edvin.app.LoginData.LoginBackground;
+import com.example.edvin.app.logindata.LoginBackground;
 import com.example.edvin.app.R;
 
 public class SecondActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package com.example.edvin.app.LoginUI;
+package com.example.edvin.app.logininterface;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

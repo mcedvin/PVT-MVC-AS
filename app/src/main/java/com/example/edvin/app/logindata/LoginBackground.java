@@ -1,9 +1,8 @@
-package com.example.edvin.app.LoginData;
+package com.example.edvin.app.logindata;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 public class LoginBackground extends AsyncTask<String,Void,String> {
     Context context;
