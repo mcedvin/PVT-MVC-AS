@@ -36,7 +36,6 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
-import com.example.edvin.app.logindata.LoginBackground;
 import com.example.edvin.app.R;
 
 import retrofit2.Call;
@@ -148,20 +147,14 @@ public class SecondActivity extends AppCompatActivity {
     public void onClick(View view) {
 
 
-        /*String type = "login";
-
-        String username = userTxt.getText().toString();
-        String password = passTxt.getText().toString();
-
-
-        LoginBackground bgw = new LoginBackground(this);
-        bgw.execute(type, username, password);*/
-
         if(InternetConnection.checkConnection(getApplicationContext())){
 
             final ProgressDialog dialog;
             final String username = userTxt.getText().toString();
             final String password = passTxt.getText().toString();
+
+
+
 
             /**
              * Progress Dialog for User Interaction
@@ -220,6 +213,13 @@ public class SecondActivity extends AppCompatActivity {
 
 
     protected String checkUsers(List<User> users, String usertext, String p){
+
+        if(users.isEmpty()){
+            return "No users found in the server :(";
+        }else if(usertext.trim().isEmpty() && p.trim().isEmpty()){
+            return "Please enter your mail and password";
+        }
+
 
         for (User u : users){
             if(usertext.equals(u.getEmail())){
