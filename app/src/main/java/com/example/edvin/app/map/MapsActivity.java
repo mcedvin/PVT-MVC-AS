@@ -56,6 +56,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LocationCallback locationCallback;
     private LocationRequest locationRequest;
 
+
     public MapsActivity() {
     }
 
