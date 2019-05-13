@@ -8,7 +8,7 @@ public class RetrofitClient {
     /********
      * URLS
      *******/
-    private static final String ROOT_URL = "http://pratikbutani.x10.mx";
+    private static final String ROOT_URL = "https://pvtgrupp06.herokuapp.com/";
 
     /**
      * Get Retrofit Instance
