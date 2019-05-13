@@ -1,3 +1,5 @@
+
+
 package com.example.edvin.app.map;
 
 import android.Manifest;
@@ -38,6 +40,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.HashMap;
 import java.util.Map;
+
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener {
 
