@@ -1,5 +1,8 @@
 package com.example.edvin.app.util;
 
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -10,12 +13,22 @@ public class RetrofitClient {
      *******/
     private static final String ROOT_URL = "https://pvtgrupp06.herokuapp.com/";
 
+    /****
+     * HTTP Client
+     ****/
+
+    private static OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
+            .connectTimeout(40, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .build();
     /**
      * Get Retrofit Instance
      */
     private static Retrofit getRetrofitInstance() {
 
         return new Retrofit.Builder()
+                .client(okHttpClient)
                 .baseUrl(ROOT_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
