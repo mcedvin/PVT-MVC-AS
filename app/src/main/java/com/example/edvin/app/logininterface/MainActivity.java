@@ -20,4 +20,9 @@ public class MainActivity extends AppCompatActivity {
         Intent mintent = new Intent(MainActivity.this, SecondActivity.class);
         startActivity(mintent);
     }
+
+    public void onStart2(View view){
+        Intent mintent = new Intent(MainActivity.this, SignupActivity.class);
+        startActivity(mintent);
+    }
 }

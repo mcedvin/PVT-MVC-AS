@@ -193,7 +193,7 @@ public class SecondActivity extends AppCompatActivity {
                      */
 
                     List<User> users = response.body();
-                    Toast.makeText(SecondActivity.this,checkUsers(users,username,password),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SecondActivity.this, manageLogin(users,username,password),Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -212,7 +212,7 @@ public class SecondActivity extends AppCompatActivity {
     }
 
 
-    protected String checkUsers(List<User> users, String usertext, String p){
+    protected String manageLogin(List<User> users, String usertext, String p){
 
         if(users.isEmpty()){
             return "No users found in the server :(";
