@@ -73,13 +73,14 @@ public class SignupActivity extends AppCompatActivity {
             //Creating an object of our api interface
             BaseApiService api = RetrofitClient.getApiService();
 
-            User newUser = new User(firstName,lastName,email,password,getRandomNumberInRange(200,300));
+            User newUser = new User(firstName,lastName,email,password,getRandomNumberInRange(300,400));
 
 
             /**
              * Calling JSON
              */
             Call<User> call = api.createUser(newUser);
+            //Call<User> call = api.putUser(email,newUser);
 
 
             /**
@@ -135,6 +136,7 @@ public class SignupActivity extends AppCompatActivity {
         if (min >= max) {
             throw new IllegalArgumentException("max must be greater than min");
         }
+        //TODO check the other ids
 
         Random r = new Random();
         return r.nextInt((max - min) + 1) + min;
