@@ -15,6 +15,7 @@ import com.example.edvin.app.util.BaseApiService;
 import com.example.edvin.app.util.RetrofitClient;
 
 import java.util.List;
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,11 +52,12 @@ public class SignupActivity extends AppCompatActivity {
         if (InternetConnection.checkConnection(getApplicationContext())) {
 
             final ProgressDialog dialog;
-            final String fname = fnameTxt.getText().toString();
-            final String lname = lnameTxt.getText().toString();
-            final String mail = mailTxt.getText().toString();
-            final String pass1 = lnameTxt.getText().toString();
-            final String pass2 = lnameTxt.getText().toString();
+            final String firstName = fnameTxt.getText().toString();
+            final String lastName = lnameTxt.getText().toString();
+            final String email = mailTxt.getText().toString();
+            final String password = passTxt1.getText().toString();
+
+            final String pass2 = passTxt2.getText().toString();
 
 
             /**
@@ -71,7 +73,7 @@ public class SignupActivity extends AppCompatActivity {
             //Creating an object of our api interface
             BaseApiService api = RetrofitClient.getApiService();
 
-            User newUser = new User(fname,lname,mail,pass1);
+            User newUser = new User(firstName,lastName,email,password,getRandomNumberInRange(200,300));
 
 
             /**
@@ -91,7 +93,18 @@ public class SignupActivity extends AppCompatActivity {
 
                     dialog.dismiss();
                     if (!response.isSuccessful()) {
-                        Toast.makeText(SignupActivity.this,"is not successful, Code: " + response.code(),Toast.LENGTH_SHORT).show();
+                        switch (response.code()) {
+                            case 404:
+                                Toast.makeText(SignupActivity.this, response.code()+":not found", Toast.LENGTH_SHORT).show();
+                                break;
+                            case 500:
+                                Toast.makeText(SignupActivity.this, response.code()+":server broken", Toast.LENGTH_SHORT).show();
+                                break;
+                            default:
+                                Toast.makeText(SignupActivity.this, response.code()+":unknown error", Toast.LENGTH_SHORT).show();
+                                break;
+
+                    }
                         return;
                     }
 
@@ -109,10 +122,21 @@ public class SignupActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
                     dialog.dismiss();
-                    Toast.makeText(SignupActivity.this,"OnFailure: "+t.getMessage(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignupActivity.this,"Failure! No response: "+t.getMessage(),Toast.LENGTH_SHORT).show();
                 }
             });
 
         }
+    }
+
+
+    private static int getRandomNumberInRange(int min, int max) {
+
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
     }
 }
