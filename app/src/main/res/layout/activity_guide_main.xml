@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".guide.GuideMainActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/scrollView6">
+
+        <View
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="173dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="0dp"
+            android:background="@drawable/guide_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="57dp" />
+
+        <TextView
+            android:id="@+id/sorteringsg"
+            android:layout_width="224dp"
+            android:layout_height="40dp"
+            android:layout_alignEnd="@+id/image"
+            android:layout_alignRight="@+id/image"
+            android:layout_alignBottom="@+id/image"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="95dp"
+            android:layout_marginLeft="95dp"
+            android:layout_marginTop="81dp"
+            android:layout_marginEnd="92dp"
+            android:layout_marginRight="92dp"
+            android:layout_marginBottom="52dp"
+            android:gravity="center_horizontal"
+            android:text="@string/sorteringsg"
+            android:textAppearance="@style/sorteringsg"
+            android:visibility="visible"
+            app:fontFamily="@font/roboto_bold"
+            tools:layout_editor_absoluteX="80dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <TextView
+            android:id="@+id/om_du_r_os_"
+            android:layout_width="271dp"
+            android:layout_height="37dp"
+            android:layout_alignBottom="@+id/image"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="69dp"
+            android:layout_marginLeft="69dp"
+            android:layout_marginTop="119dp"
+            android:layout_marginEnd="71dp"
+            android:layout_marginRight="71dp"
+            android:layout_marginBottom="17dp"
+            android:gravity="center_horizontal|top"
+            android:text="@string/om_du_r_os_"
+            android:textAppearance="@style/om_du_r_os_"
+            android:textStyle="bold"
+            app:fontFamily="@font/roboto_bold" />
+
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:id="@+id/scrollView6"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout7"
+        app:layout_constraintVertical_bias="0.525">
+
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/scrollView6">
+
+
+            <Button
+                android:id="@+id/elektronik"
+                android:layout_width="135dp"
+                android:layout_height="135dp"
+                android:layout_row="0"
+                android:layout_column="1"
+
+                android:layout_marginStart="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"
+                android:background="@drawable/elektronik"
+                app:layout_constraintBottom_toTopOf="@+id/glas"
+                app:layout_constraintEnd_toStartOf="@+id/farligt_Avfall"
+                app:layout_constraintStart_toEndOf="@id/batterier"
+                app:layout_constraintTop_toBottomOf="@+id/relativeLayout7" />
+
+            <Button
+                android:id="@+id/batterier"
+                android:layout_width="135dp"
+                android:layout_height="135dp"
+                android:layout_row="0"
+                android:layout_column="0"
+
+                android:layout_marginStart="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"
+                android:background="@drawable/batterier"
+
+                />
+
+            <Button
+                android:id="@+id/farligt_Avfall"
+                android:layout_width="135dp"
+                android:layout_height="135dp"
+                android:layout_row="0"
+                android:layout_column="2"
+                android:layout_marginStart="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"
+                android:background="@drawable/farligt_avfall" />
+
+            <Button
+                android:id="@+id/forpackningar"
+                android:layout_width="135dp"
+                android:layout_height="135dp"
+                android:layout_row="1"
+                android:layout_column="0"
+
+                android:layout_marginStart="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"
+                android:background="@drawable/packningar" />
+
+            <Button
+                android:id="@+id/glas"
+                android:layout_width="135dp"
+                android:layout_height="135dp"
+                android:layout_row="1"
+                android:layout_column="1"
+
+                android:layout_marginStart="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"
+                android:background="@drawable/glas"
+
+                />
+
+            <Button
+                android:id="@+id/glodlampor"
+                android:layout_width="135dp"
+                android:layout_height="135dp"
+                android:layout_row="1"
+                android:layout_column="2"
+
+                android:layout_marginStart="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"
+                android:background="@drawable/glodlampor"
+
+                />
+
+            <Button
+                android:id="@+id/matavfall"
+                android:layout_width="135dp"
+                android:layout_height="135dp"
+                android:layout_row="2"
+                android:layout_column="0"
+
+                android:layout_marginStart="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginRight="1dp"
+                android:background="@drawable/matavfall"
+
+                />
+
+            <Button
+                android:id="@+id/medicin"
+                android:layout_width="135dp"
+                android:layout_height="135dp"
+                android:layout_row="2"
+                android:layout_column="1"
+
+                android:layout_marginStart="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginRight="1dp"
+                android:background="@drawable/medicin"
+                app:layout_constraintBottom_toTopOf="@+id/glas"
+                app:layout_constraintEnd_toStartOf="@+id/metall"
+                app:layout_constraintStart_toEndOf="@+id/matavfall"
+                app:layout_constraintTop_toBottomOf="@+id/glas" />
+
+            <Button
+                android:id="@+id/metall"
+                android:layout_width="135dp"
+                android:layout_height="135dp"
+                android:layout_row="2"
+                android:layout_column="2"
+                android:layout_marginStart="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginRight="1dp"
+                android:background="@drawable/metall"
+                app:layout_constraintBottom_toTopOf="@+id/tidningar"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/medicin"
+                app:layout_constraintTop_toBottomOf="@+id/glodlampor" />
+
+            <Button
+                android:id="@+id/plast"
+                android:layout_width="135dp"
+                android:layout_height="135dp"
+                android:layout_row="3"
+                android:layout_column="0"
+
+                android:layout_marginStart="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginRight="1dp"
+                android:background="@drawable/plast"
+
+                app:layout_constraintBottom_toTopOf="@+id/tradgardsavfall"
+                app:layout_constraintEnd_toStartOf="@+id/papper"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/matavfall" />
+
+            <Button
+                android:id="@+id/papper"
+                android:layout_width="135dp"
+                android:layout_height="135dp"
+                android:layout_row="3"
+                android:layout_column="1"
+
+                android:layout_marginStart="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginRight="1dp"
+                android:background="@drawable/papper"
+
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tidningar"
+                app:layout_constraintStart_toEndOf="@+id/plast"
+                app:layout_constraintTop_toBottomOf="@+id/medicin" />
+
+            <Button
+                android:id="@+id/tidningar"
+                android:layout_width="135dp"
+                android:layout_height="135dp"
+                android:layout_row="3"
+                android:layout_column="2"
+
+                android:layout_marginStart="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginRight="1dp"
+                android:background="@drawable/tidningar"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/papper"
+                app:layout_constraintTop_toBottomOf="@+id/metall" />
+
+            <Button
+                android:id="@+id/tradgardsavfall"
+                android:layout_width="135dp"
+                android:layout_height="135dp"
+                android:layout_row="4"
+                android:layout_column="0"
+
+                android:layout_marginStart="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginRight="1dp"
+                android:background="@drawable/tradgardsavfall"
+
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/plast" />
+
+        </GridLayout>
+    </ScrollView>
+
+
+</android.support.constraint.ConstraintLayout>
