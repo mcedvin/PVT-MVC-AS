@@ -47,17 +47,19 @@
 
     </style>
 
-    <style name="gl_mt_l_sen">
+    <style name="noPass">
 
         <item name="android:textSize">
             15sp
         </item>
 
         <item name="android:textColor">
-            #FFFFFF
+            #939393
         </item>
 
-    </style>
+
+
+</style>
 
     <style name="sparad_co2">
 

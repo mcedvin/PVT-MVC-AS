@@ -6,38 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".logininterface.MainActivity">
 
-    <View
-        android:id="@+id/image"
-        android:layout_width="486dp"
-        android:layout_height="728dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/bg"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+
+    <!-- background-->
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+        android:background="@drawable/newbg"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-
-    <View
-        android:id="@+id/rectangle"
-        android:layout_width="405dp"
-        android:layout_height="738dp"
+    <!-- logga -->
+    <ImageView
+        android:id="@+id/logga"
+        android:layout_width="222dp"
+        android:layout_height="215dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:background="@drawable/rectangle"
-        tools:layout_editor_absoluteY="-4dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/nyLogga"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView"/>
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.14" />
 
+
+
+    <!-- knappar -->
     <Button
         android:id="@+id/startBtn"
         android:layout_width="168dp"
@@ -53,6 +58,7 @@
         android:onClick="onStart"
         android:elevation="4dp"
         android:text="Logga in"
+        android:textColor="#8397B3"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -75,7 +81,7 @@
         android:elevation="4dp"
         android:onClick="onStart2"
         android:text="Sätt igång"
-        android:textColor="#008000"
+        android:textColor="#8397B3"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -83,59 +89,6 @@
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.815" />
 
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-
-        android:layout_height="match_parent"
-        android:background="@drawable/image"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <ImageView
-        android:id="@+id/logga"
-        android:layout_width="181dp"
-        android:layout_height="181dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/logga"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.14" />
-
-    <TextView
-        android:id="@+id/save_the_pl"
-        android:layout_width="233dp"
-        android:layout_height="157dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:gravity="top"
-        android:text="@string/save_the_pl"
-        android:textAppearance="@style/save_the_pl"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.839"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.265" />
 
 
 
