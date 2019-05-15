@@ -1,5 +1,3 @@
-
-
 package com.example.edvin.app.map;
 
 import android.Manifest;
@@ -10,6 +8,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -24,6 +23,9 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -37,6 +39,7 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -75,7 +78,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         provider = locationManager.getBestProvider(new Criteria(), false);
 
-        checkLocationPermission();
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         locationCallback = new LocationCallback() {
@@ -127,6 +130,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         addMarkers();
 
+        checkLocationPermission();
+
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
@@ -160,6 +165,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void adjustZoom() {
 
+        if (currentLocation != null) {
+
+//            CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), 15);
+
+            CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(new LatLng(15,86), 15);
+
+            mMap.moveCamera(cu);
+
+        } else {
+
             //adjust zoom to default view of Stockholm, should be changed to actual current location
 
             int width = getResources().getDisplayMetrics().widthPixels;
@@ -169,6 +184,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(STOCKHOLM_BOUNDS, width, height, padding);
 
             mMap.moveCamera(cu);
+        }
 
 //
     }
@@ -179,7 +195,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Marker sthlmMarker = mMap.addMarker(new MarkerOptions().position(sthlm).title("Stockholm").snippet("").icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultstation)));
         mMarkers.put(sthlmMarker, "STHLM");
         sthlmMarker.hideInfoWindow();
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sthlm));
 
 
         // use marker.setVisible(boolean) to hide/show markers when filtering stations, faster than creating/deleting markers
@@ -230,6 +245,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void enableLocationFunctionality() {
         if (mMap != null) {
             try {
+                enableLocationUpdates(true);
                 mMap.setMyLocationEnabled(true);
                 mMap.setOnMyLocationButtonClickListener(this);
                 mMap.setOnMyLocationClickListener(this);
@@ -244,12 +260,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 }
                             }
                         });
-                enableLocationUpdates(true);
+
             } catch (SecurityException e) {
                 Toast.makeText(getApplicationContext(), "Ett fel uppstod när appen försökte på tillgång till din position", Toast.LENGTH_LONG).show();
             }
         }
     }
+
 
     private boolean userGrantsPermission(int[] grantResults) {
         // If request is cancelled, the result arrays are empty.
@@ -259,8 +276,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void createLocationRequest() {
         locationRequest = LocationRequest.create();
-        locationRequest.setInterval(15000);
-        locationRequest.setFastestInterval(5000);
+        locationRequest.setInterval(3000);
+        locationRequest.setFastestInterval(3000);
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
     }
 
@@ -297,6 +314,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (appHasLocationPermission()) {
                     try {
                         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null);
+
                     } catch (SecurityException e) {
                         Toast.makeText(getApplicationContext(), "Ett fel uppstod när appen försökte på tillgång till din position", Toast.LENGTH_LONG).show();
                     }
@@ -307,9 +325,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
     }
-
-
-
 
 
 
