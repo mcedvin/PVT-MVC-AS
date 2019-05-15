@@ -1,5 +1,6 @@
 package com.example.edvin.app.util;
 
+
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.support.annotation.NonNull;

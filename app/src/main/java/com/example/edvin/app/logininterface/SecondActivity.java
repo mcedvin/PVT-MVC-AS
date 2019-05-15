@@ -175,6 +175,7 @@ public class SecondActivity extends AppCompatActivity {
              */
             Call<List<User>> call = api.getUsers();
 
+
             /**
              * Enqueue Callback will be call when get response...
              */
