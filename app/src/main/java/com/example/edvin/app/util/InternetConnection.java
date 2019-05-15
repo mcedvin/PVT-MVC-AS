@@ -1,4 +1,4 @@
-package com.example.edvin.app.models;
+package com.example.edvin.app.util;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

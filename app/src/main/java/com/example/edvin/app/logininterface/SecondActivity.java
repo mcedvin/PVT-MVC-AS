@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.edvin.app.models.InternetConnection;
+import com.example.edvin.app.util.InternetConnection;
 import com.example.edvin.app.models.User;
 import com.example.edvin.app.util.BaseApiService;
 import com.example.edvin.app.util.RetrofitClient;

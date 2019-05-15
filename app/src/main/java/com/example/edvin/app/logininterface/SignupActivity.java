@@ -9,12 +9,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.edvin.app.R;
-import com.example.edvin.app.models.InternetConnection;
+import com.example.edvin.app.util.InternetConnection;
 import com.example.edvin.app.models.User;
 import com.example.edvin.app.util.BaseApiService;
 import com.example.edvin.app.util.RetrofitClient;
 
-import java.util.List;
 import java.util.Random;
 
 import retrofit2.Call;
@@ -73,14 +72,14 @@ public class SignupActivity extends AppCompatActivity {
             //Creating an object of our api interface
             BaseApiService api = RetrofitClient.getApiService();
 
-            User newUser = new User(firstName,lastName,email,password,getRandomNumberInRange(300,400));
+            User newUser = new User(firstName,lastName,email,password,getRandomNumberInRange(700,1200));
 
 
             /**
              * Calling JSON
              */
-            Call<User> call = api.createUser(newUser);
-            //Call<User> call = api.putUser(email,newUser);
+            //Call<User> call = api.createUser(newUser);
+            Call<User> call = api.putUser(newUser);
 
 
             /**
