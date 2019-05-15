@@ -33,7 +33,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/nyLogga"
+        android:background="@drawable/nylogga"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -98,7 +98,7 @@
         android:focusable="true"
         android:gravity="center_horizontal|top"
 
-        android:text="@string/gl_mt_l_sen"
+        android:text="Glömt lösenord?"
         android:textAppearance="@style/noPass"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
