@@ -19,7 +19,7 @@ public class HomePageDesign extends AppCompatActivity implements NavigationView.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.layout_homepage2);
         mDrawerLayout=(DrawerLayout) findViewById(R.id.drawer);
         mToggle=new ActionBarDrawerToggle(HomePageDesign.this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);
