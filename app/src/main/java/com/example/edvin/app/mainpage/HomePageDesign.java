@@ -29,7 +29,7 @@ public class HomePageDesign extends AppCompatActivity implements NavigationView.
         navigationView.setNavigationItemSelectedListener(this);
 
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_profile_24dp);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_settings_black_24dp);
 
 
     }
