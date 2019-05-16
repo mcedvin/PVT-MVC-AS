@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.example.edvin.app.mainpage.HomePageDesign;
 import com.example.edvin.app.util.InternetConnection;
 import com.example.edvin.app.models.User;
 import com.example.edvin.app.util.BaseApiService;
@@ -198,11 +198,10 @@ public class SecondActivity extends AppCompatActivity {
                     Toast.makeText(SecondActivity.this, manageLogin(users,username,password),Toast.LENGTH_SHORT).show();
 
 
-                    //connect to another vy
+                    //connect to homepage
 
                     if(check){
-
-                        //intent...
+                        goToHome();
 
                     }
 
@@ -220,6 +219,13 @@ public class SecondActivity extends AppCompatActivity {
         }
 
 
+    }
+
+
+    protected void goToHome(){
+
+        Intent intent = new Intent(this, HomePageDesign.class);
+        startActivity(intent);
     }
 
 
