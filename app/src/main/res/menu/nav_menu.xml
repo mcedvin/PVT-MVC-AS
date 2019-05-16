@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:id="@+id/privacy"
+    android:title="Sekretess och användardata"
+></item>
+
+    <item android:id="@+id/change_password"
+        android:title="Byt lösenord"
+        ></item>
+
+    <item android:id="@+id/delete_account"
+        android:title="Radera konto"
+        ></item>
+
+    <item android:id="@+id/Log_out"
+        android:title="Logga ut"
+        ></item>
+
+
+
+</menu>
