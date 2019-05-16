@@ -63,25 +63,6 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
-
-        <activity android:name=".logininterface.SignupActivity" />
-
-        <!-- Guide  -->
-        <activity android:name=".guide.FarligtavfallActivity" />
-        <activity android:name=".guide.GuideMainActivity" />
-        <activity android:name=".guide.TradgardActivity" />
-        <activity android:name=".guide.BatterierActivity" />
-        <activity android:name=".guide.ElektronikActivity" />
-        <activity android:name=".guide.ForpackningarActivity" />
-        <activity android:name=".guide.GlasActivity" />
-        <activity android:name=".guide.GlodlamporActivity" />
-        <activity android:name=".guide.MatActivity" />
-        <activity android:name=".guide.MedicinActivity" />
-        <activity android:name=".guide.MetalActivity" />
-        <activity android:name=".guide.PapperActivity" />
-        <activity android:name=".guide.PlastActivity" />
-        <activity android:name=".guide.TidningarActivity" />
     </application>
 
 </manifest>
