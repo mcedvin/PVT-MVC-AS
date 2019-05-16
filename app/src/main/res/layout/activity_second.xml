@@ -99,7 +99,7 @@
         android:gravity="center_horizontal|top"
 
         android:text="Glömt lösenord?"
-        android:textAppearance="@style/noPass"
+        android:textAppearance="@style/gl_mt_l_sen"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

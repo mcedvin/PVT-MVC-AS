@@ -19,14 +19,27 @@
     //add later
     <string name="email">Email</string>
     <string name="l_senord">Lösenord</string>
+    <string name="gl_mt_l_sen">Glömt Lösenord?</string>
     <string name="sparad_co2">\nSparad \nco2</string>
+    <string name="finished_challanges">Avklarade utmaningar</string>
+    <string name="ongoing_challenges">Dina pågående utmaningar</string>
+    <string name="take_challenge">Anta ny utmaning! \n
+    +</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 
 
     <!-- Strings related to map -->
+
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_map">Map</string>
+    <string name="menu_item_stations">Återvinningsstationer</string>
+    <string name="menu_item_home">Översikt</string>
+    <string name="menu_item_guide">Guide</string>
+    <string name="menu_item_tips">Tips</string>
+    <string name="filter_stations_button">Filtrera</string>
 
 
-    <!-- Strings related to guide-->
 
     <string name="sorteringsg">
 
@@ -376,8 +389,5 @@ Guide vid sortering av trädgårdsavfall
 
 
     </string>
-
-
-
 
 </resources>
