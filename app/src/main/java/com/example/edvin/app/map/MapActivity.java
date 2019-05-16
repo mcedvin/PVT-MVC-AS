@@ -3,9 +3,12 @@ package com.example.edvin.app.map;
 import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationManager;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.example.edvin.app.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -51,6 +54,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        BottomNavigationView bottomNavigationView;
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.navv_view);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                return true;
+            }
+        });
+        bottomNavigationView.setSelectedItemId(R.id.stationMenuItem);
 
 
     }
@@ -113,7 +126,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         UiSettings mapUI = googleMap.getUiSettings();
         mapUI.setCompassEnabled(true);
         mapUI.setZoomControlsEnabled(true);
-        map.setPadding(0, 200, 0, 200);
+        map.setPadding(0, 300, 0, 300);
 
     }
 
