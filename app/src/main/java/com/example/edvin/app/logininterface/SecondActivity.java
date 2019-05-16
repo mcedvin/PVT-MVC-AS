@@ -47,6 +47,7 @@ public class SecondActivity extends AppCompatActivity {
     EditText passTxt;
     EditText userTxt;
     Button startBtn;
+    boolean check = false;
 
 
     CallbackManager callbackManager;
@@ -196,6 +197,15 @@ public class SecondActivity extends AppCompatActivity {
                     List<User> users = response.body();
                     Toast.makeText(SecondActivity.this, manageLogin(users,username,password),Toast.LENGTH_SHORT).show();
 
+
+                    //connect to another vy
+
+                    if(check){
+
+                        //intent...
+
+                    }
+
                 }
 
                 @Override
@@ -226,6 +236,7 @@ public class SecondActivity extends AppCompatActivity {
             if(usertext.equals(u.getEmail())){
                 if( u.getUserAccount() != null){
                     if(u.getUserAccount().getPassword().equals(p)){
+                        check = true;
                         return "Hello, "+u.getFirstName()+"! Logging in into your account..";
                     }else
                         return "wrong password";
