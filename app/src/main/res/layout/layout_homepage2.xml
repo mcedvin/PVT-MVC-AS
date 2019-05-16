@@ -17,7 +17,7 @@
             android:id="@+id/background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/background_homepage"
+            android:background="@drawable/newbg"
 
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +27,7 @@
             android:layout_width="225dp"
             android:layout_height="203dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/badge_homepage"
+            android:background="@drawable/"
             app:layout_constraintBottom_toBottomOf="@+id/background"
             app:layout_constraintEnd_toEndOf="@+id/background"
             app:layout_constraintLeft_toLeftOf="parent"
