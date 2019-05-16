@@ -77,12 +77,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 //show station info based on the marker clicked
 
                 if (lastClicked == null) {
-                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.selectedstation));
+                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.selectedstation_marker));
                     lastClicked = marker;
 
                 } else {
                     //restore to default icon
-                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.defaultstation));
+                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.defaultstation_marker));
                     lastClicked = null;
                 }
 
