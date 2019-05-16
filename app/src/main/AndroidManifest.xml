@@ -19,7 +19,9 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".map.MapActivity"
+
             android:label="@string/title_activity_map">
+
             <intent-filter>
                 <action android:name="com.example.My Application.LAUNCH" />
 
