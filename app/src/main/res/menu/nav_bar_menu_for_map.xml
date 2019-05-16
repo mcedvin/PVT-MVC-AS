@@ -16,9 +16,5 @@
         android:icon="@drawable/guide_unselected"
         android:title="@string/menu_item_guide" />
 
-    <item
-        android:id="@+id/tipsMenuItem"
-        android:icon="@drawable/tips_unselected"
-        android:title="@string/menu_item_tips" />
 
 </menu>

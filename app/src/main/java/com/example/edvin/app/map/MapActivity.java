@@ -1,20 +1,33 @@
 package com.example.edvin.app.map;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.edvin.app.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -24,15 +37,20 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMyLocationButtonClickListener {
 
     private GoogleMap map;
-    private static final String TAG = "MapsActivity";
+    private static final String TAG = "MapActivity";
     private static final int PERMISSION_REQUEST_ACCESS_FINE_LOCATION = 32;
+    private static final int PERMISSION_REQUEST_ENABLE_GPS = 33;
     private LocationManager locationManager;
     private String provider;
     private Location currentLocation;
@@ -44,6 +62,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private FusedLocationProviderClient fusedLocationClient;
     private LocationCallback locationCallback;
     private LocationRequest locationRequest;
+    private boolean locationPermissionIsGranted;
+    private static final float DEFAULT_ZOOM = 13;
 
 
     @Override
@@ -57,6 +77,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        provider = locationManager.getBestProvider(new Criteria(), false);
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         BottomNavigationView bottomNavigationView;
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navv_view);
@@ -109,12 +134,34 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 return false;
             }
         });
+
+        if (mapServicesEnabled()) {
+            if (locationPermissionIsGranted) {
+                enableLocationFunctionality();
+            } else {
+                getLocationPermission();
+            }
+        }
+
+    }
+
+    private void addMarkers() {
+        // Add a marker in Sthlm
+        LatLng sthlm = new LatLng(59.334591, 18.063240);
+        Marker sthlmMarker = map.addMarker(new MarkerOptions().position(sthlm).title("Stockholm").snippet("").icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultstation_marker)));
+        markers.put(sthlmMarker, "STHLM");
+        sthlmMarker.hideInfoWindow();
+
+
+        // use marker.setVisible(boolean) to hide/show markers when filtering stations,
+        // faster than creating/deleting markers
+
     }
 
     private void setUpMapUI(GoogleMap googleMap) {
         try {
-            // Customise the styling of the base map using a JSON object defined
-            // in a raw resource file.
+            // Customise the styling of the base map using a JSON object defined in a raw resource file.
+
             boolean success = googleMap.setMapStyle(
                     MapStyleOptions.loadRawResourceStyle(
                             this, R.raw.style_json));
@@ -129,11 +176,175 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         UiSettings mapUI = googleMap.getUiSettings();
         mapUI.setCompassEnabled(true);
         mapUI.setZoomControlsEnabled(true);
-        map.setPadding(0, 300, 0, 300);
+
+        //makes sure Google logo, My Location button & zoom controls are not hidden behind UI widgets
+        map.setPadding(0, 200, 0, 200);
+
+    }
+
+    private boolean mapServicesEnabled() {
+        if (locationIsEnabled()) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean locationIsEnabled() {
+        final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            showMessageNoLocation();
+            return false;
+        }
+        return true;
+    }
+
+    private void showMessageNoLocation() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Appen behöver platsinformation för att fungera korrekt, vill du slå på platsfunktioner?")
+                .setCancelable(false)
+                .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        Intent enableGpsIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivityForResult(enableGpsIntent, PERMISSION_REQUEST_ENABLE_GPS);
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: called.");
+        switch (requestCode) {
+            case PERMISSION_REQUEST_ENABLE_GPS: {
+                if (locationPermissionIsGranted) {
+                    enableLocationFunctionality();
+                } else {
+                    getLocationPermission();
+                }
+            }
+        }
+    }
+
+    private void enableLocationFunctionality() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            map.setMyLocationEnabled(true);
+            map.setOnMyLocationButtonClickListener(this);
+            map.setOnMyLocationClickListener(this);
+
+            fusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            Log.d(TAG, "onSuccess: called.");
+                            // Got last known location. In some rare situations this can be null.
+                            if (location != null) {
+                                // Logic to handle location object
+                                currentLocation = location;
+                                adjustZoom();
+
+                            } else {
+                                Log.d(TAG, "location is null");
+                            }
+                        }
+                    });
+        }
 
     }
 
 
-    private void addMarkers() {
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        locationPermissionIsGranted = false;
+        switch (requestCode) {
+            case PERMISSION_REQUEST_ACCESS_FINE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (userGrantsPermission(grantResults)) {
+                    enableLocationFunctionality();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Vissa av appens funktioner fungerar inte utan tillgång till din position", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
+    private boolean userGrantsPermission(int[] grantResults) {
+        // If request is cancelled, the result arrays are empty.
+        return (grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED);
+    }
+
+
+    private void getLocationPermission() {
+        /*
+         * Request location permission, so that we can get the location of the
+         * device. The result of the permission request is handled by
+         * onRequestPermissionsResult.
+         */
+        if (appHasLocationPermission()) {
+            locationPermissionIsGranted = true;
+            enableLocationFunctionality();
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSION_REQUEST_ACCESS_FINE_LOCATION);
+        }
+    }
+
+    private boolean appHasLocationPermission() {
+        return (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED);
+
+    }
+
+
+
+    private void adjustZoom() {
+
+        if (currentLocation != null) {
+
+            //zoom to current location
+
+          map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), DEFAULT_ZOOM));
+
+        } else {
+
+            //current location could not be found, adjust zoom to default view of Stockholm
+
+            int width = getResources().getDisplayMetrics().widthPixels;
+            int height = getResources().getDisplayMetrics().heightPixels;
+            int padding = (int) (width * 0.12); // offset from edges of the map 12% of screen
+
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(STOCKHOLM_BOUNDS, width, height, padding);
+
+            map.moveCamera(cu);
+        }
+
+//
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onMyLocationClick(@NonNull Location location) {
+        Toast.makeText(this, "Nuvarande position", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+        Toast.makeText(this, "Nuvarande position", Toast.LENGTH_SHORT).show();
+        // Return false so that we don't consume the event and the default behavior still occurs
+        // (the camera animates to the user's current position).
+        return false;
     }
 }
+
