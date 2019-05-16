@@ -8,7 +8,6 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -23,9 +22,6 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResponse;
-import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -39,7 +35,6 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -138,12 +133,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 //show station info based on the marker clicked
 
                 if (lastClicked == null) {
-                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.selectedstation));
+                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.selectedstation_marker));
                     lastClicked = marker;
 
                 } else {
                     //restore to default icon
-                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.defaultstation));
+                    marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.defaultstation_marker));
                     lastClicked = null;
                 }
 
@@ -192,7 +187,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void addMarkers() {
         // Add a marker in Sthlm and move the camera
         LatLng sthlm = new LatLng(59.334591, 18.063240);
-        Marker sthlmMarker = mMap.addMarker(new MarkerOptions().position(sthlm).title("Stockholm").snippet("").icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultstation)));
+        Marker sthlmMarker = mMap.addMarker(new MarkerOptions().position(sthlm).title("Stockholm").snippet("").icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultstation_marker)));
         mMarkers.put(sthlmMarker, "STHLM");
         sthlmMarker.hideInfoWindow();
 

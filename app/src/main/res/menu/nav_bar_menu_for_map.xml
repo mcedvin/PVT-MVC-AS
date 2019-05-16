@@ -21,7 +21,4 @@
         android:icon="@drawable/tips_unselected"
         android:title="@string/menu_item_tips" />
 
-
-
-
 </menu>

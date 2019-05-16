@@ -33,11 +33,11 @@
 
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_map">Map</string>
-
     <string name="menu_item_stations">Återvinningsstationer</string>
     <string name="menu_item_home">Översikt</string>
     <string name="menu_item_guide">Guide</string>
     <string name="menu_item_tips">Tips</string>
+    <string name="filter_stations_button">Filtrera</string>
 
 
 
@@ -389,5 +389,5 @@ Guide vid sortering av trädgårdsavfall
 
 
     </string>
-    
+
 </resources>
