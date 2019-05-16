@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.edvin.app">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -18,7 +17,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".map.MapActivity"
+            android:label="@string/title_activity_map">
+            <intent-filter>
+                <action android:name="com.example.My Application.LAUNCH" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -36,9 +43,11 @@
             android:label="@string/title_activity_maps">
             <intent-filter>
                 <action android:name="com.example.My Application.LAUNCH" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -63,6 +72,21 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+        <activity android:name=".logininterface.SignupActivity" /> <!-- Guide -->
+        <activity android:name=".guide.FarligtavfallActivity" />
+        <activity android:name=".guide.GuideMainActivity" />
+        <activity android:name=".guide.TradgardActivity" />
+        <activity android:name=".guide.BatterierActivity" />
+        <activity android:name=".guide.ElektronikActivity" />
+        <activity android:name=".guide.ForpackningarActivity" />
+        <activity android:name=".guide.GlasActivity" />
+        <activity android:name=".guide.GlodlamporActivity" />
+        <activity android:name=".guide.MatActivity" />
+        <activity android:name=".guide.MedicinActivity" />
+        <activity android:name=".guide.MetalActivity" />
+        <activity android:name=".guide.PapperActivity" />
+        <activity android:name=".guide.PlastActivity" />
+        <activity android:name=".guide.TidningarActivity" />
     </application>
 
 </manifest>

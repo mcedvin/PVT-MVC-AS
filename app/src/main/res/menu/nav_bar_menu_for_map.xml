@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/medalMenuItem"
+        android:icon="@drawable/medal_unselected"
+        android:title="@string/menu_item_home"/>
+
+    <item
+        android:id="@+id/stationMenuItem"
+        android:icon="@drawable/stations_selected"
+        android:title="@string/menu_item_stations" />
+
+    <item
+        android:id="@+id/guideMenuItem"
+        android:icon="@drawable/guide_unselected"
+        android:title="@string/menu_item_guide" />
+
+    <item
+        android:id="@+id/tipsMenuItem"
+        android:icon="@drawable/tips_unselected"
+        android:title="@string/menu_item_tips" />
+
+
+
+
+</menu>
