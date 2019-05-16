@@ -1,4 +1,3 @@
-<!-- drawable/rectangle_2.menu -->
 <vector
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
@@ -22,7 +21,7 @@
         <path
             android:pathData="M22.5 0H145.5C157.926 0 168 10.0736 168 22.5C168 34.9264 157.926 45 145.5 45H22.5C10.0736 45 0 34.9264 0 22.5C0 10.0736 10.0736 0 22.5 0Z"
             android:strokeWidth="2"
-            android:strokeColor="#BBDE72"
+            android:strokeColor="#B4ECE5"
             />
 
     </group>

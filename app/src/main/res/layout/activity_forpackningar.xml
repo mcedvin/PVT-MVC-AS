@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+
+        android:id="@+id/relativeLayout10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:id="@+id/forpackningar_top"
+            android:layout_width="match_parent"
+            android:layout_height="173dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="0dp"
+            android:background="@drawable/forpackningar_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="57dp" />
+
+        <TextView
+            android:id="@+id/forpackningar_header"
+            android:layout_width="302dp"
+            android:layout_height="91dp"
+            android:layout_alignStart="@+id/forpackningar_top"
+            android:layout_alignLeft="@+id/forpackningar_top"
+            android:layout_alignEnd="@+id/forpackningar_top"
+            android:layout_alignRight="@+id/forpackningar_top"
+            android:layout_alignBottom="@+id/forpackningar_top"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="53dp"
+            android:layout_marginLeft="53dp"
+            android:layout_marginTop="38dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginRight="56dp"
+            android:layout_marginBottom="44dp"
+            android:gravity="center_horizontal"
+            android:text="@string/forpackningar_header"
+            android:textAppearance="@style/rubrik"
+            android:visibility="visible"
+            app:fontFamily="@font/roboto_black"
+            tools:layout_editor_absoluteX="80dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <TextView
+            android:id="@+id/forpackningar"
+            android:layout_width="285dp"
+            android:layout_height="62dp"
+            android:layout_alignBottom="@+id/forpackningar_top"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="52dp"
+            android:layout_marginLeft="52dp"
+            android:layout_marginTop="99dp"
+            android:layout_marginEnd="74dp"
+            android:layout_marginRight="74dp"
+            android:layout_marginBottom="12dp"
+            android:gravity="center_horizontal|top"
+            android:text="@string/guide_vid_forpackningar"
+            android:textAppearance="@style/under_rubrik"
+            android:textStyle="bold"
+            app:fontFamily="@font/roboto_black" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView8"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout10"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/guide_vid_forpackningar"
+            android:layout_width="match_parent"
+            android:layout_height="477dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="0dp"
+            android:gravity="top"
+            android:text="@string/f_rpackning"
+            android:textAppearance="@style/text_guide" />
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

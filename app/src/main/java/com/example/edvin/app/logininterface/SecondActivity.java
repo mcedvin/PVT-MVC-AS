@@ -12,7 +12,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.edvin.app.util.InternetConnection;
+import com.example.edvin.app.models.User;
+import com.example.edvin.app.util.BaseApiService;
+import com.example.edvin.app.util.RetrofitClient;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -29,9 +34,13 @@ import org.json.JSONObject;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.List;
 
-import com.example.edvin.app.logindata.LoginBackground;
 import com.example.edvin.app.R;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SecondActivity extends AppCompatActivity {
 
@@ -138,14 +147,95 @@ public class SecondActivity extends AppCompatActivity {
     public void onClick(View view) {
 
 
-        String type = "login";
+        if(InternetConnection.checkConnection(getApplicationContext())){
 
-        String username = userTxt.getText().toString();
-        String password = passTxt.getText().toString();
+            final ProgressDialog dialog;
+            final String username = userTxt.getText().toString();
+            final String password = passTxt.getText().toString();
 
 
-        LoginBackground bgw = new LoginBackground(this);
-        bgw.execute(type, username, password);
+
+
+            /**
+             * Progress Dialog for User Interaction
+             */
+            dialog = new ProgressDialog(SecondActivity.this);
+            dialog.setTitle("Getting JSON data");
+            dialog.setMessage("Please wait...");
+            dialog.show();
+
+
+
+            //Creating an object of our api interface
+            BaseApiService api = RetrofitClient.getApiService();
+
+
+            /**
+             * Calling JSON
+             */
+            Call<List<User>> call = api.getUsers();
+
+
+            /**
+             * Enqueue Callback will be call when get response...
+             */
+
+            call.enqueue(new Callback<List<User>>() {
+                @Override
+                public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+
+                    dialog.dismiss();
+                    if (!response.isSuccessful()) {
+                        Toast.makeText(SecondActivity.this,"Code: " + response.code(),Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    /**
+                     * Got Successfully
+                     */
+
+                    List<User> users = response.body();
+                    Toast.makeText(SecondActivity.this, manageLogin(users,username,password),Toast.LENGTH_SHORT).show();
+
+                }
+
+                @Override
+                public void onFailure(Call<List<User>> call, Throwable t) {
+                    dialog.dismiss();
+                    Toast.makeText(SecondActivity.this,t.getMessage(),Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
+
+        }
+
+
+    }
+
+
+    protected String manageLogin(List<User> users, String usertext, String p){
+
+        if(users.isEmpty()){
+            return "No users found in the server :(";
+        }else if(usertext.trim().isEmpty() && p.trim().isEmpty()){
+            return "Please enter your mail and password";
+        }
+
+
+        for (User u : users){
+            if(usertext.equals(u.getEmail())){
+                if( u.getUserAccount() != null){
+                    if(u.getUserAccount().getPassword().equals(p)){
+                        return "Hello, "+u.getFirstName()+"! Logging in into your account..";
+                    }else
+                        return "wrong password";
+               }else
+                    return "NULL ACCOUNT";
+            }
+
+        }
+
+        return "EMAIL NOT FOUND";
 
 
     }

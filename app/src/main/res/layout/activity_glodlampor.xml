@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+
+        android:id="@+id/relativeLayout11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:id="@+id/glodlampor_top"
+            android:layout_width="match_parent"
+            android:layout_height="173dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="0dp"
+            android:background="@drawable/glodlampor_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="57dp" />
+
+        <TextView
+            android:id="@+id/glodlampor_header"
+            android:layout_width="302dp"
+            android:layout_height="91dp"
+            android:layout_alignStart="@+id/glodlampor_top"
+            android:layout_alignLeft="@+id/glodlampor_top"
+            android:layout_alignEnd="@+id/glodlampor_top"
+            android:layout_alignRight="@+id/glodlampor_top"
+            android:layout_alignBottom="@+id/glodlampor_top"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="53dp"
+            android:layout_marginLeft="53dp"
+            android:layout_marginTop="38dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginRight="56dp"
+            android:layout_marginBottom="44dp"
+            android:gravity="center_horizontal"
+            android:text="@string/glodlampor_header"
+            android:textAppearance="@style/rubrik"
+            android:visibility="visible"
+            app:fontFamily="@font/roboto_black"
+            tools:layout_editor_absoluteX="80dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <TextView
+            android:id="@+id/guide_vid_farligtavfall"
+            android:layout_width="285dp"
+            android:layout_height="62dp"
+            android:layout_alignBottom="@+id/glodlampor_top"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="64dp"
+            android:layout_marginLeft="64dp"
+            android:layout_marginTop="105dp"
+            android:layout_marginEnd="62dp"
+            android:layout_marginRight="62dp"
+            android:layout_marginBottom="6dp"
+            android:gravity="center_horizontal|top"
+            android:text="@string/guide_vid_glodlampor"
+            android:textAppearance="@style/under_rubrik"
+            android:textStyle="bold"
+            app:fontFamily="@font/roboto_black" />
+
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:id="@+id/scrollView10"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout11"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/glodlampor"
+            android:layout_width="match_parent"
+            android:layout_height="477dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="0dp"
+            android:gravity="top"
+            android:text="@string/ljusk_llor_"
+            android:textAppearance="@style/text_guide"
+            android:layout_marginStart="15dp" />
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

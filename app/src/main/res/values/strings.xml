@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">newLogin</string>
+    <string name="app_name">Återvinningsappen</string>
 
 
     <!-- Strings related to login -->
@@ -12,38 +12,30 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="save_the_pl">SAVE THE PLANET</string>
+    <string name="facebook_app_id">346891772846562</string>
+    //add later
+    <string name="fb_login_protocol_scheme">fb346891772846562</string>
+    //add later
+    <string name="email">Email</string>
+    <string name="l_senord">Lösenord</string>
+    <string name="gl_mt_l_sen">Glömt Lösenord?</string>
+    <string name="sparad_co2">\nSparad \nco2</string>
 
-    <string name="save_the_pl">
+    <string name="finished_challanges">Avklarade utmaningar</string>
 
-SAVE THE PLANET
-</string>
+    <string name="ongoing_challenges">Dina pågående utmaningar</string>
 
-    <string name="facebook_app_id">346891772846562</string> //add later
-    <string name="fb_login_protocol_scheme">fb346891772846562</string> //add later
+    <string name="take_challenge">Anta ny utmaning! \n
+    +</string>
 
-
-    <string name="email">
-
-Email
-</string>
-
-
-    <string name="l_senord">
-
-Lösenord
-</string>
-
-    <string name="gl_mt_l_sen">
-
-Glömt Lösenord?
-</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 
 
-    <string name="sparad_co2">
 
-\nSparad \nco2
-</string>
-
+    <!-- Strings related to map -->
+    <string name="title_activity_maps">Map</string>
 
 
 </resources>

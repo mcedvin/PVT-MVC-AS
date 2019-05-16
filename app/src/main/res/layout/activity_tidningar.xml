@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+
+        android:id="@+id/relativeLayout8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:id="@+id/tidningar_top"
+            android:layout_width="match_parent"
+            android:layout_height="173dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="0dp"
+            android:background="@drawable/tidningar_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="57dp" />
+
+        <TextView
+            android:id="@+id/tidningar_header"
+            android:layout_width="232dp"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/tidningar_top"
+            android:layout_alignRight="@+id/tidningar_top"
+            android:layout_alignBottom="@+id/tidningar_top"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="93dp"
+            android:layout_marginLeft="89dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="86dp"
+            android:layout_marginRight="86dp"
+            android:layout_marginBottom="72dp"
+            android:gravity="center_horizontal"
+            android:text="@string/tidningar_header"
+            android:textAppearance="@style/tidningar_header"
+            android:visibility="visible"
+            app:fontFamily="@font/roboto_black"
+            tools:layout_editor_absoluteX="80dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <TextView
+            android:id="@+id/tips_vid_tidningar"
+            android:layout_width="291dp"
+            android:layout_height="58dp"
+            android:layout_alignBottom="@+id/tidningar_top"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="77dp"
+            android:layout_marginLeft="77dp"
+            android:layout_marginTop="109dp"
+            android:layout_marginEnd="43dp"
+            android:layout_marginRight="43dp"
+            android:layout_marginBottom="6dp"
+            android:gravity="center_horizontal|top"
+            android:text="@string/tips_vid_tidningar"
+            android:textAppearance="@style/under_rubrik"
+            android:textStyle="bold"
+            app:fontFamily="@font/roboto_black" />
+
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:id="@+id/scrollView7"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout8"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/text_guide"
+            android:text="@string/tidningar" />
+
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

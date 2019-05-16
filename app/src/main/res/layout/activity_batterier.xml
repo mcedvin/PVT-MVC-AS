@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+
+        android:id="@+id/relativeLayout9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:id="@+id/batterier_top"
+            android:layout_width="match_parent"
+            android:layout_height="173dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="0dp"
+            android:background="@drawable/batterier_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="57dp" />
+
+        <TextView
+            android:id="@+id/glas_header"
+            android:layout_width="302dp"
+            android:layout_height="91dp"
+            android:layout_alignStart="@+id/batterier_top"
+            android:layout_alignLeft="@+id/batterier_top"
+            android:layout_alignEnd="@+id/batterier_top"
+            android:layout_alignRight="@+id/batterier_top"
+            android:layout_alignBottom="@+id/batterier_top"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="53dp"
+            android:layout_marginLeft="53dp"
+            android:layout_marginTop="38dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginRight="56dp"
+            android:layout_marginBottom="44dp"
+            android:gravity="center_horizontal"
+            android:text="@string/batterier_header"
+            android:textAppearance="@style/batterier_header"
+            android:visibility="visible"
+            app:fontFamily="@font/roboto_black"
+            tools:layout_editor_absoluteX="80dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <TextView
+            android:id="@+id/sm_batterier"
+            android:layout_width="285dp"
+            android:layout_height="62dp"
+            android:layout_alignBottom="@+id/batterier_top"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="62dp"
+            android:layout_marginLeft="63dp"
+            android:layout_marginTop="111dp"
+            android:layout_marginEnd="64dp"
+            android:layout_marginRight="63dp"
+            android:layout_marginBottom="0dp"
+            android:gravity="center_horizontal|top"
+            android:text="@string/tips_vid_batterier"
+            android:textAppearance="@style/sm_batterie"
+            android:textStyle="bold"
+            app:fontFamily="@font/roboto_black" />
+
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:id="@+id/scrollView8"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout9"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/tips_vid_batterier"
+            android:layout_width="match_parent"
+            android:layout_height="477dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="0dp"
+            android:gravity="top"
+            android:text="@string/sm_batterie"
+            android:textAppearance="@style/tips_vid_batterier"
+            android:layout_marginStart="15dp" />
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

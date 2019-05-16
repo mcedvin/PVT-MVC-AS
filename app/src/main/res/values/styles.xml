@@ -71,14 +71,43 @@
 
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+
+    <style name="join_challenge">
+
+        <item name="android:textSize">
+            20sp
+        </item>
+
+        <item name="android:textColor">
+            #F2F2F2
+        </item>
+
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="finished_challanges">
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+        <item name="android:textSize">
+            17sp
+        </item>
+
+        <item name="android:textColor">
+            #B4ECE5
+        </item>
+
+    </style>
+
+
+    <style name="ongoing_challenges">
+
+        <item name="android:textSize">
+            17sp
+        </item>
+
+        <item name="android:textColor">
+            #B4ECE5
+        </item>
+
+    </style>
 
 
 </resources>

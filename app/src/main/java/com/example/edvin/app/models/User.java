@@ -9,8 +9,19 @@ public class User {
     private String email;
     private UserAccount userAccount;
 
+
+
+
     @SerializedName("body")
     private String text;
+
+    public User(String firstName, String lastName, String email, String password, int id) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+
+        this.userAccount = new UserAccount(id,password);
+    }
 
     public String getFirstName() {
         return firstName;
