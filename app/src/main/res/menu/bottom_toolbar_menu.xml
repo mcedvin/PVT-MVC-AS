@@ -9,11 +9,11 @@
     <item
         android:id="@+id/stationMenuItem"
         android:icon="@drawable/compass"
-        android:title="Stationer" />
+        android:title="Karta" />
 
     <item
         android:id="@+id/guideMenuItem"
-        android:icon="@drawable/guide"
+        android:icon="@drawable/open_book"
         android:title="Guide" />
 
 
