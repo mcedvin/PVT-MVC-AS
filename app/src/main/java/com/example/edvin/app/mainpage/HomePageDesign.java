@@ -1,5 +1,6 @@
 package com.example.edvin.app.mainpage;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -12,7 +13,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.edvin.app.R;
-import com.example.edvin.app.guide.GuideFragment;
+import com.example.edvin.app.guide.GuideMainActivity;
 
 public class HomePageDesign extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout mDrawerLayout;
@@ -46,7 +47,7 @@ public class HomePageDesign extends AppCompatActivity implements NavigationView.
 
                     switch (menuItem.getItemId()){
                         case R.id.guideMenuItem:
-                            selectedFragment = new GuideFragment();
+                            homeToGuide();
                             break;
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
@@ -89,5 +90,12 @@ public class HomePageDesign extends AppCompatActivity implements NavigationView.
 
 
         return false;
+    }
+
+
+    private void homeToGuide(){
+
+        Intent mintent = new Intent(this, GuideMainActivity.class);
+        startActivity(mintent);
     }
 }
