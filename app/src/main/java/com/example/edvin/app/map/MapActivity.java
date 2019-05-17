@@ -22,6 +22,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.edvin.app.R;
+import com.example.edvin.app.guide.GuideMainActivity;
+import com.example.edvin.app.mainpage.HomePageDesign;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -38,9 +40,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,19 +51,19 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private static final String TAG = "MapActivity";
     private static final int PERMISSION_REQUEST_ACCESS_FINE_LOCATION = 32;
     private static final int PERMISSION_REQUEST_ENABLE_GPS = 33;
+    private final LatLngBounds STOCKHOLM_BOUNDS = new LatLngBounds(
+            new LatLng(59.238131, 17.81566), new LatLng(59.408737, 18.325152));
+    private static final float DEFAULT_ZOOM = 13;
+    private FusedLocationProviderClient fusedLocationClient;
     private LocationManager locationManager;
     private String provider;
     private Location currentLocation;
-    private boolean locationUpdatesEnabled;
     private Map<Marker, String> markers = new HashMap<>();
     private Marker lastClicked = null;
-    private final LatLngBounds STOCKHOLM_BOUNDS = new LatLngBounds(
-            new LatLng(59.238131, 17.81566), new LatLng(59.408737, 18.325152));
-    private FusedLocationProviderClient fusedLocationClient;
     private LocationCallback locationCallback;
     private LocationRequest locationRequest;
     private boolean locationPermissionIsGranted;
-    private static final float DEFAULT_ZOOM = 13;
+    private BottomNavigationView bottomNavigationView;
 
 
     @Override
@@ -83,18 +83,36 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        BottomNavigationView bottomNavigationView;
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navv_view);
+        bottomNavigationView.setSelectedItemId(R.id.stationMenuItem);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.homeMenuItem:
+                        goToHomeScreen();
+                        break;
+                    case R.id.guideMenuItem:
+                        goToGuide();
+                        break;
+                    default:
+                        break;
+                }
                 return true;
             }
         });
-        bottomNavigationView.setSelectedItemId(R.id.stationMenuItem);
-
-
     }
+
+    private void goToHomeScreen() {
+        Intent intent = new Intent(getApplicationContext(), HomePageDesign.class);
+        startActivity(intent);
+    }
+
+    private void goToGuide(){
+        Intent intent = new Intent(getApplicationContext(), GuideMainActivity.class);
+        startActivity(intent);
+    }
+
 
     /**
      * Manipulates the map once available.
@@ -201,9 +219,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void showMessageNoLocation() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Appen behöver platsinformation för att fungera korrekt, vill du slå på platsfunktioner?")
+        builder.setMessage(R.string.info_message_please_enable_gps)
                 .setCancelable(false)
-                .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.positive_option, new DialogInterface.OnClickListener() {
                     public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
                         Intent enableGpsIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         startActivityForResult(enableGpsIntent, PERMISSION_REQUEST_ENABLE_GPS);
@@ -262,11 +280,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         locationPermissionIsGranted = false;
         switch (requestCode) {
             case PERMISSION_REQUEST_ACCESS_FINE_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
                 if (userGrantsPermission(grantResults)) {
                     enableLocationFunctionality();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Vissa av appens funktioner fungerar inte utan tillgång till din position", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.warning_message_user_denied_location_request, Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -325,23 +342,23 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             map.moveCamera(cu);
         }
 
-//
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
+        bottomNavigationView.setSelectedItemId(R.id.stationMenuItem);
     }
 
     @Override
     public void onMyLocationClick(@NonNull Location location) {
-        Toast.makeText(this, "Nuvarande position", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.on_my_location_click, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, "Nuvarande position", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.on_my_location_button_click, Toast.LENGTH_SHORT).show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false;
