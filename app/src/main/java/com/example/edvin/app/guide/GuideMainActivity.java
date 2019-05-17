@@ -1,13 +1,19 @@
 package com.example.edvin.app.guide;
 
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.edvin.app.R;
+import com.example.edvin.app.mainpage.HomePageDesign;
+import com.example.edvin.app.map.MapActivity;
 
 public class GuideMainActivity extends AppCompatActivity {
 
@@ -25,11 +31,15 @@ public class GuideMainActivity extends AppCompatActivity {
     private Button plast;
     private Button papper;
     private Button tradgard;
+    private BottomNavigationView bottomNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide_main);
+
+        bottomNav = findViewById(R.id.navv_view);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         metall = (Button) findViewById(R.id.metall);
         metall.setOnClickListener(new View.OnClickListener() {
@@ -209,6 +219,54 @@ public class GuideMainActivity extends AppCompatActivity {
     public void openTradgardActivity(){
         Intent intent = new Intent(this, TradgardActivity.class);
         startActivity(intent);
+    }
+
+
+    private void goToMap(){
+
+        Intent mintent = new Intent(this, MapActivity.class);
+        startActivity(mintent);
+    }
+
+
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener(){
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                    //Fragment selectedFragment = null;
+
+                    switch (menuItem.getItemId()){
+                        case R.id.homeMenuItem:
+                            guideToHome();
+                            break;
+                        case R.id.stationMenuItem:
+                            goToMap();
+                            break;
+                        default:
+                            break;
+
+                    }
+                    //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    //      selectedFragment).commit();
+
+                    return true;
+                }
+            };
+
+
+
+    private void guideToHome(){
+
+        Intent mintent = new Intent(this, HomePageDesign.class);
+        startActivity(mintent);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bottomNav.setSelectedItemId(R.id.guideMenuItem);
     }
 
 }
