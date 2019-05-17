@@ -22,6 +22,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.edvin.app.R;
+import com.example.edvin.app.guide.GuideMainActivity;
+import com.example.edvin.app.mainpage.HomePageDesign;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -38,9 +40,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -64,6 +64,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private LocationRequest locationRequest;
     private boolean locationPermissionIsGranted;
     private static final float DEFAULT_ZOOM = 13;
+    private BottomNavigationView bottomNavigationView;
 
 
     @Override
@@ -83,18 +84,36 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        BottomNavigationView bottomNavigationView;
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navv_view);
+        bottomNavigationView.setSelectedItemId(R.id.stationMenuItem);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.homeMenuItem:
+                        goToHomeScreen();
+                        break;
+                    case R.id.guideMenuItem:
+                        goToGuide();
+                        break;
+                    default:
+                        break;
+                }
                 return true;
             }
         });
-        bottomNavigationView.setSelectedItemId(R.id.stationMenuItem);
-
-
     }
+
+    private void goToHomeScreen() {
+        Intent intent = new Intent(getApplicationContext(), HomePageDesign.class);
+        startActivity(intent);
+    }
+
+    private void goToGuide(){
+        Intent intent = new Intent(getApplicationContext(), GuideMainActivity.class);
+        startActivity(intent);
+    }
+
 
     /**
      * Manipulates the map once available.
@@ -262,7 +281,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         locationPermissionIsGranted = false;
         switch (requestCode) {
             case PERMISSION_REQUEST_ACCESS_FINE_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
                 if (userGrantsPermission(grantResults)) {
                     enableLocationFunctionality();
                 } else {
@@ -332,6 +350,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     protected void onResume() {
         super.onResume();
+        bottomNavigationView.setSelectedItemId(R.id.stationMenuItem);
     }
 
     @Override
