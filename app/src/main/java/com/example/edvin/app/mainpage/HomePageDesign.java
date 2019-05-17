@@ -44,7 +44,7 @@ public class HomePageDesign extends AppCompatActivity implements NavigationView.
             new BottomNavigationView.OnNavigationItemSelectedListener(){
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                    Fragment selectedFragment = null;
+                    //Fragment selectedFragment = null;
 
                     switch (menuItem.getItemId()){
                         case R.id.guideMenuItem:
