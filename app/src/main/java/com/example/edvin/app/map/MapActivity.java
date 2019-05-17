@@ -51,19 +51,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private static final String TAG = "MapActivity";
     private static final int PERMISSION_REQUEST_ACCESS_FINE_LOCATION = 32;
     private static final int PERMISSION_REQUEST_ENABLE_GPS = 33;
+    private final LatLngBounds STOCKHOLM_BOUNDS = new LatLngBounds(
+            new LatLng(59.238131, 17.81566), new LatLng(59.408737, 18.325152));
+    private static final float DEFAULT_ZOOM = 13;
+    private FusedLocationProviderClient fusedLocationClient;
     private LocationManager locationManager;
     private String provider;
     private Location currentLocation;
-    private boolean locationUpdatesEnabled;
     private Map<Marker, String> markers = new HashMap<>();
     private Marker lastClicked = null;
-    private final LatLngBounds STOCKHOLM_BOUNDS = new LatLngBounds(
-            new LatLng(59.238131, 17.81566), new LatLng(59.408737, 18.325152));
-    private FusedLocationProviderClient fusedLocationClient;
     private LocationCallback locationCallback;
     private LocationRequest locationRequest;
     private boolean locationPermissionIsGranted;
-    private static final float DEFAULT_ZOOM = 13;
     private BottomNavigationView bottomNavigationView;
 
 
@@ -222,7 +221,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Appen behöver platsinformation för att fungera korrekt, vill du slå på platsfunktioner?")
                 .setCancelable(false)
-                .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.positive_option, new DialogInterface.OnClickListener() {
                     public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
                         Intent enableGpsIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         startActivityForResult(enableGpsIntent, PERMISSION_REQUEST_ENABLE_GPS);
@@ -284,7 +283,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 if (userGrantsPermission(grantResults)) {
                     enableLocationFunctionality();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Vissa av appens funktioner fungerar inte utan tillgång till din position", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.warning_message_user_denied_location_request, Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -343,7 +342,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             map.moveCamera(cu);
         }
 
-//
     }
 
 
@@ -355,12 +353,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void onMyLocationClick(@NonNull Location location) {
-        Toast.makeText(this, "Nuvarande position", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.on_my_location_click, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, "Nuvarande position", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.on_my_location_button_click, Toast.LENGTH_SHORT).show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false;

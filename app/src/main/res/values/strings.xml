@@ -389,5 +389,9 @@ Guide vid sortering av trädgårdsavfall
 
 
     </string>
+    <string name="on_my_location_button_click">Nuvarande position</string>
+    <string name="on_my_location_click">Nuvarande position</string>
+    <string name="warning_message_user_denied_location_request">Vissa av appens funktioner fungerar inte utan tillgång till din position</string>
+    <string name="positive_option">Ja</string>
 
 </resources>
