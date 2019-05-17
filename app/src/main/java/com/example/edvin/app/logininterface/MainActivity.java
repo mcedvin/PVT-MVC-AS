@@ -25,4 +25,6 @@ public class MainActivity extends AppCompatActivity {
         Intent mintent = new Intent(MainActivity.this, SignupActivity.class);
         startActivity(mintent);
     }
+
+
 }

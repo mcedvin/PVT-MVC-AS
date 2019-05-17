@@ -91,14 +91,7 @@
         <activity android:name=".guide.TidningarActivity" />
 
 
-
-
-        <!--    HERE     -->
-
         <activity android:name=".mainpage.HomePageDesign" />
-
-
-
     </application>
 
 </manifest>
