@@ -51,9 +51,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private static final String TAG = "MapActivity";
     private static final int PERMISSION_REQUEST_ACCESS_FINE_LOCATION = 32;
     private static final int PERMISSION_REQUEST_ENABLE_GPS = 33;
-    private final LatLngBounds STOCKHOLM_BOUNDS = new LatLngBounds(
+    private static final LatLngBounds STOCKHOLM_BOUNDS = new LatLngBounds(
             new LatLng(59.238131, 17.81566), new LatLng(59.408737, 18.325152));
     private static final float DEFAULT_ZOOM = 13;
+    private final int[] START_MAP_PADDING = new int[]{0, 200, 0, 200};
     private FusedLocationProviderClient fusedLocationClient;
     private LocationManager locationManager;
     private String provider;
@@ -64,7 +65,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private LocationRequest locationRequest;
     private boolean locationPermissionIsGranted;
     private BottomNavigationView bottomNavigationView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +108,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         startActivity(intent);
     }
 
-    private void goToGuide(){
+    private void goToGuide() {
         Intent intent = new Intent(getApplicationContext(), GuideMainActivity.class);
         startActivity(intent);
     }
@@ -196,7 +196,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mapUI.setZoomControlsEnabled(true);
 
         //makes sure Google logo, My Location button & zoom controls are not hidden behind UI widgets
-        map.setPadding(0, 200, 0, 200);
+        map.setPadding(START_MAP_PADDING[0], START_MAP_PADDING[1], START_MAP_PADDING[2], START_MAP_PADDING[3]);
 
     }
 
@@ -320,14 +320,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
 
-
     private void adjustZoom() {
 
         if (currentLocation != null) {
 
             //zoom to current location
 
-          map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), DEFAULT_ZOOM));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), DEFAULT_ZOOM));
 
         } else {
 
