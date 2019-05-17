@@ -18,7 +18,12 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.SearchView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.edvin.app.R;
@@ -41,6 +46,8 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -65,6 +72,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private LocationRequest locationRequest;
     private boolean locationPermissionIsGranted;
     private BottomNavigationView bottomNavigationView;
+    private SearchView searchView;
+    private Spinner spinner;
+    private TextView filterTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +90,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         provider = locationManager.getBestProvider(new Criteria(), false);
-
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+
+        searchView = (SearchView) findViewById(R.id.searchView);
+        spinner = (Spinner) findViewById(R.id.spinner);
+        filterTextView = (TextView) findViewById(R.id.textView);
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navv_view);
         bottomNavigationView.setSelectedItemId(R.id.stationMenuItem);
@@ -196,6 +210,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mapUI.setZoomControlsEnabled(true);
 
         //makes sure Google logo, My Location button & zoom controls are not hidden behind UI widgets
+
         map.setPadding(START_MAP_PADDING[0], START_MAP_PADDING[1], START_MAP_PADDING[2], START_MAP_PADDING[3]);
 
     }
