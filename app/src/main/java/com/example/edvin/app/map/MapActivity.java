@@ -219,7 +219,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void showMessageNoLocation() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Appen behöver platsinformation för att fungera korrekt, vill du slå på platsfunktioner?")
+        builder.setMessage(R.string.info_message_please_enable_gps)
                 .setCancelable(false)
                 .setPositiveButton(R.string.positive_option, new DialogInterface.OnClickListener() {
                     public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
