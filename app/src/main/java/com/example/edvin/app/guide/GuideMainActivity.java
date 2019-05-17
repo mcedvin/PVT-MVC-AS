@@ -31,13 +31,14 @@ public class GuideMainActivity extends AppCompatActivity {
     private Button plast;
     private Button papper;
     private Button tradgard;
+    private BottomNavigationView bottomNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide_main);
 
-        BottomNavigationView bottomNav = findViewById(R.id.navv_view);
+        bottomNav = findViewById(R.id.navv_view);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         metall = (Button) findViewById(R.id.metall);
@@ -259,6 +260,13 @@ public class GuideMainActivity extends AppCompatActivity {
 
         Intent mintent = new Intent(this, HomePageDesign.class);
         startActivity(mintent);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bottomNav.setSelectedItemId(R.id.guideMenuItem);
     }
 
 }
