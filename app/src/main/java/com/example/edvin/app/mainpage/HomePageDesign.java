@@ -19,7 +19,7 @@ import com.example.edvin.app.map.MapActivity;
 public class HomePageDesign extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
-
+private BottomNavigationView bottomNav;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -34,8 +34,7 @@ public class HomePageDesign extends AppCompatActivity implements NavigationView.
         navigationView.setNavigationItemSelectedListener(this);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_settings_black_24dp);
-
-        BottomNavigationView bottomNav = findViewById(R.id.navv_view);
+        bottomNav = findViewById(R.id.navv_view);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
     }
@@ -63,6 +62,7 @@ public class HomePageDesign extends AppCompatActivity implements NavigationView.
                     return true;
                 }
             };
+
 
 
 
