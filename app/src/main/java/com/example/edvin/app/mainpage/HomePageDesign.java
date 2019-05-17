@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.edvin.app.R;
 import com.example.edvin.app.guide.GuideMainActivity;
+import com.example.edvin.app.map.MapActivity;
 
 public class HomePageDesign extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout mDrawerLayout;
@@ -49,9 +50,15 @@ public class HomePageDesign extends AppCompatActivity implements NavigationView.
                         case R.id.guideMenuItem:
                             homeToGuide();
                             break;
+                        case R.id.stationMenuItem:
+                            goToMap();
+                            break;
+                            default:
+                                break;
+
                     }
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            selectedFragment).commit();
+                    //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                      //      selectedFragment).commit();
 
                     return true;
                 }
@@ -96,6 +103,12 @@ public class HomePageDesign extends AppCompatActivity implements NavigationView.
     private void homeToGuide(){
 
         Intent mintent = new Intent(this, GuideMainActivity.class);
+        startActivity(mintent);
+    }
+
+    private void goToMap(){
+
+        Intent mintent = new Intent(this, MapActivity.class);
         startActivity(mintent);
     }
 }
