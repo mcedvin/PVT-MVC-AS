@@ -10,12 +10,13 @@
     <fragment xmlns:map="http://schemas.android.com/apk/res-auto"
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="0dp"
-        android:layout_height="733dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintHorizontal_bias="0.0"
         map:layout_constraintStart_toStartOf="parent"
         map:layout_constraintTop_toTopOf="parent"
-        tools:context=".map.MapsActivity" />
+        tools:context=".map.MapActivity" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navv_view"
@@ -34,7 +35,7 @@
         android:layout_width="226dp"
         android:layout_height="56dp"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:background="#FFFFFFFF"
         android:visibility="visible"
@@ -44,25 +45,27 @@
     <TextView
         android:id="@+id/textView10"
         android:layout_width="160dp"
-        android:layout_height="57dp"
+        android:layout_height="56dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="16dp"
         android:background="#FFFFFF"
         android:gravity="center"
         android:text="@string/filter_stations_button"
         app:layout_constraintBottom_toBottomOf="@+id/searchView"
-        app:layout_constraintStart_toEndOf="@+id/searchView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/map"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/searchView" />
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="44dp"
-        android:layout_height="54dp"
+        android:layout_width="35dp"
+        android:layout_height="60dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginRight="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

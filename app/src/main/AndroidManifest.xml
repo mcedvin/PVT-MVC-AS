@@ -19,7 +19,9 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".map.MapActivity"
+
             android:label="@string/title_activity_map">
+
             <intent-filter>
                 <action android:name="com.example.My Application.LAUNCH" />
 
@@ -37,16 +39,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
-        <activity
-            android:name=".map.MapsActivity"
-            android:label="@string/title_activity_maps">
-            <intent-filter>
-                <action android:name="com.example.My Application.LAUNCH" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
 
 
         <meta-data
