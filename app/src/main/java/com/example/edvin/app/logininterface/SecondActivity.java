@@ -45,15 +45,18 @@ import retrofit2.Response;
 public class SecondActivity extends AppCompatActivity {
 
     EditText passTxt;
+
     EditText userTxt;
     Button startBtn;
     boolean check = false;
+
 
 
     CallbackManager callbackManager;
     TextView txtEmail, txtBirthday, txtFriends;
     ProgressDialog mDialog;
     ImageView imgAvatar;
+
 
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

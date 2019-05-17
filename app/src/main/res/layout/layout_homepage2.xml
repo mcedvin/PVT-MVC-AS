@@ -183,6 +183,13 @@
             app:layout_constraintVertical_bias="0.89" />
 
 
+<FrameLayout
+    android:id="@+id/fragment_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_above="@id/navv_view"
+
+    ></FrameLayout>
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/navv_view"
