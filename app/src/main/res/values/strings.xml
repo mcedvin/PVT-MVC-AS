@@ -34,12 +34,16 @@
 
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_map">Map</string>
-    <string name="menu_item_stations">Stationer</string>
+    <string name="menu_item_map">Karta</string>
     <string name="menu_item_home">Översikt</string>
     <string name="menu_item_guide">Guide</string>
     <string name="menu_item_tips">Tips</string>
     <string name="filter_stations_button">Filtrera</string>
-
+    <string name="on_my_location_button_click">Nuvarande position</string>
+    <string name="on_my_location_click">Nuvarande position</string>
+    <string name="warning_message_user_denied_location_request">Vissa av appens funktioner fungerar inte utan tillgång till din position</string>
+    <string name="positive_option">Ja</string>
+    <string name="info_message_please_enable_gps">Appen behöver platsinformation för att fungera korrekt, vill du slå på platsfunktioner?</string>
 
 
     <string name="sorteringsg">
@@ -390,10 +394,5 @@ Guide vid sortering av trädgårdsavfall
 
 
     </string>
-    <string name="on_my_location_button_click">Nuvarande position</string>
-    <string name="on_my_location_click">Nuvarande position</string>
-    <string name="warning_message_user_denied_location_request">Vissa av appens funktioner fungerar inte utan tillgång till din position</string>
-    <string name="positive_option">Ja</string>
-    <string name="info_message_please_enable_gps">Appen behöver platsinformation för att fungera korrekt, vill du slå på platsfunktioner?</string>
 
 </resources>
