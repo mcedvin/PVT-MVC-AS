@@ -22,6 +22,7 @@
     <string name="gl_mt_l_sen">Glömt Lösenord?</string>
     <string name="sparad_co2">\nSparad \nco2</string>
     <string name="finished_challanges">Avklarade utmaningar</string>
+    <string name="finished_challanges_number">0</string>
     <string name="ongoing_challenges">Dina pågående utmaningar</string>
     <string name="take_challenge">Anta ny utmaning! \n
     +</string>
