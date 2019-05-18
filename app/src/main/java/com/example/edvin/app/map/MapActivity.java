@@ -18,7 +18,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
@@ -47,8 +46,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-import org.w3c.dom.Text;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -75,6 +72,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private SearchView searchView;
     private Spinner spinner;
     private TextView filterTextView;
+    private int topHeight, bottomHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +93,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         searchView = (SearchView) findViewById(R.id.searchView);
         spinner = (Spinner) findViewById(R.id.spinner);
-        filterTextView = (TextView) findViewById(R.id.textView);
+        filterTextView = (TextView) findViewById(R.id.filterTextView);
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navv_view);
         bottomNavigationView.setSelectedItemId(R.id.stationMenuItem);
@@ -115,6 +113,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 return true;
             }
         });
+
     }
 
     private void goToHomeScreen() {
@@ -213,6 +212,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         map.setPadding(START_MAP_PADDING[0], START_MAP_PADDING[1], START_MAP_PADDING[2], START_MAP_PADDING[3]);
 
+
     }
 
     private boolean mapServicesEnabled() {
@@ -276,11 +276,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                             if (location != null) {
                                 // Logic to handle location object
                                 currentLocation = location;
-                                adjustZoom();
-
                             } else {
                                 Log.d(TAG, "location is null");
                             }
+                            adjustZoom();
                         }
                     });
         }
