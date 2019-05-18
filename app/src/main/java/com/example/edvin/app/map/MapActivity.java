@@ -19,7 +19,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -72,7 +71,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private SearchView searchView;
     private Spinner spinner;
     private TextView filterTextView;
-    private int topHeight, bottomHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
