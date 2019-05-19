@@ -58,16 +58,26 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/searchView" />
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="35dp"
-        android:layout_height="60dp"
-        android:layout_centerHorizontal="true"
+    <ImageButton
+        android:id="@+id/filterButton"
+        android:layout_width="41dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginBottom="8dp"
+        android:background="#FFFFFF"
+        android:contentDescription="TODO"
+        android:tint="@android:color/secondary_text_light_nodisable"
+        app:layout_constraintBottom_toBottomOf="@+id/filterTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintStart_toStartOf="@+id/filterTextView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ic_baseline_filter_list_24px"
+        android:onClick="onDialog"/>
 
 </android.support.constraint.ConstraintLayout>

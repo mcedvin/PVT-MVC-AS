@@ -25,6 +25,24 @@ android {
     }
 }
 
+android {
+    defaultConfig {
+        // Stops the Gradle plugin's automatic rasterization of vectors
+        generatedDensities = []
+    }
+
+    // Flag to tell aapt to keep the attribute ids around
+    aaptOptions {
+        additionalParameters "--no-version-vectors"
+    }
+}
+
+android {
+    defaultConfig {
+        vectorDrawables.useSupportLibrary = true
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.facebook.android:facebook-android-sdk:4.42.0'

@@ -19,8 +19,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,8 +72,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private boolean locationPermissionIsGranted;
     private BottomNavigationView bottomNavigationView;
     private SearchView searchView;
-    private Spinner spinner;
     private TextView filterTextView;
+    private ImageButton filterButton;
+    private AlertDialog dialog = null;
+    private boolean selectAll = true;
+    private int noOfFilterItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +84,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_map);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+
+        noOfFilterItems = getResources().getStringArray(R.array.materials_array).length;
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -88,10 +96,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         provider = locationManager.getBestProvider(new Criteria(), false);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-
+        filterButton = (ImageButton) findViewById(R.id.filterButton);
         searchView = (SearchView) findViewById(R.id.searchView);
-        spinner = (Spinner) findViewById(R.id.spinner);
-        filterTextView = (TextView) findViewById(R.id.filterTextView);
+
+        setUpFilterTextView();
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navv_view);
         bottomNavigationView.setSelectedItemId(R.id.stationMenuItem);
@@ -112,6 +120,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
+    }
+
+    private void setUpFilterTextView() {
+        filterTextView = (TextView) findViewById(R.id.filterTextView);
+        filterTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterButton.performClick();
+            }
+        });
     }
 
     private void goToHomeScreen() {
@@ -244,6 +262,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         alert.show();
     }
 
+    private void filterStationsDialog() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -331,7 +354,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     }
 
-
     private void adjustZoom() {
 
         if (currentLocation != null) {
@@ -355,7 +377,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -374,5 +395,54 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         // (the camera animates to the user's current position).
         return false;
     }
+
+    //logic for filtering stations
+    public void onDialog(View v) {
+        dialog = onCreateDialog(null);
+        dialog.show();
+
+        final ListView listView = dialog.getListView();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                boolean isChecked = listView.isItemChecked(position);
+                if (position == 0) {
+                    if (selectAll) {
+                        for (int i = 1; i < noOfFilterItems; i++) { // we start with first element after "Select all" choice
+                            if (isChecked && !listView.isItemChecked(i)
+                                    || !isChecked && listView.isItemChecked(i)) {
+                                listView.performItemClick(listView, i, 0);
+                            }
+                        }
+                    }
+                } else {
+                    if (!isChecked && listView.isItemChecked(0)) {
+                        // if other item is unselected while "Select all" is selected, unselect "Select all"
+                        // operations false, performItemClick, true is a must in order for this code to work
+                        selectAll = false;
+                        listView.performItemClick(listView, 0, 0);
+                        selectAll = true;
+                    }
+                }
+            }
+        });
+    }
+
+    //logic for filtering stations
+    public AlertDialog onCreateDialog(Bundle savedInstanceState) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MapActivity.this);
+
+        builder.setTitle(R.string.filterDialogHeader)
+                .setMultiChoiceItems(getResources().getStringArray(R.array.materials_array), null, null)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked OK, so save something here
+                    }
+                });
+        return builder.create();
+    }
 }
+
 
