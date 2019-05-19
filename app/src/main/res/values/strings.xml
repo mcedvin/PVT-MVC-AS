@@ -69,6 +69,9 @@
     <string name="positive_option">Ja</string>
     <string name="info_message_please_enable_gps">Appen behöver platsinformation för att fungera korrekt, vill du slå på platsfunktioner?</string>
     <string name="filter_stations">Filtrera stationer</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="filterDialogHeader">Filtrera stationer</string>
+    <string name="title_activity_station">Station</string>
     <string-array name="materials_array">
         <item>Alla</item>
         <item>Glas</item>
@@ -424,10 +427,6 @@ Guide vid sortering av trädgårdsavfall
 \nEn del, så kallat invasiva, växter ska dock inte läggas i komposten. Då riskerar man istället att sprida dem så att de konkurrerar ut inhemska arter. Det gäller bland annat jätteloka (även kallad jättebjörnloka), tromsöloka (snarlik jättelokan men växer bara i norra Sverige), jättebalsamin, parkslide och skunkkalla. Totalt finns nu 24 växter på Naturvårdsverkets lista över invasiva främmande arter i Sverige. Samtliga bör läggas i säck i återvinningscentralens container för brännbart avfall.\n
 
 </string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="filterDialogHeader">Filtrera stationer</string>
 
 
 </resources>
