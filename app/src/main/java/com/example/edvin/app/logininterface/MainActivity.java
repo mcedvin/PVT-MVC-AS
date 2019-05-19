@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import com.example.edvin.app.R;
 import com.example.edvin.app.challenges.ChallengesActivity;
 import com.example.edvin.app.mainpage.HomePageDesign;
+import com.example.edvin.app.overview.OverviewActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ImageView logga = findViewById(R.id.logga);
-        logga.setOnClickListener(l -> startActivity(new Intent(this, ChallengesActivity.class)));
+        logga.setOnClickListener(l -> startActivity(new Intent(this, OverviewActivity.class)));
     }
 
 

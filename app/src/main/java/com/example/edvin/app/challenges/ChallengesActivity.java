@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 
 import com.example.edvin.app.R;
 import com.example.edvin.app.mainpage.HomePageDesign;
+import com.example.edvin.app.overview.OverviewActivity;
 
 public class ChallengesActivity extends AppCompatActivity {
 
@@ -33,7 +34,7 @@ public class ChallengesActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ChallengesActivity.this, HomePageDesign.class);
+                Intent i = new Intent(ChallengesActivity.this, OverviewActivity.class);
 
                 startActivity(i);
             }
