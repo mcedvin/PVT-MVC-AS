@@ -32,7 +32,8 @@ public class ChallengesActivity extends AppCompatActivity {
         recycleButton = findViewById(R.id.recycleButton);
         challengeOfTheMonthButton = findViewById(R.id.challengeOfTheMonthButton);
 
-        backButton.setOnClickListener(l -> startActivity(new Intent(ChallengesActivity.this, OverviewActivity.class)));
+        backButton.setOnClickListener(l -> startActivity(new Intent(this, OverviewActivity.class)));
+        challengeOfTheMonthButton.setOnClickListener(l -> startActivity(new Intent(this, ChallengeInformationActivity.class)));
 
         CategoryListener categoryListener = new CategoryListener();
 

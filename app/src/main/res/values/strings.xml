@@ -48,6 +48,11 @@
     <string name="reduce_label">Reduce</string>
     <string name="reuse_label">Reuse</string>
     <string name="recycle_label">Recycle</string>
+    <string name="join_text">Gå med</string>
+    <string name="share_on_facebook_text">Dela på Facebook</string>
+    <string name="information_test_1">Sluta använd \nPappersmugg för kaffe\n</string>
+    <string name="information_test_2">Använd i stället \nDet bästa alternativet här är att helt enkelt inte använda sugrör alls. Om du ändå känner att du verkligen vill använda sugrör finns det varianter i bland annat metall och hårdplast som går att diska och därför kan användas om och om igen. I dag förbrukas till exempel 500 miljoner vanliga plastsugrör varje dag, och det bara i Amerika (!).</string>
+    <string name="information_test_3">\nLängd \n20 dagar</string>
 
     <!-- Strings related to map -->
 
