@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import com.example.edvin.app.R;
 import com.example.edvin.app.mainpage.HomePageDesign;
 import com.example.edvin.app.overview.OverviewActivity;
+import com.example.edvin.app.settings.SettingsActivity;
 
 public class ChallengesActivity extends AppCompatActivity {
 
@@ -31,15 +32,7 @@ public class ChallengesActivity extends AppCompatActivity {
         recycleButton = findViewById(R.id.recycleButton);
         challengeOfTheMonthButton = findViewById(R.id.challengeOfTheMonthButton);
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(ChallengesActivity.this, OverviewActivity.class);
-
-                startActivity(i);
-            }
-        });
-
+        backButton.setOnClickListener(l -> startActivity(new Intent(ChallengesActivity.this, OverviewActivity.class)));
 
         CategoryListener categoryListener = new CategoryListener();
 
@@ -47,6 +40,7 @@ public class ChallengesActivity extends AppCompatActivity {
         reuseButton.setOnClickListener(categoryListener);
         recycleButton.setOnClickListener(categoryListener);
         reduceButton.performClick();
+
 
     }
 

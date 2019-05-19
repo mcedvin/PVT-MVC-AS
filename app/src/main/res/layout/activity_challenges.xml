@@ -11,9 +11,9 @@
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/back_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -37,6 +37,7 @@
         android:text="@string/challenges_header_title"
         android:textColor="#51B9AC"
         android:textSize="30sp"
+        app:fontFamily="@font/roboto_black"
         app:layout_constraintBottom_toTopOf="@+id/reuseButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -121,14 +122,16 @@
 
     <ScrollView
         android:id="@+id/challenges_scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="395dp"
+        android:layout_height="585dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reuseButton">
@@ -145,7 +148,8 @@
                 android:layout_gravity="center"
                 android:text="@string/challenge_of_the_month_text"
                 android:textColor="#51B9AC"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                app:fontFamily="@font/roboto_black" />
 
             <ImageButton
                 android:id="@+id/challengeOfTheMonthButton"
@@ -159,7 +163,8 @@
                 android:layout_gravity="center"
                 android:text="@string/all_challenges_text"
                 android:textColor="#51B9AC"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                app:fontFamily="@font/roboto_black" />
 
 
             <GridLayout
@@ -175,7 +180,6 @@
                     android:layout_column="0"
                     android:layout_margin="5dp"
                     android:background="@drawable/rectangle_challenge"
-                    android:text="@string/challenge_title"
                     android:textSize="18sp" />
 
 
@@ -187,7 +191,7 @@
                     android:layout_column="1"
                     android:layout_margin="5dp"
                     android:background="@drawable/rectangle_challenge"
-                    android:text="@string/challenge_title"
+                    android:gravity="center"
                     android:textSize="18sp" />
 
                 <Button
@@ -198,7 +202,6 @@
                     android:layout_column="1"
                     android:layout_margin="5dp"
                     android:background="@drawable/rectangle_challenge"
-                    android:text="@string/challenge_title"
                     android:textSize="18sp" />
 
                 <Button
@@ -209,7 +212,6 @@
                     android:layout_column="0"
                     android:layout_margin="5dp"
                     android:background="@drawable/rectangle_challenge"
-                    android:text="@string/challenge_title"
                     android:textSize="18sp" />
 
                 <Button
@@ -220,7 +222,6 @@
                     android:layout_column="1"
                     android:layout_margin="5dp"
                     android:background="@drawable/rectangle_challenge"
-                    android:text="@string/challenge_title"
                     android:textSize="18sp" />
 
                 <Button
@@ -231,7 +232,6 @@
                     android:layout_column="0"
                     android:layout_margin="5dp"
                     android:background="@drawable/rectangle_challenge"
-                    android:text="@string/challenge_title"
                     android:textSize="18sp" />
 
                 <Button
@@ -242,7 +242,6 @@
                     android:layout_column="0"
                     android:layout_margin="5dp"
                     android:background="@drawable/rectangle_challenge"
-                    android:text="@string/challenge_title"
                     android:textSize="18sp" />
 
                 <Button
@@ -253,7 +252,6 @@
                     android:layout_column="1"
                     android:layout_margin="5dp"
                     android:background="@drawable/rectangle_challenge"
-                    android:text="@string/challenge_title"
                     android:textSize="18sp"
                     android:useDefaultMargins="true" />
 
@@ -265,7 +263,6 @@
                     android:layout_column="1"
                     android:layout_margin="5dp"
                     android:background="@drawable/rectangle_challenge"
-                    android:text="@string/challenge_title"
                     android:textSize="18sp"
                     android:useDefaultMargins="true" />
 
@@ -277,7 +274,6 @@
                     android:layout_column="0"
                     android:layout_margin="5dp"
                     android:background="@drawable/rectangle_challenge"
-                    android:text="@string/challenge_title"
                     android:textSize="18sp"
                     android:useDefaultMargins="true" />
 
@@ -289,7 +285,6 @@
                     android:layout_column="1"
                     android:layout_margin="5dp"
                     android:background="@drawable/rectangle_challenge"
-                    android:text="@string/challenge_title"
                     android:textSize="18sp"
                     android:useDefaultMargins="true" />
 
@@ -301,7 +296,6 @@
                     android:layout_column="0"
                     android:layout_margin="5dp"
                     android:background="@drawable/rectangle_challenge"
-                    android:text="@string/challenge_title"
                     android:textSize="18sp"
                     android:useDefaultMargins="true" />
 
@@ -313,7 +307,6 @@
                     android:layout_column="1"
                     android:layout_margin="5dp"
                     android:background="@drawable/rectangle_challenge"
-                    android:text="@string/challenge_title"
                     android:textSize="18sp"
                     android:useDefaultMargins="true" />
 
@@ -325,7 +318,6 @@
                     android:layout_column="0"
                     android:layout_margin="5dp"
                     android:background="@drawable/rectangle_challenge"
-                    android:text="@string/challenge_title"
                     android:textSize="18sp"
                     android:useDefaultMargins="true" />
 
@@ -335,6 +327,7 @@
         </LinearLayout>
 
     </ScrollView>
+
 
 
 </android.support.constraint.ConstraintLayout>

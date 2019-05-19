@@ -7,7 +7,6 @@
     tools:context=".overview.OverviewActivity"
     android:background="@drawable/background_homepage">
 
-
     <ImageView
         android:id="@+id/profleImage"
         android:layout_width="153dp"
@@ -17,6 +16,24 @@
         app:layout_constraintStart_toStartOf="@+id/profileBadge"
         app:layout_constraintTop_toTopOf="@+id/profileBadge"
         app:srcCompat="@drawable/profile_image" />
+
+    <ImageButton
+        android:id="@+id/settingsButton"
+        android:layout_width="43dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/settings_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/profileBadge"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/profileBadge"
@@ -43,6 +60,7 @@
         android:text="@string/finished_challanges"
         android:textColor="#51B9AC"
         android:textSize="20sp"
+        app:fontFamily="@font/roboto_black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileBadge" />
@@ -58,13 +76,14 @@
         android:layout_marginRight="8dp"
         android:textColor="#51B9AC"
         android:textSize="25sp"
+        app:fontFamily="@font/roboto_black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/finishedChallenges" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/showAllFinishedChallenges"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -75,7 +94,7 @@
         android:background="@drawable/rounded_corners_border"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:text="@string/showAllFinishedText"
+        android:text="@string/show_all_finished_text"
         android:textAllCaps="false"
         android:textColor="#ffffff"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +103,7 @@
         app:layout_constraintTop_toBottomOf="@+id/totalFinishedChallenges" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/ongoingChallenges"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -95,9 +114,10 @@
         android:text="@string/ongoing_challenges"
         android:textColor="#51B9AC"
         android:textSize="20sp"
+        app:fontFamily="@font/roboto_black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintTop_toBottomOf="@+id/showAllFinishedChallenges" />
 
 
     <ScrollView
@@ -112,7 +132,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4">
+        app:layout_constraintTop_toBottomOf="@+id/ongoingChallenges">
 
 
         <LinearLayout
@@ -133,12 +153,11 @@
     </ScrollView>
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/finishedChallenges"
         app:layout_constraintEnd_toEndOf="@+id/profileBadge"
         app:layout_constraintStart_toStartOf="@+id/profileBadge"

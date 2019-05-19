@@ -29,14 +29,16 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
 
-    <!-- String related to overview -->
-    
+    <!-- Strings related to overview -->
+
     <string name="finished_challenges">Avklarade utmaningar</string>
-    <string name="showAllFinishedText">Visa alla avklarade</string>
-    <string name="ongoingChallenges">Dina pågående utamningar</string>
-    <string name="addChallengeText">Anta en ny utmaning</string>
-    
-    
+    <string name="show_all_finished_text">Visa alla avklarade</string>
+    <string name="add_challenge_text">Anta en ny utmaning</string>
+
+    <!-- Strings related to settings -->
+
+    <string name="sign_out_text">Logga ut</string>
+
     <!-- Strings related to challenges -->
 
     <string name="challenge_title">Namn på challenge</string>
