@@ -8,7 +8,7 @@
 
 
 
-    <!-- background-->
+    <!-- background_challenges-->
 
     <ImageView
         android:id="@+id/imageView"

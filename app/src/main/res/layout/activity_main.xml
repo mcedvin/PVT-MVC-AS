@@ -7,7 +7,7 @@
     tools:context=".logininterface.MainActivity">
 
 
-    <!-- background-->
+    <!-- background_challenges-->
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"

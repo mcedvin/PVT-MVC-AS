@@ -29,6 +29,15 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
 
+    <!-- Strings related to challenges -->
+
+    <string name="challenge_title">Namn på challenge</string>
+    <string name="challenges_header_title">Utmaningar</string>
+    <string name="challenge_of_the_month_text">Månadens utmaning</string>
+    <string name="all_challenges_text">Alla utmaningar</string>
+    <string name="reduce_label">Reduce</string>
+    <string name="reuse_label">Reuse</string>
+    <string name="recycle_label">Recycle</string>
 
     <!-- Strings related to map -->
 

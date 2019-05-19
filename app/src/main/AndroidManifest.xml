@@ -17,11 +17,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".challenges.ChallengesActivity"></activity>
         <activity
             android:name=".map.MapActivity"
-
             android:label="@string/title_activity_map">
-
             <intent-filter>
                 <action android:name="com.example.My Application.LAUNCH" />
 
@@ -39,8 +38,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
-
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -64,8 +61,6 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
-
         <activity android:name=".logininterface.SignupActivity" /> <!-- Guide -->
         <activity android:name=".guide.FarligtavfallActivity" />
         <activity android:name=".guide.GuideMainActivity" />
@@ -81,8 +76,6 @@
         <activity android:name=".guide.PapperActivity" />
         <activity android:name=".guide.PlastActivity" />
         <activity android:name=".guide.TidningarActivity" />
-
-
         <activity android:name=".mainpage.HomePageDesign" />
     </application>
 
