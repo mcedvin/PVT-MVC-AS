@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.edvin.app.mainpage.HomePageDesign;
+import com.example.edvin.app.overview.OverviewActivity;
 import com.example.edvin.app.util.InternetConnection;
 import com.example.edvin.app.models.User;
 import com.example.edvin.app.util.BaseApiService;
@@ -227,7 +228,7 @@ public class SecondActivity extends AppCompatActivity {
 
     protected void goToHome(){
 
-        Intent intent = new Intent(this, HomePageDesign.class);
+        Intent intent = new Intent(this, OverviewActivity.class);
         startActivity(intent);
     }
 
