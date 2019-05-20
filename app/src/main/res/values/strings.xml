@@ -78,6 +78,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="filterDialogHeader">Filtrera stationer</string>
     <string name="title_activity_station">Station</string>
+    <string name="failed_to_get_recycling_stations">Kunde inte hämta återvinningsstationer</string>
     <string-array name="materials_array">
         <item>Alla</item>
         <item>Glas</item>

@@ -14,7 +14,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,7 +28,10 @@ import android.widget.Toast;
 
 import com.example.edvin.app.R;
 import com.example.edvin.app.guide.GuideMainActivity;
+import com.example.edvin.app.models.Position;
 import com.example.edvin.app.overview.OverviewActivity;
+import com.example.edvin.app.util.BaseApiService;
+import com.example.edvin.app.util.RetrofitClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -49,7 +51,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMyLocationButtonClickListener {
 
@@ -65,7 +72,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private LocationManager locationManager;
     private String provider;
     private Location currentLocation;
-    private Map<Marker, String> markers = new HashMap<>();
+    private Map<Marker, Position> markersAndPositions = new HashMap<>();
     private Marker lastClicked = null;
     private LocationCallback locationCallback;
     private LocationRequest locationRequest;
@@ -82,8 +89,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-        //ActionBar actionBar = getSupportActionBar();
-        //actionBar.hide();
 
         noOfFilterItems = getResources().getStringArray(R.array.materials_array).length;
 
@@ -170,15 +175,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                 } else {
                     //restore to default icon
+                    lastClicked.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.defaultstation_marker));
                     marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.defaultstation_marker));
                     lastClicked = null;
                 }
 
+                Position p = markersAndPositions.get(marker);
 
-                String stationId = markers.get(marker);
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(p.getX(), p.getY()), DEFAULT_ZOOM));
 
-                //false = default behavior should occur in addition to custom behavior
-                return false;
+                return true;
             }
         });
 
@@ -193,11 +199,29 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void addMarkers() {
-        // Add a marker in Sthlm
-        LatLng sthlm = new LatLng(59.334591, 18.063240);
-        Marker sthlmMarker = map.addMarker(new MarkerOptions().position(sthlm).title("Stockholm").snippet("").icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultstation_marker)));
-        markers.put(sthlmMarker, "STHLM");
-        sthlmMarker.hideInfoWindow();
+        BaseApiService api = RetrofitClient.getApiService();
+        Call<List<Position>> call = api.getPositions();
+
+        call.enqueue(new Callback<List<Position>>() {
+            @Override
+            public void onResponse(Call<List<Position>> call, Response<List<Position>> response) {
+                int statusCode = response.code();
+                List<Position> positions = response.body();
+                Log.d(TAG, positions.toString());
+                for (Position p : positions) {
+                    LatLng latlong = new LatLng(p.getX(), p.getY());
+                    Marker marker = map.addMarker(new MarkerOptions().position(latlong).title(p.toString()).snippet("").icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultstation_marker)));
+                    marker.hideInfoWindow();
+                    markersAndPositions.put(marker, p);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Position>> call, Throwable t) {
+                Log.d(TAG, "API call to get positions failed");
+                Toast.makeText(getApplicationContext(), R.string.failed_to_get_recycling_stations, Toast.LENGTH_LONG).show();
+            }
+        });
 
 
         // use marker.setVisible(boolean) to hide/show markers when filtering stations,
