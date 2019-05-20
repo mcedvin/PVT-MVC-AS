@@ -12,12 +12,15 @@ public class Position implements Serializable {
         this.y = y;
     }
 
+    public Position() {
+
+    }
 
     public double getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(double x) {
         this.x = x;
     }
 
@@ -27,6 +30,14 @@ public class Position implements Serializable {
 
     public void setY(double y) {
         this.y = y;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Position) {
+            return x == ((Position) obj).x && y == ((Position) obj).y;
+        }
+        return false;
     }
 
     public String toString() {

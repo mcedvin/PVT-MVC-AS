@@ -249,7 +249,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mapUI.setZoomControlsEnabled(true);
 
         //makes sure Google logo, My Location button & zoom controls are not hidden behind UI widgets
-
+        //@TODO params left, top, right, bottom should be calculated from screen size instead of hardcoded
         map.setPadding(START_MAP_PADDING[0], START_MAP_PADDING[1], START_MAP_PADDING[2], START_MAP_PADDING[3]);
 
 
