@@ -148,6 +148,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         startActivity(intent);
     }
 
+    private void goToStation() {
+
+    }
 
     /**
      * Manipulates the map once available.
@@ -185,6 +188,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 Position p = s.getPosition();
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(p.getX(), p.getY()), DEFAULT_ZOOM));
 
+                goToStation();
+
                 return true;
             }
         });
@@ -198,6 +203,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
 
     }
+
+
 
     private void addMarkers() {
         BaseApiService api = RetrofitClient.getApiService();

@@ -123,7 +123,7 @@
             app:layout_constraintTop_toTopOf="@+id/closeStationInfo" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/reportStation"
             android:layout_width="114dp"
             android:layout_height="35dp"
             android:layout_marginStart="8dp"
@@ -131,7 +131,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:background="?colorAccent"
+            android:backgroundTint="@color/ReGoPink"
             android:text="Rapportera"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -139,7 +139,7 @@
             app:layout_constraintTop_toBottomOf="@+id/stationName" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/stationStatus"
             android:layout_width="271dp"
             android:layout_height="21dp"
             android:layout_marginStart="8dp"
@@ -147,12 +147,12 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:text="TextView"
+            android:text="Måndag 20 maj     Rapporterad som full av 3 personer"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button2"
-            tools:text="Datum + Status på stationen" />
+            app:layout_constraintTop_toBottomOf="@+id/reportStation" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -166,15 +166,16 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6">
+            app:layout_constraintTop_toBottomOf="@+id/materialsHeader">
 
             <ListView
+                android:id="@+id/materials"
                 android:layout_width="match_parent"
                 android:layout_height="182dp" />
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/materialsHeader"
             android:layout_width="267dp"
             android:layout_height="19dp"
             android:layout_marginStart="8dp"
@@ -186,10 +187,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            app:layout_constraintTop_toBottomOf="@+id/stationStatus" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/navigateToStation"
             android:layout_width="151dp"
             android:layout_height="35dp"
             android:layout_marginStart="8dp"
@@ -197,7 +198,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
-            android:background="?colorPrimary"
+            android:backgroundTint="@color/ReGoPrimaryColor"
             android:text="Navigera mig hit"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
