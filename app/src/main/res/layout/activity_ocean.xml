@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".challenges.OceanActivity">
+
+    <ImageView
+        android:id="@+id/oceanHeader"
+        android:layout_width="414dp"
+        android:layout_height="146dp"
+        android:layout_marginBottom="585dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ocean_header" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/ocean_header_text"
+        android:textColor="@android:color/white"
+        android:textSize="40sp"
+        app:fontFamily="@font/roboto_black"
+        app:layout_constraintBottom_toBottomOf="@+id/oceanHeader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.869"
+        app:layout_constraintStart_toStartOf="@+id/oceanHeader"
+        app:layout_constraintTop_toTopOf="@+id/oceanHeader"
+        app:layout_constraintVertical_bias="0.476" />
+
+    <Button
+        android:id="@+id/showMoreInfoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/rounded_corners_border"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="@string/show_more_info_text_ocean"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/oceanHeader" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showMoreInfoButton">
+
+        <TextView
+            android:id="@+id/allChallangesTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/all_challenges_text"
+            android:textColor="#51B9AC"
+            android:textSize="20sp"
+            app:fontFamily="@font/roboto_black" />
+
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <Button
+                android:id="@+id/gridButton1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_margin="5dp"
+                android:background="@drawable/rectangle_challenge"
+                android:textSize="18sp" />
+
+
+            <Button
+                android:id="@+id/gridButton2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_margin="5dp"
+                android:background="@drawable/rectangle_challenge"
+                android:gravity="center"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/gridButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:layout_margin="5dp"
+                android:background="@drawable/rectangle_challenge"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/gridButton4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="1"
+                android:layout_column="0"
+                android:layout_margin="5dp"
+                android:background="@drawable/rectangle_challenge"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/gridButton5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="2"
+                android:layout_column="1"
+                android:layout_margin="5dp"
+                android:background="@drawable/rectangle_challenge"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/gridButton6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="2"
+                android:layout_column="0"
+                android:layout_margin="5dp"
+                android:background="@drawable/rectangle_challenge"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/gridButton7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="3"
+                android:layout_column="0"
+                android:layout_margin="5dp"
+                android:background="@drawable/rectangle_challenge"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/gridButton8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="3"
+                android:layout_column="1"
+                android:layout_margin="5dp"
+                android:background="@drawable/rectangle_challenge"
+                android:textSize="18sp" />
+
+        </GridLayout>
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

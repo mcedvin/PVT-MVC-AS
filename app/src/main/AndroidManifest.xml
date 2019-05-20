@@ -17,7 +17,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".map.StationActivity"
+        <activity android:name=".challenges.AirActivity"></activity>
+        <activity android:name=".challenges.AnimalsActivity" />
+        <activity android:name=".challenges.NatureActivity" />
+        <activity android:name=".challenges.OceanActivity" />
+        <activity
+            android:name=".map.StationActivity"
             android:label="@string/title_activity_station">
             <intent-filter>
                 <action android:name="com.example.My Application.LAUNCH" />
@@ -29,7 +34,6 @@
         <activity android:name=".settings.SettingsActivity" />
         <activity android:name=".overview.OverviewActivity" />
         <activity android:name=".challenges.ChallengesActivity" />
-
         <activity
             android:name=".map.MapActivity"
             android:label="@string/title_activity_map">
