@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.edvin.app.R;
-import com.example.edvin.app.mainpage.HomePageDesign;
 import com.example.edvin.app.overview.OverviewActivity;
 import com.example.edvin.app.settings.SettingsActivity;
 

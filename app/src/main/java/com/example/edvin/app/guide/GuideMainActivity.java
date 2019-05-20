@@ -12,8 +12,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.edvin.app.R;
-import com.example.edvin.app.mainpage.HomePageDesign;
 import com.example.edvin.app.map.MapActivity;
+import com.example.edvin.app.overview.OverviewActivity;
 
 public class GuideMainActivity extends AppCompatActivity {
 
@@ -258,7 +258,7 @@ public class GuideMainActivity extends AppCompatActivity {
 
     private void guideToHome(){
 
-        Intent mintent = new Intent(this, HomePageDesign.class);
+        Intent mintent = new Intent(this, OverviewActivity.class);
         startActivity(mintent);
     }
 
