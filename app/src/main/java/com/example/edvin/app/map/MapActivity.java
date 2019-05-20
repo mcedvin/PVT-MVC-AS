@@ -29,7 +29,7 @@ import android.widget.Toast;
 
 import com.example.edvin.app.R;
 import com.example.edvin.app.guide.GuideMainActivity;
-import com.example.edvin.app.mainpage.HomePageDesign;
+import com.example.edvin.app.overview.OverviewActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -133,7 +133,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void goToHomeScreen() {
-        Intent intent = new Intent(getApplicationContext(), HomePageDesign.class);
+        Intent intent = new Intent(getApplicationContext(), OverviewActivity.class);
         startActivity(intent);
     }
 

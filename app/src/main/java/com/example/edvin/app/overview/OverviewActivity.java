@@ -1,9 +1,11 @@
 package com.example.edvin.app.overview;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageButton;
 
@@ -31,5 +33,51 @@ public class OverviewActivity extends AppCompatActivity {
         joinNewChallenge.setOnClickListener(l -> startActivity(new Intent(this, ChallengesActivity.class)));
 
 
+        bottomNav = findViewById(R.id.navv_view);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
+
     }
+
+    private void homeToGuide() {
+
+        Intent mintent = new Intent(this, GuideMainActivity.class);
+        startActivity(mintent);
+    }
+
+    private void goToMap() {
+
+        Intent mintent = new Intent(this, MapActivity.class);
+        startActivity(mintent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bottomNav.setSelectedItemId(R.id.guideMenuItem);
+    }
+
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                    //Fragment selectedFragment = null;
+
+                    switch (menuItem.getItemId()) {
+                        case R.id.guideMenuItem:
+                            homeToGuide();
+                            break;
+                        case R.id.stationMenuItem:
+                            goToMap();
+                            break;
+                        default:
+                            break;
+
+                    }
+
+
+                    return true;
+                }
+            };
+
 }

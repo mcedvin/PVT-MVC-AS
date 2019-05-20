@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.example.edvin.app.mainpage.HomePageDesign;
 import com.example.edvin.app.overview.OverviewActivity;
 import com.example.edvin.app.util.InternetConnection;
 import com.example.edvin.app.models.User;

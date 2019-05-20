@@ -8,7 +8,6 @@ import android.widget.ImageView;
 
 import com.example.edvin.app.R;
 import com.example.edvin.app.challenges.ChallengesActivity;
-import com.example.edvin.app.mainpage.HomePageDesign;
 import com.example.edvin.app.overview.OverviewActivity;
 
 public class MainActivity extends AppCompatActivity {
