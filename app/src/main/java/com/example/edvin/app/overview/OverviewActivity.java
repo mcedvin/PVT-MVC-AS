@@ -33,7 +33,8 @@ public class OverviewActivity extends AppCompatActivity {
         joinNewChallenge.setOnClickListener(l -> startActivity(new Intent(this, ChallengesActivity.class)));
 
 
-        bottomNav = findViewById(R.id.navv_view);
+        //bottomNav = findViewById(R.id.navv_view); ********** FEL NAMN!!!!!************
+        bottomNav = findViewById(R.id.bottomNavBar);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
     }
@@ -53,7 +54,7 @@ public class OverviewActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        bottomNav.setSelectedItemId(R.id.guideMenuItem);
+        bottomNav.setSelectedItemId(R.id.homeMenuItem);
     }
 
 
