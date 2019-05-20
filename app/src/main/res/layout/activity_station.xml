@@ -7,7 +7,7 @@
     tools:context=".map.StationActivity">
 
     <fragment xmlns:map="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/map"
+        android:id="@+id/mapStationActivity"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -53,7 +53,7 @@
         android:gravity="center"
         android:text="@string/filter_stations_button"
         app:layout_constraintBottom_toBottomOf="@+id/searchView"
-        app:layout_constraintEnd_toStartOf="@+id/map"
+        app:layout_constraintEnd_toStartOf="@+id/mapStationActivity"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/searchView" />
 

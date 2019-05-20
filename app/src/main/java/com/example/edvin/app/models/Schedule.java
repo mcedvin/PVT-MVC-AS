@@ -1,8 +1,9 @@
 package com.example.edvin.app.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
-abstract public class Schedule {
+abstract public class Schedule implements Serializable {
 
     private Date date;
 

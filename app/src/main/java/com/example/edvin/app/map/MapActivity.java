@@ -95,7 +95,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+                .findFragmentById(R.id.mapMapActivity);
         mapFragment.getMapAsync(this);
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -148,8 +148,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         startActivity(intent);
     }
 
-    private void goToStation() {
-
+    private void goToStation(Station station) {
+        Intent stationIntent = new Intent(this, StationActivity.class);
+        stationIntent.putExtra("station", station);
+        startActivity(stationIntent);
     }
 
     /**
@@ -184,11 +186,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     lastClicked = null;
                 }
 
-                Station s = markersAndStations.get(marker);
-                Position p = s.getPosition();
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(p.getX(), p.getY()), DEFAULT_ZOOM));
+                Station station = markersAndStations.get(marker);
+                Position position = station.getPosition();
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(position.getX(), position.getY()), DEFAULT_ZOOM));
 
-                goToStation();
+                goToStation(station);
 
                 return true;
             }
@@ -203,8 +205,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
 
     }
-
-
 
     private void addMarkers() {
         BaseApiService api = RetrofitClient.getApiService();

@@ -1,5 +1,6 @@
 package com.example.edvin.app.models;
 
+import android.os.Parcel;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -79,4 +80,5 @@ public class Station implements Serializable {
                 ", materialSchedules=" + materialSchedules +
                 '}';
     }
+
 }

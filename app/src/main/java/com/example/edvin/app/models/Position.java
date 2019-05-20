@@ -1,5 +1,8 @@
 package com.example.edvin.app.models;
 
+
+import android.os.Parcel;
+
 import java.io.Serializable;
 
 public class Position implements Serializable {
@@ -43,4 +46,5 @@ public class Position implements Serializable {
     public String toString() {
         return "" + x + " " + y;
     }
+
 }
