@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.example.edvin.app.R;
 import com.example.edvin.app.guide.GuideMainActivity;
 import com.example.edvin.app.models.Position;
+import com.example.edvin.app.models.Station;
 import com.example.edvin.app.overview.OverviewActivity;
 import com.example.edvin.app.util.BaseApiService;
 import com.example.edvin.app.util.RetrofitClient;
@@ -72,7 +73,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private LocationManager locationManager;
     private String provider;
     private Location currentLocation;
-    private Map<Marker, Position> markersAndPositions = new HashMap<>();
+    private Map<Marker, Station> markersAndStations = new HashMap<>();
     private Marker lastClicked = null;
     private LocationCallback locationCallback;
     private LocationRequest locationRequest;
@@ -180,8 +181,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     lastClicked = null;
                 }
 
-                Position p = markersAndPositions.get(marker);
-
+                Station s = markersAndStations.get(marker);
+                Position p = s.getPosition();
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(p.getX(), p.getY()), DEFAULT_ZOOM));
 
                 return true;
@@ -200,25 +201,26 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void addMarkers() {
         BaseApiService api = RetrofitClient.getApiService();
-        Call<List<Position>> call = api.getPositions();
+        Call<List<Station>> call = api.getStations();
 
-        call.enqueue(new Callback<List<Position>>() {
+        call.enqueue(new Callback<List<Station>>() {
             @Override
-            public void onResponse(Call<List<Position>> call, Response<List<Position>> response) {
+            public void onResponse(Call<List<Station>> call, Response<List<Station>> response) {
                 int statusCode = response.code();
-                List<Position> positions = response.body();
-                Log.d(TAG, positions.toString());
-                for (Position p : positions) {
+                List<Station> stations = response.body();
+                Log.d(TAG, "OnResponse() got: " + stations.toString());
+                for (Station s : stations) {
+                    Position p = s.getPosition();
                     LatLng latlong = new LatLng(p.getX(), p.getY());
                     Marker marker = map.addMarker(new MarkerOptions().position(latlong).title(p.toString()).snippet("").icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultstation_marker)));
                     marker.hideInfoWindow();
-                    markersAndPositions.put(marker, p);
+                    markersAndStations.put(marker, s);
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Position>> call, Throwable t) {
-                Log.d(TAG, "API call to get positions failed");
+            public void onFailure(Call<List<Station>> call, Throwable t) {
+                Log.d(TAG, "API call to get stations failed");
                 Toast.makeText(getApplicationContext(), R.string.failed_to_get_recycling_stations, Toast.LENGTH_LONG).show();
             }
         });

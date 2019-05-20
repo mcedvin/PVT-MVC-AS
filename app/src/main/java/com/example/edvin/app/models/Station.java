@@ -1,7 +1,6 @@
 package com.example.edvin.app.models;
 
 
-import com.example.edvin.app.map.MaterialSchedule;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -68,5 +67,16 @@ public class Station implements Serializable {
 
     public void setMaterialSchedules(Collection<MaterialSchedule> materialSchedules) {
         this.materialSchedules = materialSchedules;
+    }
+
+    @Override
+    public String toString() {
+        return "Station{" +
+                "stationName='" + stationName + '\'' +
+                ", position=" + position +
+                ", availableMaterials=" + availableMaterials +
+                ", cleaningSchedule=" + cleaningSchedule +
+                ", materialSchedules=" + materialSchedules +
+                '}';
     }
 }

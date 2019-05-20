@@ -11,4 +11,12 @@ public class CleaningSchedule extends Schedule {
     public CleaningSchedule() {
 
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }
+
+
+

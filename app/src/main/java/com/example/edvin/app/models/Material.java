@@ -17,4 +17,8 @@ public class Material implements Serializable {
         return name;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }

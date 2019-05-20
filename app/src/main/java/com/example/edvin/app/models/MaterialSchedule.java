@@ -1,7 +1,5 @@
-package com.example.edvin.app.map;
+package com.example.edvin.app.models;
 
-import com.example.edvin.app.models.Material;
-import com.example.edvin.app.models.Schedule;
 import java.util.Date;
 
 public class MaterialSchedule extends Schedule {
@@ -14,5 +12,10 @@ public class MaterialSchedule extends Schedule {
     }
     public MaterialSchedule(){
 
+    }
+
+    @Override
+    public String toString() {
+        return material + super.toString();
     }
 }
