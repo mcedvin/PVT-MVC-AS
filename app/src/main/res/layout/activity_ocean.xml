@@ -62,7 +62,7 @@
         android:background="@drawable/rounded_corners_border"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:text="@string/show_more_info_text_ocean"
+        android:text="@string/show_more_info_text"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="18sp"

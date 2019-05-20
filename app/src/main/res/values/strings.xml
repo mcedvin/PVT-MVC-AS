@@ -57,10 +57,8 @@
     <string name="nature_header_text">Natur</string>
     <string name="animals_header_text">Djur</string>
     <string name="air_header_text">Luft</string>
-    <string name="show_more_info_text_ocean">Läs mer om haven</string>
-    <string name="show_more_info_text_nature">Läs mer om naturen</string>
-    <string name="show_more_info_text_aminals">Läs mer om djuren</string>
-    <string name="show_more_info_text_air">Läs mer om luften</string>
+    <string name="show_more_info_text">Läs mer</string>
+
 
     <!-- Strings related to map -->
 
