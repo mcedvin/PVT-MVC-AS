@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
             loggedInUser = gson.fromJson(json, LoggedInUser.class);
 
             Intent activity = new Intent(getApplicationContext(), OverviewActivity.class);
+
+//            @TODO: rename key of this extra below to something meaningful, like "user"
             activity.putExtra("serialize_data",loggedInUser);
             startActivity(activity);
         }
