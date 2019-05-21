@@ -55,7 +55,7 @@
         android:paddingRight="25dp"
 
 
-        android:text="@string/hav"
+        android:text="@string/ocean_header_text"
 
         android:textAppearance="@style/luften"
 
@@ -69,7 +69,7 @@
         android:layout_height="118dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:background="@drawable/nature_header"
@@ -96,7 +96,7 @@
         android:layout_height="118dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:background="@drawable/animals_header"
@@ -110,13 +110,13 @@
         android:textAppearance="@style/luften"
 
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/airButton"
+
         app:layout_constraintEnd_toEndOf="parent"
 
         app:layout_constraintStart_toStartOf="parent"
 
         app:layout_constraintTop_toBottomOf="@+id/natureButton"
-
-        app:layout_constraintBottom_toTopOf="@+id/airButton"
 
         />
 
@@ -126,10 +126,9 @@
         android:layout_height="118dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
         android:background="@drawable/air_header"
         android:gravity="center|end"
         android:lineSpacingExtra="8sp"
@@ -146,7 +145,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/animalsButton"
-
 
 
         />
