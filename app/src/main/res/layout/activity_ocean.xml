@@ -11,7 +11,6 @@
         android:id="@+id/oceanHeader"
         android:layout_width="414dp"
         android:layout_height="146dp"
-        android:layout_marginTop="2dp"
         android:layout_marginBottom="585dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ocean_header" />
+        android:background="@drawable/ocean_header" />
 
     <ImageButton
         android:id="@+id/backButton"
