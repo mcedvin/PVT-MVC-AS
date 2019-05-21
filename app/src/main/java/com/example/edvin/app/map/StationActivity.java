@@ -10,23 +10,25 @@ import android.widget.TextView;
 import com.example.edvin.app.R;
 import com.example.edvin.app.models.LoggedInUser;
 import com.example.edvin.app.models.Station;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 
 public class StationActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    LoggedInUser loggedInUser;
+    private LoggedInUser loggedInUser;
+    private GoogleMap map;
+    private double cameraCenterLatitude, cameraCenterLongitude;
+    private int DEFAULT_ZOOM = 13;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_station);
 
-        /**
-         * info from användare
-         */
-        loggedInUser = (LoggedInUser) getIntent().getExtras().getSerializable("serialize_data");
+
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -40,6 +42,10 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
 
         Intent intent = getIntent();
         Station station =(Station)intent.getSerializableExtra("station");
+        loggedInUser = (LoggedInUser) intent.getSerializableExtra("user");
+        Bundle fromReferringActivity = intent.getExtras();
+        double cameraCenterLatitude = fromReferringActivity.getDouble("camera center latitude");
+        double cameraCenterLongitude = fromReferringActivity.getDouble("camera center longitude");
 
         stationName.setText(station.getStationName());
 
@@ -48,6 +54,9 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
+
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(cameraCenterLatitude, cameraCenterLongitude), DEFAULT_ZOOM));
 
     }
 }

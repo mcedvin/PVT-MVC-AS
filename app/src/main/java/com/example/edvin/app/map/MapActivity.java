@@ -193,8 +193,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void goToStation(Station station) {
         Intent stationIntent = new Intent(this, StationActivity.class);
+        Bundle bundle = new Bundle();
         stationIntent.putExtra("station", station);
-        stationIntent.putExtra("serialize_data", loggedInUser);
+        stationIntent.putExtra("user", loggedInUser);
+        bundle.putDouble("camera center latitude", map.getCameraPosition().target.latitude);
+        bundle.putDouble("camera center longitude", map.getCameraPosition().target.longitude);
+        stationIntent.putExtras(bundle);
         startActivity(stationIntent);
     }
 
@@ -530,7 +534,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 });
         return builder.create();
     }
-
 
     private void filterMarkersOnMap() {
         if (allMaterialsAreSelected()) {
