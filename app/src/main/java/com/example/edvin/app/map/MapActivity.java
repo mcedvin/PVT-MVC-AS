@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.example.edvin.app.R;
 import com.example.edvin.app.guide.GuideMainActivity;
+import com.example.edvin.app.models.LoggedInUser;
 import com.example.edvin.app.models.Position;
 import com.example.edvin.app.models.Station;
 import com.example.edvin.app.overview.OverviewActivity;
@@ -61,6 +62,7 @@ import retrofit2.Response;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMyLocationButtonClickListener {
 
+    LoggedInUser loggedInUser;
     private GoogleMap map;
     private static final String TAG = "MapActivity";
     private static final int PERMISSION_REQUEST_ACCESS_FINE_LOCATION = 32;
@@ -90,6 +92,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        /**
+         * info from användare
+         */
+        loggedInUser = (LoggedInUser) getIntent().getExtras().getSerializable("serialize_data");
+
 
         noOfFilterItems = getResources().getStringArray(R.array.materials_array).length;
 
@@ -140,17 +148,20 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void goToHomeScreen() {
         Intent intent = new Intent(getApplicationContext(), OverviewActivity.class);
+        intent.putExtra("serialize_data",loggedInUser);
         startActivity(intent);
     }
 
     private void goToGuide() {
         Intent intent = new Intent(getApplicationContext(), GuideMainActivity.class);
+        intent.putExtra("serialize_data",loggedInUser);
         startActivity(intent);
     }
 
     private void goToStation(Station station) {
         Intent stationIntent = new Intent(this, StationActivity.class);
         stationIntent.putExtra("station", station);
+        stationIntent.putExtra("serialize_data",loggedInUser);
         startActivity(stationIntent);
     }
 

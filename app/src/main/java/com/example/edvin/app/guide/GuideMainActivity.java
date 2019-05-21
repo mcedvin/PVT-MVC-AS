@@ -13,11 +13,12 @@ import android.widget.Button;
 
 import com.example.edvin.app.R;
 import com.example.edvin.app.map.MapActivity;
+import com.example.edvin.app.models.LoggedInUser;
 import com.example.edvin.app.overview.OverviewActivity;
 
 public class GuideMainActivity extends AppCompatActivity {
 
-
+    LoggedInUser loggedInUser;
     private Button metall;
     private Button glas;
     private Button tidningar;
@@ -37,6 +38,12 @@ public class GuideMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide_main);
+        /**
+         * info from användare
+         */
+        loggedInUser = (LoggedInUser) getIntent().getExtras().getSerializable("serialize_data");
+
+
 
         bottomNav = findViewById(R.id.navv_view);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
@@ -225,6 +232,7 @@ public class GuideMainActivity extends AppCompatActivity {
     private void goToMap(){
 
         Intent mintent = new Intent(this, MapActivity.class);
+        mintent.putExtra("serialize_data",loggedInUser);
         startActivity(mintent);
     }
 
@@ -259,6 +267,7 @@ public class GuideMainActivity extends AppCompatActivity {
     private void guideToHome(){
 
         Intent mintent = new Intent(this, OverviewActivity.class);
+        mintent.putExtra("serialize_data",loggedInUser);
         startActivity(mintent);
     }
 
