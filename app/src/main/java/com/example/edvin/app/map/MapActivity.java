@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.example.edvin.app.R;
 import com.example.edvin.app.guide.GuideMainActivity;
 import com.example.edvin.app.models.LoggedInUser;
+import com.example.edvin.app.models.Material;
 import com.example.edvin.app.models.Position;
 import com.example.edvin.app.models.Station;
 import com.example.edvin.app.overview.OverviewActivity;
@@ -86,6 +87,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private boolean selectAll = true;
     private int noOfFilterItems;
     private boolean[] checkedFilterOptions;
+    private String[] filterItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,20 +164,66 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void setUpFilterWidgets() {
-        noOfFilterItems = getResources().getStringArray(R.array.materials_array).length;
-        checkedFilterOptions = new boolean[noOfFilterItems];
-        for (int i = 0; i < noOfFilterItems; i++) {
-            checkedFilterOptions[i] = true;
-        }
-
         filterButton = (ImageButton) findViewById(R.id.filterButton);
 
         filterTextView = (TextView) findViewById(R.id.filterTextView);
+
+        getRecycableMaterials();
+
         filterTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 filterButton.performClick();
             }
+        });
+
+    }
+
+    private void getRecycableMaterials() {
+        BaseApiService api = RetrofitClient.getApiService();
+        Call<List<Material>> call = api.getMaterials();
+        List<Material> materials;
+
+        call.enqueue(new Callback<List<Material>>() {
+            @Override
+            public void onResponse(Call<List<Material>> call, Response<List<Material>> response) {
+                if (response.isSuccessful()) {
+
+                    List<Material> materials = response.body();
+
+                    //all materials plus the "Select all" item
+                    noOfFilterItems = materials.size() + 1;
+
+                    filterItems = new String[noOfFilterItems];
+
+                    filterItems[0] = getString(R.string.SELECT_ALL_MATERIALS);
+
+                    for (int i = 1; i < noOfFilterItems; i++) {
+                        for (int j = 0; j < i; j++) {
+                            String material = materials.get(j).getName();
+                            filterItems[i] = material;
+                        }
+                    }
+
+                    checkedFilterOptions = new boolean[noOfFilterItems];
+                    for (int i = 0; i < noOfFilterItems; i++) {
+                        checkedFilterOptions[i] = true;
+                    }
+
+                } else {
+                    Log.d(TAG, "Response code: " + response.code());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Material>> call, Throwable t) {
+                filterButton.setEnabled(false);
+                filterTextView.setEnabled(false);
+                Log.d(TAG, "failed to get materials from REST service");
+                Toast.makeText(getApplicationContext(), R.string.API_fail_get_materials, Toast.LENGTH_LONG).show();
+            }
+
         });
     }
 
@@ -270,17 +318,20 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         call.enqueue(new Callback<List<Station>>() {
             @Override
             public void onResponse(Call<List<Station>> call, Response<List<Station>> response) {
-                int statusCode = response.code();
-                List<Station> stations = response.body();
-                Log.d(TAG, "OnResponse() got: " + stations.toString());
-                for (Station s : stations) {
-                    Position p = s.getPosition();
-                    LatLng latlong = new LatLng(p.getX(), p.getY());
-                    Marker marker = map.addMarker(new MarkerOptions().position(latlong).title(p.toString()).snippet("").icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultstation_marker)));
-                    marker.hideInfoWindow();
-                    markersAndStations.put(marker, s);
+                if (response.isSuccessful()) {
+                    List<Station> stations = response.body();
+                    Log.d(TAG, "OnResponse() got: " + stations.toString());
+                    for (Station s : stations) {
+                        Position p = s.getPosition();
+                        LatLng latlong = new LatLng(p.getX(), p.getY());
+                        Marker marker = map.addMarker(new MarkerOptions().position(latlong).title(p.toString()).snippet("").icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultstation_marker)));
+                        marker.hideInfoWindow();
+                        markersAndStations.put(marker, s);
+                    }
+                    setUpAutoCompleteSearch();
+                } else {
+                    Log.d(TAG, "Response code: " + response.code());
                 }
-                setUpAutoCompleteSearch();
             }
 
             @Override
@@ -415,7 +466,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED);
     }
 
-
     private void getLocationPermission() {
         /*
          * Request location permission, so that we can get the location of the
@@ -525,7 +575,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         AlertDialog.Builder builder = new AlertDialog.Builder(MapActivity.this);
 
         builder.setTitle(R.string.filterDialogHeader)
-                .setMultiChoiceItems(getResources().getStringArray(R.array.materials_array), checkedFilterOptions, null)
+                .setMultiChoiceItems(filterItems, checkedFilterOptions, null)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
@@ -546,6 +596,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private boolean allMaterialsAreSelected() {
         return checkedFilterOptions[0] = true;
     }
+
+
 }
 
 

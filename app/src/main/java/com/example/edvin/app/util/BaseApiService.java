@@ -1,5 +1,6 @@
 package com.example.edvin.app.util;
 
+import com.example.edvin.app.models.Material;
 import com.example.edvin.app.models.Position;
 import com.example.edvin.app.models.Station;
 import com.example.edvin.app.models.User;
@@ -24,6 +25,9 @@ public interface BaseApiService {
 
     @GET("stations")
     Call<List<Station>> getStations();
+
+    @GET("materials")
+    Call<List<Material>> getMaterials();
 
     @POST("users/post")
     Call<User> createUser(@Body User user);
