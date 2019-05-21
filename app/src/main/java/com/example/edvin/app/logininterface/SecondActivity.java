@@ -97,7 +97,7 @@ public class SecondActivity extends AppCompatActivity {
 
 
 
-
+/*
         FacebookSdk.sdkInitialize(getApplicationContext());
         
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
@@ -160,7 +160,8 @@ public class SecondActivity extends AppCompatActivity {
         tokenTracker.stopTracking();
         super.onDestroy();
     }
-
+*/
+    }
 
     private void getData(JSONObject object) {
         try {
