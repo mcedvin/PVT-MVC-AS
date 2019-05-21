@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 
 import com.example.edvin.app.R;
 import com.example.edvin.app.challenges.ChallengesActivity;
+import com.example.edvin.app.challenges.ChallengesCategoryScreenActivity;
 import com.example.edvin.app.guide.GuideMainActivity;
 import com.example.edvin.app.map.MapActivity;
 import com.example.edvin.app.models.LoggedInUser;
@@ -40,6 +41,8 @@ public class OverviewActivity extends AppCompatActivity {
         joinNewChallenge.setOnClickListener(l -> homeToNewChallenge());
 
 
+
+
         //bottomNav = findViewById(R.id.navv_view); ********** FEL NAMN!!!!!************
         bottomNav = findViewById(R.id.bottomNavBar);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
@@ -62,7 +65,7 @@ public class OverviewActivity extends AppCompatActivity {
 
     private void homeToNewChallenge() {
 
-        Intent mintent = new Intent(this, ChallengesActivity.class);
+        Intent mintent = new Intent(this, ChallengesCategoryScreenActivity.class);
         mintent.putExtra("serialize_data",loggedInUser);
         startActivity(mintent);
     }
