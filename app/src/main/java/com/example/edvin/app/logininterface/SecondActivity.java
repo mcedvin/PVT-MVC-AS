@@ -16,16 +16,20 @@ import android.widget.Toast;
 
 import com.example.edvin.app.models.LoggedInUser;
 import com.example.edvin.app.overview.OverviewActivity;
+import com.example.edvin.app.settings.SettingsActivity;
 import com.example.edvin.app.util.InternetConnection;
 import com.example.edvin.app.models.User;
 import com.example.edvin.app.util.BaseApiService;
 import com.example.edvin.app.util.RetrofitClient;
 import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.squareup.picasso.Picasso;
@@ -54,22 +58,26 @@ public class SecondActivity extends AppCompatActivity {
     LoggedInUser loggedInUser;
 
 
-
+    AccessTokenTracker tokenTracker;
     CallbackManager callbackManager;
     TextView txtEmail, txtBirthday, txtFriends;
     ProgressDialog mDialog;
     ImageView imgAvatar;
+    private com.facebook.FacebookSdk FacebookSdk;
 
 
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+
     }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_second);
 
 
@@ -81,10 +89,15 @@ public class SecondActivity extends AppCompatActivity {
         txtBirthday = (TextView) findViewById(R.id.txtBirthday);
         txtEmail = (TextView) findViewById(R.id.txtEmail);
         txtFriends = (TextView) findViewById(R.id.txtFriends);
-
         imgAvatar = (ImageView) findViewById(R.id.avatar);
 
+
+
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
+
         loginButton.setReadPermissions(Arrays.asList("public_profile", "email", "user_birthday", "user_friends"));
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -92,6 +105,7 @@ public class SecondActivity extends AppCompatActivity {
                 mDialog = new ProgressDialog(SecondActivity.this);
                 mDialog.setMessage("Retrieving data...");
                 mDialog.show();
+                goToHome();
 
                 String accesstoken = loginResult.getAccessToken().getToken();
 
@@ -101,6 +115,7 @@ public class SecondActivity extends AppCompatActivity {
                         mDialog.dismiss();
                         Log.d("response", object.toString());
                         getData(object);
+
                     }
                 });
 
@@ -114,6 +129,9 @@ public class SecondActivity extends AppCompatActivity {
 
             @Override
             public void onCancel() {
+
+
+
 
             }
 
@@ -132,11 +150,19 @@ public class SecondActivity extends AppCompatActivity {
     }
 
 
+
+    @Override
+    public void onDestroy() {
+        tokenTracker.stopTracking();
+        super.onDestroy();
+    }
+
+
     private void getData(JSONObject object) {
         try {
-            URL profile_picture = new URL("https://graph.facebook.com/" + object.getString("id") + "/picture?width=250&height=250");
 
-            Picasso.with(this).load(profile_picture.toString()).into(imgAvatar);
+            URL profile_picture = new URL("https://graph.facebook.com/" + object.getString("id") + "/picture?width=250&height=250");
+           Picasso.with(this).load(profile_picture.toString()).into(imgAvatar);
 
             txtEmail.setText(object.getString("Email"));
             txtBirthday.setText(object.getString("Birthday"));
@@ -226,6 +252,12 @@ public class SecondActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    protected void goToLogin(){
+
+        Intent intent = new Intent(this, SecondActivity.class);
+        startActivity(intent);
     }
 
 

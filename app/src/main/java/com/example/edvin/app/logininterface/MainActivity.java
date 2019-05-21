@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import com.example.edvin.app.R;
 import com.example.edvin.app.challenges.ChallengesActivity;
 import com.example.edvin.app.overview.OverviewActivity;
+import com.facebook.AccessToken;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,7 +29,10 @@ public class MainActivity extends AppCompatActivity {
     public void onStart2(View view){
         Intent mintent = new Intent(MainActivity.this, SignupActivity.class);
         startActivity(mintent);
+
+
+        }
     }
 
 
-}
+
