@@ -20,9 +20,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,7 +53,9 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -77,11 +80,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private Location currentLocation;
     private Map<Marker, Station> markersAndStations = new HashMap<>();
     private Marker lastClicked = null;
-    private LocationCallback locationCallback;
-    private LocationRequest locationRequest;
     private boolean locationPermissionIsGranted;
     private BottomNavigationView bottomNavigationView;
-    private SearchView searchView;
+    private AutoCompleteTextView searchView;
     private TextView filterTextView;
     private ImageButton filterButton;
     private AlertDialog dialog = null;
@@ -96,7 +97,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         /**
          * info from användare
          */
-        loggedInUser = (LoggedInUser) getIntent().getExtras().getSerializable("serialize_data");
+//        loggedInUser = (LoggedInUser) getIntent().getExtras().getSerializable("serialize_data");
 
 
         noOfFilterItems = getResources().getStringArray(R.array.materials_array).length;
@@ -111,7 +112,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         filterButton = (ImageButton) findViewById(R.id.filterButton);
-        searchView = (SearchView) findViewById(R.id.searchView);
+
+        searchView = (AutoCompleteTextView) findViewById(R.id.searchView);
+        searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Station s = (Station)parent.getItemAtPosition(position);
+                goToStation(s);
+            }
+        });
 
         setUpFilterTextView();
 
@@ -179,7 +188,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         setUpMapUI(googleMap);
 
-        addMarkers();
+        getRecyclingStations();
 
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
@@ -215,9 +224,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         }
 
+
+
     }
 
-    private void addMarkers() {
+    private void setUpAutoCompleteSearch() {
+        if (markersAndStations != null && !markersAndStations.isEmpty()) {
+            ArrayAdapter<Station> adapter = new ArrayAdapter<Station>(MapActivity.this, android.R.layout.simple_dropdown_item_1line, new ArrayList<>(markersAndStations.values()));
+            searchView.setAdapter(adapter);
+        }
+    }
+
+    private void getRecyclingStations() {
         BaseApiService api = RetrofitClient.getApiService();
         Call<List<Station>> call = api.getStations();
 
@@ -234,6 +252,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     marker.hideInfoWindow();
                     markersAndStations.put(marker, s);
                 }
+                setUpAutoCompleteSearch();
             }
 
             @Override
@@ -441,8 +460,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     //logic for filtering stations
-    public void onDialog(View v) {
-        dialog = onCreateDialog(null);
+    public void onFilterDialog(View v) {
+        dialog = onCreateFilterDialog(null);
         dialog.show();
 
         final ListView listView = dialog.getListView();
@@ -474,7 +493,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     //logic for filtering stations
-    public AlertDialog onCreateDialog(Bundle savedInstanceState) {
+    public AlertDialog onCreateFilterDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MapActivity.this);
 
         builder.setTitle(R.string.filterDialogHeader)

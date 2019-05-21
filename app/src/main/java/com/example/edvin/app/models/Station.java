@@ -72,13 +72,7 @@ public class Station implements Serializable {
 
     @Override
     public String toString() {
-        return "Station{" +
-                "stationName='" + stationName + '\'' +
-                ", position=" + position +
-                ", availableMaterials=" + availableMaterials +
-                ", cleaningSchedule=" + cleaningSchedule +
-                ", materialSchedules=" + materialSchedules +
-                '}';
+        return stationName;
     }
 
 }

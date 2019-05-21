@@ -93,6 +93,7 @@
     <string name="filterDialogHeader">Filtrera stationer</string>
     <string name="title_activity_station">Station</string>
     <string name="failed_to_get_recycling_stations">Kunde inte hämta återvinningsstationer</string>
+    <string name="search_hint">Sök återvinningsstation</string>
     <string-array name="materials_array">
         <item>Alla</item>
         <item>Glas</item>
@@ -448,6 +449,7 @@ Guide vid sortering av trädgårdsavfall
 \nEn del, så kallat invasiva, växter ska dock inte läggas i komposten. Då riskerar man istället att sprida dem så att de konkurrerar ut inhemska arter. Det gäller bland annat jätteloka (även kallad jättebjörnloka), tromsöloka (snarlik jättelokan men växer bara i norra Sverige), jättebalsamin, parkslide och skunkkalla. Totalt finns nu 24 växter på Naturvårdsverkets lista över invasiva främmande arter i Sverige. Samtliga bör läggas i säck i återvinningscentralens container för brännbart avfall.\n
 
 </string>
+    <string name="hint_station">Sök station</string>
 
     <string name="utmaningar">
 
