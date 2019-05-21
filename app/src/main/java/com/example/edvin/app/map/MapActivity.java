@@ -85,6 +85,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private AlertDialog dialog = null;
     private boolean selectAll = true;
     private int noOfFilterItems;
+    private boolean[] checkedFilterOptions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,6 +163,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void setUpFilterWidgets() {
         noOfFilterItems = getResources().getStringArray(R.array.materials_array).length;
+        checkedFilterOptions = new boolean[noOfFilterItems];
+        for (int i = 0; i < noOfFilterItems; i++) {
+            checkedFilterOptions[i] = true;
+        }
+
         filterButton = (ImageButton) findViewById(R.id.filterButton);
 
         filterTextView = (TextView) findViewById(R.id.filterTextView);
@@ -343,11 +349,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         alert.show();
     }
 
-    private void filterStationsDialog() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -486,6 +487,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 boolean isChecked = listView.isItemChecked(position);
+
                 if (position == 0) {
                     if (selectAll) {
                         for (int i = 1; i < noOfFilterItems; i++) { // we start with first element after "Select all" choice
@@ -504,22 +506,42 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         selectAll = true;
                     }
                 }
+                //this makes sure we remember which items are checked
+                checkedFilterOptions[position] = isChecked;
             }
         });
+    }
+
+    private void filterStationsDialog() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
     }
 
     public AlertDialog onCreateFilterDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MapActivity.this);
 
         builder.setTitle(R.string.filterDialogHeader)
-                .setMultiChoiceItems(getResources().getStringArray(R.array.materials_array), null, null)
+                .setMultiChoiceItems(getResources().getStringArray(R.array.materials_array), checkedFilterOptions, null)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        // User clicked OK, so save something here
+                        filterMarkersOnMap();
                     }
                 });
         return builder.create();
+    }
+
+
+    private void filterMarkersOnMap() {
+        if (allMaterialsAreSelected()) {
+
+        } else {
+
+        }
+    }
+
+    private boolean allMaterialsAreSelected() {
+        return checkedFilterOptions[0] = true;
     }
 }
 
