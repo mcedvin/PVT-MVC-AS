@@ -68,6 +68,7 @@
     <string name="driving_challenge_text">Reducera ditt bilåkande \nmed hälften!</string>
     <string name="plant_challenge_text">Odla dina egna \ngrönsaker!</string>
     <string name="no_plastic_food_challenge_text">Laga mat med \ningredienser utan \nplastförpackningar</string>
+    <string name="buy_local_challenge_text">Köp lokala råvaror!</string>
 
 
     <!-- Strings related to map -->
