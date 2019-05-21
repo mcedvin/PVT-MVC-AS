@@ -7,6 +7,17 @@
     tools:context=".challenges.ChallengesCategoryScreenActivity"
     android:background="@drawable/background_homepage">
 
+    <ImageButton
+        android:id="@+id/backButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/back_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/challengesTitle"
         android:layout_width="wrap_content"
