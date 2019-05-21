@@ -59,6 +59,11 @@
     <string name="air_header_text">Luft</string>
     <string name="show_more_info_text">Läs mer</string>
 
+    <!-- Strings related to challenges categories -->
+    <string name="no_plastic_text">Inga engångsartiklar i \nplast på en månad!</string>
+    <string name="shower_time_text">Minska din tid \ni duschen!</string>
+    <string name="vegetarian_food_text">Två vegetariska dagar \ni veckan!</string>
+
 
     <!-- Strings related to map -->
 

@@ -97,15 +97,20 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center">
 
+
             <Button
-                android:id="@+id/gridButton1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:id="@+id/vegetarianFoodButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_row="0"
                 android:layout_column="0"
+                android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:background="@drawable/rectangle_challenge"
-                android:textSize="18sp" />
+                android:background="@drawable/vegetarian_food_challenge"
+                android:text="@string/vegetarian_food_text"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"/>
 
 
             <Button
