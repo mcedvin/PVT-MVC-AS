@@ -104,7 +104,7 @@
             android:layout_gravity="center">
 
             <Button
-                android:id="@+id/gridButton1"
+                android:id="@+id/reduceShowerTimeChallenge"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_row="0"
@@ -116,18 +116,22 @@
                 android:text="@string/shower_time_text"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
-                android:textSize="14sp" />
+                android:textSize="18sp" />
 
             <Button
-                android:id="@+id/gridButton2"
+                android:id="@+id/drivingChallengeButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_row="0"
                 android:layout_column="1"
+                android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:background="@drawable/rectangle_challenge"
+                android:background="@drawable/driving_challenge"
                 android:gravity="center"
-                android:textSize="18sp" />
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:text="@string/driving_challenge_text"/>
 
             <Button
                 android:id="@+id/gridButton3"
