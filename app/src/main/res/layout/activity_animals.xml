@@ -11,13 +11,9 @@
         android:id="@+id/animalsHeader"
         android:layout_width="414dp"
         android:layout_height="146dp"
-        android:layout_marginBottom="585dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/animals_header" />
 
     <ImageButton
@@ -57,6 +53,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/rounded_corners_border"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
@@ -64,10 +61,12 @@
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/animalsHeader" />
+        app:layout_constraintTop_toBottomOf="@+id/animalsHeader"
+        app:layout_constraintVertical_bias="0.076" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -78,8 +77,10 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/showMoreInfoButtonAnimals">
+        app:layout_constraintTop_toBottomOf="@+id/showMoreInfoButtonAnimals"
+        app:layout_constraintVertical_bias="0.252">
 
         <TextView
             android:id="@+id/allChallangesTitle"
@@ -110,7 +111,7 @@
                 android:text="@string/vegetarian_food_text"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
 
             <Button
@@ -160,26 +161,6 @@
                 android:layout_height="wrap_content"
                 android:layout_row="2"
                 android:layout_column="0"
-                android:layout_margin="5dp"
-                android:background="@drawable/rectangle_challenge"
-                android:textSize="18sp" />
-
-            <Button
-                android:id="@+id/gridButton7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="3"
-                android:layout_column="0"
-                android:layout_margin="5dp"
-                android:background="@drawable/rectangle_challenge"
-                android:textSize="18sp" />
-
-            <Button
-                android:id="@+id/gridButton8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_row="3"
-                android:layout_column="1"
                 android:layout_margin="5dp"
                 android:background="@drawable/rectangle_challenge"
                 android:textSize="18sp" />
