@@ -59,6 +59,8 @@
     <string name="animals_header_text">Djur</string>
     <string name="air_header_text">Luft</string>
     <string name="show_more_info_text">Läs mer</string>
+    <string name="finish_challenge_text">Avklarad!</string>
+    <string name="information_text">Information</string>
 
 
     <!-- Strings related to challenges categories -->
