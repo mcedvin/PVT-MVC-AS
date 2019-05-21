@@ -13,12 +13,14 @@ import com.example.edvin.app.R;
 import com.example.edvin.app.challenges.ChallengesActivity;
 import com.example.edvin.app.guide.GuideMainActivity;
 import com.example.edvin.app.map.MapActivity;
+import com.example.edvin.app.models.LoggedInUser;
 import com.example.edvin.app.settings.SettingsActivity;
 
 public class OverviewActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNav;
     ImageButton settingsButton;
+    LoggedInUser loggedInUser;
 
 
     @Override
@@ -26,11 +28,16 @@ public class OverviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_overview);
 
+        /**
+         * info from användare
+         */
+        loggedInUser = (LoggedInUser) getIntent().getExtras().getSerializable("serialize_data");
+
         settingsButton = findViewById(R.id.settingsButton);
-        settingsButton.setOnClickListener(l -> startActivity(new Intent(this, SettingsActivity.class)));
+        settingsButton.setOnClickListener(l -> homeToSetting());
 
         Button joinNewChallenge = findViewById(R.id.joinNewChallenge);
-        joinNewChallenge.setOnClickListener(l -> startActivity(new Intent(this, ChallengesActivity.class)));
+        joinNewChallenge.setOnClickListener(l -> homeToNewChallenge());
 
 
         //bottomNav = findViewById(R.id.navv_view); ********** FEL NAMN!!!!!************
@@ -42,12 +49,28 @@ public class OverviewActivity extends AppCompatActivity {
     private void homeToGuide() {
 
         Intent mintent = new Intent(this, GuideMainActivity.class);
+        mintent.putExtra("serialize_data",loggedInUser);
+        startActivity(mintent);
+    }
+
+    private void homeToSetting() {
+
+        Intent mintent = new Intent(this, SettingsActivity.class);
+        mintent.putExtra("serialize_data",loggedInUser);
+        startActivity(mintent);
+    }
+
+    private void homeToNewChallenge() {
+
+        Intent mintent = new Intent(this, ChallengesActivity.class);
+        mintent.putExtra("serialize_data",loggedInUser);
         startActivity(mintent);
     }
 
     private void goToMap() {
 
         Intent mintent = new Intent(this, MapActivity.class);
+        mintent.putExtra("serialize_data",loggedInUser);
         startActivity(mintent);
     }
 

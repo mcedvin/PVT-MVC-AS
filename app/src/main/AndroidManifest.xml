@@ -93,7 +93,7 @@
         <activity android:name=".guide.PapperActivity" />
         <activity android:name=".guide.PlastActivity" />
         <activity android:name=".guide.TidningarActivity" />
-        <activity android:name=".mainpage.HomePageDesign" />
+
     </application>
 
 </manifest>

@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.edvin.app.R;
+import com.example.edvin.app.models.LoggedInUser;
 import com.example.edvin.app.overview.OverviewActivity;
 import com.example.edvin.app.settings.SettingsActivity;
 
@@ -18,6 +19,7 @@ public class ChallengesActivity extends AppCompatActivity {
     Button reuseButton;
     Button recycleButton;
     ImageButton challengeOfTheMonthButton;
+    LoggedInUser loggedInUser;
 
 
     @Override
@@ -25,13 +27,15 @@ public class ChallengesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_challenges);
 
+        loggedInUser = (LoggedInUser) getIntent().getExtras().getSerializable("serialize_data");
+
         backButton = findViewById(R.id.backButton);
         reduceButton = findViewById(R.id.reduceButton);
         reuseButton = findViewById(R.id.reuseButton);
         recycleButton = findViewById(R.id.recycleButton);
         challengeOfTheMonthButton = findViewById(R.id.challengeOfTheMonthButton);
 
-        backButton.setOnClickListener(l -> startActivity(new Intent(this, OverviewActivity.class)));
+        backButton.setOnClickListener(l -> challengeToHome());
         challengeOfTheMonthButton.setOnClickListener(l -> startActivity(new Intent(this, ChallengeInformationActivity.class)));
 
         CategoryListener categoryListener = new CategoryListener();
@@ -42,6 +46,13 @@ public class ChallengesActivity extends AppCompatActivity {
         reduceButton.performClick();
 
 
+    }
+
+    private void challengeToHome(){
+
+        Intent mintent = new Intent(this, OverviewActivity.class);
+        mintent.putExtra("serialize_data",loggedInUser);
+        startActivity(mintent);
     }
 
 

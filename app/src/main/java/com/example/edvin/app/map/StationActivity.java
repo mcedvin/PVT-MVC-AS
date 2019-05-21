@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.edvin.app.R;
+import com.example.edvin.app.models.LoggedInUser;
 import com.example.edvin.app.models.Station;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -15,10 +16,18 @@ import com.google.android.gms.maps.SupportMapFragment;
 
 public class StationActivity extends AppCompatActivity implements OnMapReadyCallback {
 
+    LoggedInUser loggedInUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_station);
+
+        /**
+         * info from användare
+         */
+        loggedInUser = (LoggedInUser) getIntent().getExtras().getSerializable("serialize_data");
+
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

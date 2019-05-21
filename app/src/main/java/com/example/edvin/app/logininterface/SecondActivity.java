@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.edvin.app.models.LoggedInUser;
 import com.example.edvin.app.overview.OverviewActivity;
 import com.example.edvin.app.util.InternetConnection;
 import com.example.edvin.app.models.User;
@@ -49,6 +51,7 @@ public class SecondActivity extends AppCompatActivity {
     EditText userTxt;
     Button startBtn;
     boolean check = false;
+    LoggedInUser loggedInUser;
 
 
 
@@ -204,6 +207,7 @@ public class SecondActivity extends AppCompatActivity {
                     //connect to homepage
 
                     if(check){
+
                         goToHome();
 
                     }
@@ -228,6 +232,7 @@ public class SecondActivity extends AppCompatActivity {
     protected void goToHome(){
 
         Intent intent = new Intent(this, OverviewActivity.class);
+        intent.putExtra("serialize_data",loggedInUser);
         startActivity(intent);
     }
 
@@ -246,6 +251,7 @@ public class SecondActivity extends AppCompatActivity {
                 if( u.getUserAccount() != null){
                     if(u.getUserAccount().getPassword().equals(p)){
                         check = true;
+                         loggedInUser = new LoggedInUser(u.getFirstName()+" "+u.getLastName(),u.getUserAccount().getId());
                         return "Hello, "+u.getFirstName()+"! Logging in into your account..";
                     }else
                         return "wrong password";
