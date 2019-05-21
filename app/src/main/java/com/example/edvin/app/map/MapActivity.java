@@ -200,8 +200,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                     for (int i = 1; i < noOfFilterItems; i++) {
                         for (int j = 0; j < i; j++) {
-                            String material = materials.get(j).getName();
-                            filterItems[i] = material;
+                            Material material = materials.get(j);
+                            String name = material.getName();
+                            filterItems[i] = name;
                         }
                     }
 
@@ -596,7 +597,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private boolean allMaterialsAreSelected() {
         return checkedFilterOptions[0] = true;
     }
-
 
 }
 
