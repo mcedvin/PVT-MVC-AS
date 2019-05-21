@@ -2,7 +2,9 @@ package com.example.edvin.app.logininterface;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,6 +34,7 @@ import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -56,6 +59,7 @@ public class SecondActivity extends AppCompatActivity {
     Button startBtn;
     boolean check = false;
     LoggedInUser loggedInUser;
+    SharedPreferences sharedPreferences;
 
 
     AccessTokenTracker tokenTracker;
@@ -284,6 +288,16 @@ public class SecondActivity extends AppCompatActivity {
                     if(u.getUserAccount().getPassword().equals(p)){
                         check = true;
                          loggedInUser = new LoggedInUser(u.getFirstName()+" "+u.getLastName(),u.getUserAccount().getId());
+
+                        sharedPreferences = getSharedPreferences("autoLogin", Context.MODE_PRIVATE);
+                         SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
+                        Gson gson = new Gson();
+                        String json = gson.toJson(loggedInUser);
+                        prefsEditor.putString("SerializableObject", json);
+                        prefsEditor.putInt("key",1);
+                        prefsEditor.apply();
+
+
                         return "Hello, "+u.getFirstName()+"! Logging in into your account..";
                     }else
                         return "wrong password";
