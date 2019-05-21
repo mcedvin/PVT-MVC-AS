@@ -36,8 +36,6 @@ import com.example.edvin.app.overview.OverviewActivity;
 import com.example.edvin.app.util.BaseApiService;
 import com.example.edvin.app.util.RetrofitClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -55,7 +53,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -96,34 +93,40 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         /**
          * info from användare
+         * loggedInUser = (LoggedInUser) getIntent().getExtras().getSerializable("serialize_data");
          */
-//        loggedInUser = (LoggedInUser) getIntent().getExtras().getSerializable("serialize_data");
 
+        getMap();
 
-        noOfFilterItems = getResources().getStringArray(R.array.materials_array).length;
+        getLocationServices();
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.mapMapActivity);
-        mapFragment.getMapAsync(this);
+        setUpSearchBar();
 
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        provider = locationManager.getBestProvider(new Criteria(), false);
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        setUpFilterWidgets();
 
-        filterButton = (ImageButton) findViewById(R.id.filterButton);
+        setUpBottomNavigationView();
 
+    }
+
+    private void setUpSearchBar() {
         searchView = (AutoCompleteTextView) findViewById(R.id.searchView);
         searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Station s = (Station)parent.getItemAtPosition(position);
+                Station s = (Station) parent.getItemAtPosition(position);
                 goToStation(s);
             }
         });
+    }
 
-        setUpFilterTextView();
+    private void setUpAutoCompleteSearch() {
+        if (markersAndStations != null && !markersAndStations.isEmpty()) {
+            ArrayAdapter<Station> adapter = new ArrayAdapter<Station>(MapActivity.this, android.R.layout.simple_dropdown_item_1line, new ArrayList<>(markersAndStations.values()));
+            searchView.setAdapter(adapter);
+        }
+    }
 
+    private void setUpBottomNavigationView() {
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navv_view);
         bottomNavigationView.setSelectedItemId(R.id.stationMenuItem);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -142,10 +145,25 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 return true;
             }
         });
-
     }
 
-    private void setUpFilterTextView() {
+    private void getMap() {
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.mapMapActivity);
+        mapFragment.getMapAsync(this);
+    }
+
+    private void getLocationServices() {
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        provider = locationManager.getBestProvider(new Criteria(), false);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+    }
+
+    private void setUpFilterWidgets() {
+        noOfFilterItems = getResources().getStringArray(R.array.materials_array).length;
+        filterButton = (ImageButton) findViewById(R.id.filterButton);
+
         filterTextView = (TextView) findViewById(R.id.filterTextView);
         filterTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,39 +175,57 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void goToHomeScreen() {
         Intent intent = new Intent(getApplicationContext(), OverviewActivity.class);
-        intent.putExtra("serialize_data",loggedInUser);
+        intent.putExtra("serialize_data", loggedInUser);
         startActivity(intent);
     }
 
     private void goToGuide() {
         Intent intent = new Intent(getApplicationContext(), GuideMainActivity.class);
-        intent.putExtra("serialize_data",loggedInUser);
+        intent.putExtra("serialize_data", loggedInUser);
         startActivity(intent);
     }
 
     private void goToStation(Station station) {
         Intent stationIntent = new Intent(this, StationActivity.class);
         stationIntent.putExtra("station", station);
-        stationIntent.putExtra("serialize_data",loggedInUser);
+        stationIntent.putExtra("serialize_data", loggedInUser);
         startActivity(stationIntent);
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        /**
+         * Manipulates the map once available.
+         * This callback is triggered when the map is ready to be used.
+         * This is where we can add markers or lines, add listeners or move the camera.
+         * If Google Play services is not installed on the device, the user will be prompted to install
+         * it inside the SupportMapFragment. This method will only be triggered once the user has
+         * installed Google Play services and returned to the app.
+         */
+
         map = googleMap;
 
         setUpMapUI(googleMap);
 
         getRecyclingStations();
 
+        addMarkerListener();
+
+        ensureAccessToLocation();
+
+    }
+
+    private void ensureAccessToLocation() {
+        if (mapServicesEnabled()) {
+            if (locationPermissionIsGranted) {
+                enableLocationFunctionality();
+            } else {
+                getLocationPermission();
+            }
+        }
+    }
+
+    private void addMarkerListener() {
         map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
@@ -215,24 +251,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 return true;
             }
         });
-
-        if (mapServicesEnabled()) {
-            if (locationPermissionIsGranted) {
-                enableLocationFunctionality();
-            } else {
-                getLocationPermission();
-            }
-        }
-
-
-
-    }
-
-    private void setUpAutoCompleteSearch() {
-        if (markersAndStations != null && !markersAndStations.isEmpty()) {
-            ArrayAdapter<Station> adapter = new ArrayAdapter<Station>(MapActivity.this, android.R.layout.simple_dropdown_item_1line, new ArrayList<>(markersAndStations.values()));
-            searchView.setAdapter(adapter);
-        }
     }
 
     private void getRecyclingStations() {
@@ -305,13 +323,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            showMessageNoLocation();
+            showMessageWhenLocationIsDisabled();
             return false;
         }
         return true;
     }
 
-    private void showMessageNoLocation() {
+    private void showMessageWhenLocationIsDisabled() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.info_message_please_enable_gps)
                 .setCancelable(false)
@@ -363,13 +381,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                             } else {
                                 Log.d(TAG, "location is null");
                             }
-                            adjustZoom();
+                            adjustCameraZoomOnMap();
                         }
                     });
         }
 
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -417,7 +434,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     }
 
-    private void adjustZoom() {
+    private void adjustCameraZoomOnMap() {
 
         if (currentLocation != null) {
 
@@ -459,7 +476,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         return false;
     }
 
-    //logic for filtering stations
     public void onFilterDialog(View v) {
         dialog = onCreateFilterDialog(null);
         dialog.show();
@@ -492,7 +508,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         });
     }
 
-    //logic for filtering stations
     public AlertDialog onCreateFilterDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MapActivity.this);
 
