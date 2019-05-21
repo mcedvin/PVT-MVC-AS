@@ -444,5 +444,33 @@ Guide vid sortering av trädgårdsavfall
 
 </string>
 
+    <string name="utmaningar">
+
+Utmaningar
+</string>
+
+
+    <string name="luften">
+
+Luften
+</string>
+
+
+    <string name="djuren">
+
+Djuren
+</string>
+
+
+    <string name="naturen">
+
+Naturen
+</string>
+
+
+    <string name="hav">
+
+Hav
+</string>
 
 </resources>
