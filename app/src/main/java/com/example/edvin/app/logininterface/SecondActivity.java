@@ -31,6 +31,7 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -60,6 +61,7 @@ public class SecondActivity extends AppCompatActivity {
     boolean check = false;
     LoggedInUser loggedInUser;
     SharedPreferences sharedPreferences;
+    private LoginButton loginButton;
 
 
     AccessTokenTracker tokenTracker;
@@ -70,8 +72,7 @@ public class SecondActivity extends AppCompatActivity {
     private com.facebook.FacebookSdk FacebookSdk;
 
 
-
-        protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
 
@@ -89,6 +90,7 @@ public class SecondActivity extends AppCompatActivity {
         userTxt = findViewById(R.id.userTxt);
         startBtn = findViewById(R.id.startBtn);
 
+        /*
         callbackManager = CallbackManager.Factory.create();
         txtBirthday = (TextView) findViewById(R.id.txtBirthday);
         txtEmail = (TextView) findViewById(R.id.txtEmail);
@@ -96,20 +98,19 @@ public class SecondActivity extends AppCompatActivity {
         imgAvatar = (ImageView) findViewById(R.id.avatar);
 
 
-/*
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
 
-    FacebookSdk.sdkInitialize(getApplicationContext());
-        
-        LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton = (LoginButton) findViewById(R.id.login_button);
 
-        loginButton.setReadPermissions(Arrays.asList("public_profile", "email", "user_birthday", "user_friends"));
+        loginButton.setReadPermissions("email");
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 mDialog = new ProgressDialog(SecondActivity.this);
                 mDialog.setMessage("Retrieving data...");
                 mDialog.show();
-                goToHome();
+
 
                 String accesstoken = loginResult.getAccessToken().getToken();
 
@@ -118,23 +119,26 @@ public class SecondActivity extends AppCompatActivity {
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         mDialog.dismiss();
                         Log.d("response", object.toString());
-                        getData(object);
+                        // Get facebook data from login
+                        Bundle bFacebookData = getFacebookData(object);
 
                     }
                 });
 
                 //Request Graph API
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,email,birthday,friends");
+                parameters.putString("fields", "id, first_name, last_name, email");
                 request.setParameters(parameters);
                 request.executeAsync();
+                Toast.makeText(SecondActivity.this,parameters.getString("first_name"),Toast.LENGTH_SHORT).show();
+
+
+
 
             }
 
             @Override
             public void onCancel() {
-
-
 
 
             }
@@ -154,15 +158,49 @@ public class SecondActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public void onDestroy() {
         tokenTracker.stopTracking();
         super.onDestroy();
     }
 */
- }
+    }
 
+
+
+    private Bundle getFacebookData(JSONObject object) {
+
+        try {
+            Bundle bundle = new Bundle();
+            String id = object.getString("id");
+
+            try {
+
+                bundle.putString("idFacebook", id);
+                if (object.has("first_name"))
+                    bundle.putString("first_name", object.getString("first_name"));
+                if (object.has("last_name"))
+                    bundle.putString("last_name", object.getString("last_name"));
+                if (object.has("email")) {
+                    bundle.putString("email", object.getString("email"));
+                    System.out.println(object.getString("email"));
+                    System.out.println(bundle.getString("email"));
+                }
+
+                return bundle;
+            } catch (JSONException e) {
+                Log.d("", "Error parsing JSON");
+            }
+            return null;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+/*
+
+JOELSSSSS
     private void getData(JSONObject object) {
         try {
 
@@ -180,7 +218,7 @@ public class SecondActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
+*/
 
     public void onClick(View view) {
 

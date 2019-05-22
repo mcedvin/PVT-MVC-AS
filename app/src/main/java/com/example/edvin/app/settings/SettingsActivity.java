@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.edvin.app.R;
 import com.example.edvin.app.logininterface.MainActivity;
 import com.example.edvin.app.overview.OverviewActivity;
+import com.facebook.login.LoginManager;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -30,11 +31,29 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     * for fb log out
+     */
+
+    public void logout(View view) {
+        LoginManager.getInstance().logOut();
+
+        doTheRest();
+    }
+
+
+
 
 
 
     public void signOut(View view) {
         //Resetting value to 0 so autologin is disabled
+        doTheRest();
+
+    }
+
+    private void doTheRest(){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("key", 0);
         editor.remove("SerializableObject");
@@ -43,6 +62,5 @@ public class SettingsActivity extends AppCompatActivity {
         Toast.makeText(this," Sign out successfully! ",Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
-
     }
 }
