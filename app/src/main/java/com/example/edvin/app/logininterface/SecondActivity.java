@@ -96,9 +96,9 @@ public class SecondActivity extends AppCompatActivity {
         imgAvatar = (ImageView) findViewById(R.id.avatar);
 
 
-
 /*
-        FacebookSdk.sdkInitialize(getApplicationContext());
+
+    FacebookSdk.sdkInitialize(getApplicationContext());
         
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
 
@@ -161,7 +161,7 @@ public class SecondActivity extends AppCompatActivity {
         super.onDestroy();
     }
 */
-    }
+ }
 
     private void getData(JSONObject object) {
         try {

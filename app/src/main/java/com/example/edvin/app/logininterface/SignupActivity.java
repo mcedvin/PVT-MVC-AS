@@ -1,6 +1,9 @@
 package com.example.edvin.app.logininterface;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,11 +12,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.edvin.app.R;
+import com.example.edvin.app.models.LoggedInUser;
+import com.example.edvin.app.models.UserAccount;
+import com.example.edvin.app.overview.OverviewActivity;
 import com.example.edvin.app.util.InternetConnection;
 import com.example.edvin.app.models.User;
 import com.example.edvin.app.util.BaseApiService;
 import com.example.edvin.app.util.RetrofitClient;
+import com.google.gson.Gson;
 
+import java.io.EOFException;
 import java.util.Random;
 
 import retrofit2.Call;
@@ -28,6 +36,9 @@ public class SignupActivity extends AppCompatActivity {
     EditText passTxt2;
     EditText mailTxt;
     Button signBtn;
+    LoggedInUser loggedInUser;
+    User newUser;
+    SharedPreferences sharedPreferences;
 
 
     @Override
@@ -72,7 +83,7 @@ public class SignupActivity extends AppCompatActivity {
             //Creating an object of our api interface
             BaseApiService api = RetrofitClient.getApiService();
 
-            User newUser = new User(firstName,lastName,email,password,getRandomNumberInRange(700,1200));
+            newUser = new User(firstName,lastName,email,password,getRandomNumberInRange(700,1200));
 
 
             /**
@@ -113,8 +124,9 @@ public class SignupActivity extends AppCompatActivity {
                      * Posted Successfully
                      */
 
-                    User postResponse = response.body();
-                    Toast.makeText(SignupActivity.this, "Success! "+ response.code()+", Welcome "+postResponse.getFirstName()+"!" ,Toast.LENGTH_SHORT).show();
+                    User postUser = new User(response.body().getFirstName(),response.body().getLastName(),response.body().getEmail(),response.body().getUserAccount().getPassword(),response.body().getUserAccount().getId());
+                    System.out.println(postUser.getFirstName());
+                    Toast.makeText(SignupActivity.this, "Success! "+ response.code()+", Welcome "+postUser.getFirstName()+"!" ,Toast.LENGTH_SHORT).show();
 
 
                 }
@@ -122,12 +134,38 @@ public class SignupActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
                     dialog.dismiss();
+
+
+                    if (t instanceof EOFException){
+                        Toast.makeText(SignupActivity.this,"i think it worked.. i guess.. welcome "+ newUser.getFirstName(),Toast.LENGTH_SHORT).show();
+
+                        loggedInUser = new LoggedInUser(newUser.getFirstName()+" "+newUser.getLastName(),newUser.getUserAccount().getId());
+
+                        sharedPreferences = getSharedPreferences("autoLogin", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
+                        Gson gson = new Gson();
+                        String json = gson.toJson(loggedInUser);
+                        prefsEditor.putString("SerializableObject", json);
+                        prefsEditor.putInt("key",1);
+                        prefsEditor.apply();
+
+                        goToHome();
+
+                    }else
                     Toast.makeText(SignupActivity.this,"Failure! No response: "+t.getMessage(),Toast.LENGTH_SHORT).show();
                 }
             });
 
 
         }
+    }
+
+
+    protected void goToHome(){
+
+        Intent intent = new Intent(this, OverviewActivity.class);
+        intent.putExtra("serialize_data",loggedInUser);
+        startActivity(intent);
     }
 
 
