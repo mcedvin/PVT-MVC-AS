@@ -17,12 +17,6 @@
         app:layout_constraintBottom_toTopOf="@id/scrollView6">
 
         <View
-            android:id="@+id/arrows_coup"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
-            android:background="@drawable/arrow_circle" />
-
-        <View
             android:id="@+id/guide_top2"
             android:layout_width="match_parent"
             android:layout_height="173dp"
@@ -36,13 +30,15 @@
             android:layout_marginTop="0dp"
             android:layout_marginEnd="0dp"
             android:layout_marginRight="0dp"
-            android:background="@drawable/guide_top2"
+            android:background="@drawable/sorting_header"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_editor_absoluteY="57dp" />
 
+
         <TextView
+
             android:id="@+id/sorteringsg"
             android:layout_width="224dp"
             android:layout_height="40dp"
@@ -59,12 +55,12 @@
             android:layout_marginRight="92dp"
             android:layout_marginBottom="52dp"
             android:gravity="center_horizontal"
+            android:lineSpacingExtra="12sp"
             android:text="@string/sorteringsg"
             android:textAppearance="@style/sorteringsg"
             android:visibility="visible"
-            app:fontFamily="@font/roboto_bold"
-            tools:layout_editor_absoluteX="80dp"
-            tools:layout_editor_absoluteY="16dp" />
+            tools:visibility="visible" />
+
 
         <TextView
             android:id="@+id/om_du_r_os_"
@@ -96,12 +92,11 @@
         android:id="@+id/scrollView6"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="0dp"
         app:layout_constraintBottom_toTopOf="@+id/navv_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout7"
-        app:layout_constraintVertical_bias="0.525">
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout7">
 
 
         <GridLayout
