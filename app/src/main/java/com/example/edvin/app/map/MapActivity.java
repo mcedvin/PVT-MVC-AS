@@ -230,24 +230,24 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void goToHomeScreen() {
         Intent intent = new Intent(getApplicationContext(), OverviewActivity.class);
-        intent.putExtra("user", loggedInUser);
+        intent.putExtra(getString(R.string.INTENT_KEY_USER), loggedInUser);
         startActivity(intent);
     }
 
     private void goToGuide() {
         Intent intent = new Intent(getApplicationContext(), GuideMainActivity.class);
-        intent.putExtra("user", loggedInUser);
+        intent.putExtra(getString(R.string.INTENT_KEY_USER), loggedInUser);
         startActivity(intent);
     }
 
     private void goToStation(Station station) {
         Intent stationIntent = new Intent(this, StationActivity.class);
         Bundle bundle = new Bundle();
-        stationIntent.putExtra("station", station);
-        stationIntent.putExtra("user", loggedInUser);
-        bundle.putDouble("camera center latitude", map.getCameraPosition().target.latitude);
-        bundle.putDouble("camera center longitude", map.getCameraPosition().target.longitude);
-        bundle.putFloat("camera zoom level", map.getCameraPosition().zoom);
+        stationIntent.putExtra(getString(R.string.INTENT_KEY_STATION), station);
+        stationIntent.putExtra(getString(R.string.INTENT_KEY_USER), loggedInUser);
+        bundle.putDouble(getString(R.string.INTENT_KEY_CAMERA_LAT), map.getCameraPosition().target.latitude);
+        bundle.putDouble(getString(R.string.INTENT_KEY_CAMERA_LONG), map.getCameraPosition().target.longitude);
+        bundle.putFloat(getString(R.string.INTENT_KEY_CAMERA_ZOOM), map.getCameraPosition().zoom);
         stationIntent.putExtras(bundle);
         startActivity(stationIntent);
     }
