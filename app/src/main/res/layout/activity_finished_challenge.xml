@@ -146,6 +146,7 @@
         android:id="@+id/fb_share_button"
         android:layout_width="100dp"
         android:layout_height="25dp"
+        android:onClick="share"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"

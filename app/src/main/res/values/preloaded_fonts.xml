@@ -3,7 +3,7 @@
     <array name="preloaded_fonts" translatable="false">
         <item>@font/candal</item>
         <item>@font/roboto_black</item>
-        <item>@font/roboto_bold_italic</item>
+        <!--<item>@font/roboto_bold_italic</item>-->
         <item>@font/roboto_mono_bold</item>
     </array>
 </resources>
