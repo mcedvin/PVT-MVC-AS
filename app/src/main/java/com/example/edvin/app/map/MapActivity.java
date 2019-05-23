@@ -212,7 +212,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     }
 
                 } else {
-                    Log.d(TAG, "Response code: " + response.code());
+                    Log.d(TAG, "Server response code: " + response.code());
                 }
 
             }
@@ -230,23 +230,24 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void goToHomeScreen() {
         Intent intent = new Intent(getApplicationContext(), OverviewActivity.class);
-        intent.putExtra("serialize_data", loggedInUser);
+        intent.putExtra(getString(R.string.INTENT_KEY_USER), loggedInUser);
         startActivity(intent);
     }
 
     private void goToGuide() {
         Intent intent = new Intent(getApplicationContext(), GuideMainActivity.class);
-        intent.putExtra("serialize_data", loggedInUser);
+        intent.putExtra(getString(R.string.INTENT_KEY_USER), loggedInUser);
         startActivity(intent);
     }
 
     private void goToStation(Station station) {
         Intent stationIntent = new Intent(this, StationActivity.class);
         Bundle bundle = new Bundle();
-        stationIntent.putExtra("station", station);
-        stationIntent.putExtra("user", loggedInUser);
-        bundle.putDouble("camera center latitude", map.getCameraPosition().target.latitude);
-        bundle.putDouble("camera center longitude", map.getCameraPosition().target.longitude);
+        stationIntent.putExtra(getString(R.string.INTENT_KEY_STATION), station);
+        stationIntent.putExtra(getString(R.string.INTENT_KEY_USER), loggedInUser);
+        bundle.putDouble(getString(R.string.INTENT_KEY_CAMERA_LAT), map.getCameraPosition().target.latitude);
+        bundle.putDouble(getString(R.string.INTENT_KEY_CAMERA_LONG), map.getCameraPosition().target.longitude);
+        bundle.putFloat(getString(R.string.INTENT_KEY_CAMERA_ZOOM), map.getCameraPosition().zoom);
         stationIntent.putExtras(bundle);
         startActivity(stationIntent);
     }
@@ -331,7 +332,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     }
                     setUpAutoCompleteSearch();
                 } else {
-                    Log.d(TAG, "Response code: " + response.code());
+                    Log.d(TAG, "Server response code: " + response.code());
                 }
             }
 
@@ -430,7 +431,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                         @Override
                         public void onSuccess(Location location) {
-                            Log.d(TAG, "onSuccess: called.");
+                            Log.d(TAG, "onSuccess() called, got last known location but might be null");
                             // Got last known location. In some rare situations this can be null.
                             if (location != null) {
                                 // Logic to handle location object

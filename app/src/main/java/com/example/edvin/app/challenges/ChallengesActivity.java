@@ -27,7 +27,7 @@ public class ChallengesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_challenges);
 
-        loggedInUser = (LoggedInUser) getIntent().getExtras().getSerializable("serialize_data");
+        loggedInUser = (LoggedInUser) getIntent().getExtras().getSerializable(getString(R.string.INTENT_KEY_USER));
 
         backButton = findViewById(R.id.backButton);
         reduceButton = findViewById(R.id.reduceButton);

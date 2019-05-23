@@ -106,8 +106,10 @@
     </string-array>
 
 
-    Sorteringsguide
+
     <string name="sorteringsg">
+
+Sorteringsguide
 
 </string>
 
@@ -486,5 +488,10 @@ Hav
 
 Avklarade Utmaningar
 </string>
+    <string name="INTENT_KEY_STATION">station</string>
+    <string name="INTENT_KEY_USER">user</string>
+    <string name="INTENT_KEY_CAMERA_LAT">camera center latitude</string>
+    <string name="INTENT_KEY_CAMERA_LONG">camera center longitude</string>
+    <string name="INTENT_KEY_CAMERA_ZOOM">camera zoom level</string>
 
 </resources>
