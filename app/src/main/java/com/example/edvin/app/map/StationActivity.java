@@ -21,6 +21,7 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
     private LoggedInUser loggedInUser;
     private GoogleMap map;
     private double cameraCenterLatitude, cameraCenterLongitude;
+    private float cameraZoomLevel;
     private int DEFAULT_ZOOM = 13;
 
     @Override
@@ -28,24 +29,21 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_station);
 
-
-
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapStationActivity);
         mapFragment.getMapAsync(this);
-        ImageButton close = (ImageButton)findViewById(R.id.closeStationInfo);
+        ImageButton close = (ImageButton) findViewById(R.id.closeStationInfo);
 
-        TextView stationName = (TextView)findViewById(R.id.stationName);
-
+        TextView stationName = (TextView) findViewById(R.id.stationName);
 
         Intent intent = getIntent();
-        Station station =(Station)intent.getSerializableExtra("station");
-        loggedInUser = (LoggedInUser) intent.getSerializableExtra("user");
+        Station station = (Station) intent.getSerializableExtra(getString(R.string.INTENT_KEY_STATION));
+        loggedInUser = (LoggedInUser) intent.getSerializableExtra(getString(R.string.INTENT_KEY_USER));
         Bundle fromReferringActivity = intent.getExtras();
-        double cameraCenterLatitude = fromReferringActivity.getDouble("camera center latitude");
-        double cameraCenterLongitude = fromReferringActivity.getDouble("camera center longitude");
+        cameraCenterLatitude = fromReferringActivity.getDouble(getString(R.string.INTENT_KEY_CAMERA_LAT));
+        cameraCenterLongitude = fromReferringActivity.getDouble(getString(R.string.INTENT_KEY_CAMERA_LONG));
+        cameraZoomLevel = fromReferringActivity.getFloat(getString(R.string.INTENT_KEY_CAMERA_ZOOM));
 
         stationName.setText(station.getStationName());
 
@@ -56,7 +54,8 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
 
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(cameraCenterLatitude, cameraCenterLongitude), DEFAULT_ZOOM));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(cameraCenterLatitude, cameraCenterLongitude), cameraZoomLevel));
+
 
     }
 }

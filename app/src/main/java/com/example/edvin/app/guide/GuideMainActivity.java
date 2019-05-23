@@ -41,7 +41,7 @@ public class GuideMainActivity extends AppCompatActivity {
         /**
          * info from användare
          */
-        loggedInUser = (LoggedInUser) getIntent().getExtras().getSerializable("serialize_data");
+        loggedInUser = (LoggedInUser) getIntent().getExtras().getSerializable(getString(R.string.INTENT_KEY_USER));
 
 
 

@@ -164,7 +164,7 @@ public class SignupActivity extends AppCompatActivity {
     protected void goToHome(){
 
         Intent intent = new Intent(this, OverviewActivity.class);
-        intent.putExtra("serialize_data",loggedInUser);
+        intent.putExtra(getString(R.string.INTENT_KEY_USER),loggedInUser);
         startActivity(intent);
     }
 

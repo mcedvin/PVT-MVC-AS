@@ -212,7 +212,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     }
 
                 } else {
-                    Log.d(TAG, "Response code: " + response.code());
+                    Log.d(TAG, "Server response code: " + response.code());
                 }
 
             }
@@ -230,13 +230,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void goToHomeScreen() {
         Intent intent = new Intent(getApplicationContext(), OverviewActivity.class);
-        intent.putExtra("serialize_data", loggedInUser);
+        intent.putExtra("user", loggedInUser);
         startActivity(intent);
     }
 
     private void goToGuide() {
         Intent intent = new Intent(getApplicationContext(), GuideMainActivity.class);
-        intent.putExtra("serialize_data", loggedInUser);
+        intent.putExtra("user", loggedInUser);
         startActivity(intent);
     }
 
@@ -247,6 +247,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         stationIntent.putExtra("user", loggedInUser);
         bundle.putDouble("camera center latitude", map.getCameraPosition().target.latitude);
         bundle.putDouble("camera center longitude", map.getCameraPosition().target.longitude);
+        bundle.putFloat("camera zoom level", map.getCameraPosition().zoom);
         stationIntent.putExtras(bundle);
         startActivity(stationIntent);
     }
@@ -331,7 +332,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     }
                     setUpAutoCompleteSearch();
                 } else {
-                    Log.d(TAG, "Response code: " + response.code());
+                    Log.d(TAG, "Server response code: " + response.code());
                 }
             }
 
@@ -430,7 +431,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                         @Override
                         public void onSuccess(Location location) {
-                            Log.d(TAG, "onSuccess: called.");
+                            Log.d(TAG, "onSuccess() called, got last known location but might be null");
                             // Got last known location. In some rare situations this can be null.
                             if (location != null) {
                                 // Logic to handle location object

@@ -29,7 +29,6 @@ public class LoggedInUser implements Serializable {
         return id;
     }
 
-
     public void setAvatar(Image avatar) {
         this.avatar = avatar;
     }

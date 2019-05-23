@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <!--<color name="colorPrimary">#008577</color>-->
+    <!--<color name="colorPrimaryDark">#00574B</color>-->
+    <!--<color name="colorAccent">#D81B60</color>-->
+
+    <color name="colorPrimary">#51B9AC</color>
+    <color name="colorPrimaryDark">#008577</color>
+    <color name="colorAccent">#E27979</color>
 
     <color name="ReGoPrimaryColor">#51B9AC</color>
     <color name="ReGoPink">#EEB1B1</color>
+    <color name="ReGoRed">#E27979</color>
 
     <!-->Challenges activity<-->
     <color name="lightGrey">#B8B8B8</color>
