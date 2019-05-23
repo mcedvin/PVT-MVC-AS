@@ -60,7 +60,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout7"
-        android:layout_width="174dp"
+        android:layout_width="201dp"
         android:layout_height="56dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -76,11 +76,11 @@
             android:id="@+id/filterTextView"
             android:layout_width="135dp"
             android:layout_height="56dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             android:background="#FFFFFF"
-            android:gravity="center"
-            android:text="@string/filter_stations_button"
+            android:gravity="start|center_vertical"
+            android:text="@string/filter_stations_button_default"
             android:textSize="16sp"
             android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
@@ -95,7 +95,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:background="#FFFFFF"
-            android:contentDescription="@string/filter_stations_button"
+            android:contentDescription="@string/filter_stations_button_default"
             android:onClick="onFilterDialog"
             android:tint="@android:color/secondary_text_light_nodisable"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -106,8 +106,8 @@
     </android.support.constraint.ConstraintLayout>
 
     <LinearLayout
-        android:layout_width="124dp"
-        android:layout_height="523dp"
+        android:layout_width="107dp"
+        android:layout_height="525dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"

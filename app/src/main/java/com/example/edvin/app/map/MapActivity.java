@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -53,9 +54,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -63,7 +67,7 @@ import retrofit2.Response;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationClickListener, GoogleMap.OnMyLocationButtonClickListener {
 
-    LoggedInUser loggedInUser;
+    private LoggedInUser loggedInUser;
     private GoogleMap map;
     private static final String TAG = "MapActivity";
     private static final int PERMISSION_REQUEST_ACCESS_FINE_LOCATION = 32;
@@ -88,16 +92,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private int noOfFilterItems;
     private boolean[] checkedFilterOptions;
     private String[] filterItems;
+    private Set<String> materialsForFiltering;
+    private final int DEFAULT = 0;
+    private final int ACTIVE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-        /**
-         * info from användare
-         * loggedInUser = (LoggedInUser) getIntent().getExtras().getSerializable("serialize_data");
-         */
+
+//        loggedInUser = (LoggedInUser) getIntent().getSerializableExtra(getString(R.string.INTENT_KEY_USER));
 
         getMap();
 
@@ -108,6 +113,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         setUpFilterWidgets();
 
         setUpBottomNavigationView();
+
+    }
+
+    private void getDataFromIntent() {
 
     }
 
@@ -207,9 +216,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     }
 
                     checkedFilterOptions = new boolean[noOfFilterItems];
-                    for (int i = 0; i < noOfFilterItems; i++) {
-                        checkedFilterOptions[i] = true;
+
+                    for (boolean value : checkedFilterOptions) {
+                        value = false;
                     }
+
 
                 } else {
                     Log.d(TAG, "Server response code: " + response.code());
@@ -221,7 +232,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             public void onFailure(Call<List<Material>> call, Throwable t) {
                 filterButton.setEnabled(false);
                 filterTextView.setEnabled(false);
-                Log.d(TAG, "failed to get materials from REST service");
+                Log.d(TAG, "Failed to retrieve materials from server");
                 Toast.makeText(getApplicationContext(), R.string.API_fail_get_materials, Toast.LENGTH_LONG).show();
             }
 
@@ -321,16 +332,33 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             @Override
             public void onResponse(Call<List<Station>> call, Response<List<Station>> response) {
                 if (response.isSuccessful()) {
+
                     List<Station> stations = response.body();
-                    Log.d(TAG, "OnResponse() got: " + stations.toString());
+                    Log.d(TAG, "OnResponse() got stations: " + stations.toString());
+
                     for (Station s : stations) {
+
                         Position p = s.getPosition();
                         LatLng latlong = new LatLng(p.getX(), p.getY());
+
                         Marker marker = map.addMarker(new MarkerOptions().position(latlong).title(p.toString()).snippet("").icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultstation_marker)));
                         marker.hideInfoWindow();
                         markersAndStations.put(marker, s);
+
+                        Collection<Material> materials = s.getAvailableMaterials();
+
+                        for (Material m : materials) {
+
+                            if (materialsForFiltering == null) {
+
+                                materialsForFiltering = new TreeSet<>();
+                            }
+
+                            materialsForFiltering.add(m.getName());
+                        }
                     }
                     setUpAutoCompleteSearch();
+
                 } else {
                     Log.d(TAG, "Server response code: " + response.code());
                 }
@@ -343,9 +371,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
-
-        // use marker.setVisible(boolean) to hide/show markers when filtering stations,
-        // faster than creating/deleting markers
 
     }
 
@@ -564,6 +589,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 }
                 //this makes sure we remember which items are checked
                 checkedFilterOptions[position] = isChecked;
+                if (filtersAreApplied()) {
+                    dialog.setTitle(R.string.FILTER_DIALOG_ACTIVE);
+                } else {
+                    dialog.setTitle(R.string.FILTER_DIALOG_DEFAULT);
+                }
             }
         });
     }
@@ -576,27 +606,110 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public AlertDialog onCreateFilterDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(MapActivity.this);
 
-        builder.setTitle(R.string.filterDialogHeader)
-                .setMultiChoiceItems(filterItems, checkedFilterOptions, null)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        filterMarkersOnMap();
-                    }
-                });
+        String title;
+
+        if (filtersAreApplied()) {
+            title = getString(R.string.FILTER_DIALOG_ACTIVE);
+        } else {
+            title = getString(R.string.FILTER_DIALOG_DEFAULT);
+        }
+
+        builder.setTitle(title).setMultiChoiceItems(filterItems, checkedFilterOptions, null).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                filterMarkersOnMap();
+            }
+        });
         return builder.create();
     }
 
     private void filterMarkersOnMap() {
-        if (allMaterialsAreSelected()) {
+
+        int state = DEFAULT;
+
+        if (filtersAreApplied()) {
+
+            state = ACTIVE;
+
+            if (materialsForFiltering == null) {
+                materialsForFiltering = new TreeSet<String>();
+            }
+            materialsForFiltering.clear();
+
+            //skip "All" item
+            for (int i = 1; i < filterItems.length; i++) {
+                if (checkedFilterOptions[i] == true) {
+                    materialsForFiltering.add(filterItems[i]);
+                }
+            }
+
+            //Check for every station if it matches filter...
+            for (Map.Entry<Marker, Station> entry : markersAndStations.entrySet()) {
+
+                Station station = entry.getValue();
+                List<Material> materials = (ArrayList) station.getAvailableMaterials();
+
+                List<String> stationMaterials = new ArrayList<String>();
+
+                for (Material m : materials) {
+                    stationMaterials.add(m.getName());
+                }
+
+                Marker m = entry.getKey();
+
+                if (stationMaterials.containsAll(materialsForFiltering)) {
+
+                    //...and handle marker accordingly
+
+                    m.setVisible(true);
+
+                } else {
+
+                    m.setVisible(false);
+                }
+
+            }
 
         } else {
 
+            showAllMarkers();
+        }
+
+        customizeFilterButtonText(state);
+
+    }
+
+    private void showAllMarkers() {
+        Set<Marker> markers = markersAndStations.keySet();
+        for (Marker m : markers) {
+            m.setVisible(true);
         }
     }
 
-    private boolean allMaterialsAreSelected() {
-        return checkedFilterOptions[0] = true;
+    private void customizeFilterButtonText(int state) {
+        switch (state) {
+            case DEFAULT:
+                filterTextView.setText(R.string.filter_stations_button_default);
+                filterTextView.setTypeface(Typeface.create(filterTextView.getTypeface(), Typeface.NORMAL));
+                break;
+            case ACTIVE:
+                filterTextView.setText(R.string.filter_stations_button_active);
+                filterTextView.setTypeface(filterTextView.getTypeface(), Typeface.ITALIC);
+                break;
+            default:
+                break;
+        }
+
+    }
+
+
+    private boolean filtersAreApplied() {
+        for (boolean checked : checkedFilterOptions) {
+            if (checked) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
