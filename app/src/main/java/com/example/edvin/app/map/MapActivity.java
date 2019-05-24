@@ -101,7 +101,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-
 //        loggedInUser = (LoggedInUser) getIntent().getSerializableExtra(getString(R.string.INTENT_KEY_USER));
 
         getMap();
@@ -109,6 +108,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         getLocationServices();
 
         setUpSearchBar();
+
+        getRecycableMaterials();
 
         setUpFilterWidgets();
 
@@ -177,7 +178,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         filterTextView = (TextView) findViewById(R.id.filterTextView);
 
-        getRecycableMaterials();
 
         filterTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -252,6 +252,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void goToStation(Station station) {
+
         Intent stationIntent = new Intent(this, StationActivity.class);
         Bundle bundle = new Bundle();
         stationIntent.putExtra(getString(R.string.INTENT_KEY_STATION), station);
@@ -260,6 +261,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         bundle.putDouble(getString(R.string.INTENT_KEY_CAMERA_LONG), map.getCameraPosition().target.longitude);
         bundle.putFloat(getString(R.string.INTENT_KEY_CAMERA_ZOOM), map.getCameraPosition().zoom);
         stationIntent.putExtras(bundle);
+
         startActivity(stationIntent);
     }
 
@@ -419,6 +421,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void showMessageWhenLocationIsDisabled() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
         builder.setMessage(R.string.info_message_please_enable_gps)
                 .setCancelable(false)
                 .setPositiveButton(R.string.positive_option, new DialogInterface.OnClickListener() {
@@ -427,6 +430,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         startActivityForResult(enableGpsIntent, PERMISSION_REQUEST_ENABLE_GPS);
                     }
                 });
+
         final AlertDialog alert = builder.create();
         alert.show();
     }
@@ -503,10 +507,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             locationPermissionIsGranted = true;
             enableLocationFunctionality();
         } else {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                    PERMISSION_REQUEST_ACCESS_FINE_LOCATION);
+            requestLocationPermission();
         }
+    }
+
+    private void requestLocationPermission() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                PERMISSION_REQUEST_ACCESS_FINE_LOCATION);
     }
 
     private boolean appHasLocationPermission() {
@@ -589,7 +597,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 }
                 //this makes sure we remember which items are checked
                 checkedFilterOptions[position] = isChecked;
-                if (filtersAreApplied()) {
+
+                if (filterOptionsAreSelected()) {
                     dialog.setTitle(R.string.FILTER_DIALOG_ACTIVE);
                 } else {
                     dialog.setTitle(R.string.FILTER_DIALOG_DEFAULT);
@@ -608,7 +617,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         String title;
 
-        if (filtersAreApplied()) {
+        if (filterOptionsAreSelected()) {
             title = getString(R.string.FILTER_DIALOG_ACTIVE);
         } else {
             title = getString(R.string.FILTER_DIALOG_DEFAULT);
@@ -627,48 +636,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         int state = DEFAULT;
 
-        if (filtersAreApplied()) {
+        if (filterOptionsAreSelected()) {
 
             state = ACTIVE;
 
-            if (materialsForFiltering == null) {
-                materialsForFiltering = new TreeSet<String>();
-            }
-            materialsForFiltering.clear();
-
-            //skip "All" item
-            for (int i = 1; i < filterItems.length; i++) {
-                if (checkedFilterOptions[i] == true) {
-                    materialsForFiltering.add(filterItems[i]);
-                }
-            }
-
-            //Check for every station if it matches filter...
-            for (Map.Entry<Marker, Station> entry : markersAndStations.entrySet()) {
-
-                Station station = entry.getValue();
-                List<Material> materials = (ArrayList) station.getAvailableMaterials();
-
-                List<String> stationMaterials = new ArrayList<String>();
-
-                for (Material m : materials) {
-                    stationMaterials.add(m.getName());
-                }
-
-                Marker m = entry.getKey();
-
-                if (stationMaterials.containsAll(materialsForFiltering)) {
-
-                    //...and handle marker accordingly
-
-                    m.setVisible(true);
-
-                } else {
-
-                    m.setVisible(false);
-                }
-
-            }
+            applyFilter();
 
         } else {
 
@@ -677,6 +649,47 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         customizeFilterButtonText(state);
 
+    }
+
+    private void applyFilter() {
+        if (materialsForFiltering == null) {
+            materialsForFiltering = new TreeSet<String>();
+        }
+        materialsForFiltering.clear();
+
+        //skip "All" item
+        for (int i = 1; i < filterItems.length; i++) {
+            if (checkedFilterOptions[i] == true) {
+                materialsForFiltering.add(filterItems[i]);
+            }
+        }
+
+        //Check for every station if it matches filter...
+        for (Map.Entry<Marker, Station> entry : markersAndStations.entrySet()) {
+
+            Station station = entry.getValue();
+            List<Material> materials = (ArrayList) station.getAvailableMaterials();
+
+            List<String> stationMaterials = new ArrayList<String>();
+
+            for (Material m : materials) {
+                stationMaterials.add(m.getName());
+            }
+
+            Marker m = entry.getKey();
+
+            if (stationMaterials.containsAll(materialsForFiltering)) {
+
+                //...and handle marker accordingly
+
+                m.setVisible(true);
+
+            } else {
+
+                m.setVisible(false);
+            }
+
+        }
     }
 
     private void showAllMarkers() {
@@ -702,8 +715,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     }
 
-
-    private boolean filtersAreApplied() {
+    private boolean filterOptionsAreSelected() {
         for (boolean checked : checkedFilterOptions) {
             if (checked) {
                 return true;
