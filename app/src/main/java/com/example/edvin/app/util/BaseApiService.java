@@ -1,5 +1,6 @@
 package com.example.edvin.app.util;
 
+import com.example.edvin.app.models.Challenge;
 import com.example.edvin.app.models.Material;
 import com.example.edvin.app.models.Position;
 import com.example.edvin.app.models.Station;
@@ -34,6 +35,9 @@ public interface BaseApiService {
 
     @PUT("users/put")
     Call<User> putUser(@Body User user);
-    //TODO check med edvinboiii
+
+
+    @GET("challenges")
+    Call<Challenge> getChallenges();
 
 }
