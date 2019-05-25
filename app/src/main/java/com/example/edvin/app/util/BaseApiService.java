@@ -36,7 +36,6 @@ public interface BaseApiService {
     @PUT("users/put")
     Call<User> putUser(@Body User user);
 
-
     @GET("challenges")
     Call<Challenge> getChallenges();
 

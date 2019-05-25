@@ -9,9 +9,6 @@ public class User {
     private String email;
     private UserAccount userAccount;
 
-
-
-
     @SerializedName("body")
     private String text;
 
