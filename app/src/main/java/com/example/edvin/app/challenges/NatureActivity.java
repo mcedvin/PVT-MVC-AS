@@ -18,5 +18,11 @@ public class NatureActivity extends AppCompatActivity {
 
         backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(l -> startActivity(new Intent(this, ChallengesCategoryScreenActivity.class)));
+
+
+
+        //TODO : Ngn background worker.
+
+
     }
 }
