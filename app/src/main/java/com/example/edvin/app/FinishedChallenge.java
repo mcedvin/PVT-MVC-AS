@@ -2,17 +2,22 @@ package com.example.edvin.app;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.facebook.CallbackManager;
+import com.facebook.FacebookException;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareButton;
 import com.facebook.share.widget.ShareDialog;
+
+import java.util.List;
 
 public class FinishedChallenge extends AppCompatActivity {
 
@@ -24,6 +29,7 @@ public class FinishedChallenge extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finished_challenge);
+        image = image = BitmapFactory.decodeResource(getResources(), R.drawable.bakgrund);
 
         SharePhoto photo = new SharePhoto.Builder()
                 .setBitmap(image)
@@ -36,7 +42,6 @@ public class FinishedChallenge extends AppCompatActivity {
         shareButton.setShareContent(content);
 
 
-
     }
 
     public void share(View view){
@@ -44,6 +49,7 @@ public class FinishedChallenge extends AppCompatActivity {
         shareDialog = new ShareDialog(this);
         if (ShareDialog.canShow(ShareLinkContent.class)) {
             ShareLinkContent linkContent = new ShareLinkContent.Builder()
+
                     .setContentUrl(Uri.parse("http://developers.facebook.com/android"))
                     .build();
             shareDialog.show(linkContent);
@@ -55,4 +61,7 @@ public class FinishedChallenge extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
+
+
+
 }
