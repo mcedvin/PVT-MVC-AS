@@ -141,6 +141,10 @@
                 android:layout_marginRight="1dp"
                 android:layout_marginBottom="1dp"
                 android:background="@drawable/batterier"
+                app:layout_constraintBottom_toTopOf="@+id/forpackningar"
+                app:layout_constraintEnd_toStartOf="@id/elektronik"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/relativeLayout7"
 
                 />
 
@@ -156,7 +160,11 @@
                 android:layout_marginEnd="1dp"
                 android:layout_marginRight="1dp"
                 android:layout_marginBottom="1dp"
-                android:background="@drawable/farligt_avfall" />
+                android:background="@drawable/farligt_avfall"
+                app:layout_constraintBottom_toTopOf="@+id/glodlampor"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/elektronik"
+                app:layout_constraintTop_toBottomOf="@+id/relativeLayout7" />
 
             <Button
                 android:id="@+id/forpackningar"
@@ -170,7 +178,11 @@
                 android:layout_marginEnd="1dp"
                 android:layout_marginRight="1dp"
                 android:layout_marginBottom="1dp"
-                android:background="@drawable/packningar" />
+                android:background="@drawable/packningar"
+                app:layout_constraintBottom_toTopOf="@+id/matavfall"
+                app:layout_constraintEnd_toStartOf="@+id/glas"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/batterier" />
 
             <Button
                 android:id="@+id/glas"
@@ -185,6 +197,10 @@
                 android:layout_marginRight="1dp"
                 android:layout_marginBottom="1dp"
                 android:background="@drawable/glas"
+                app:layout_constraintBottom_toTopOf="@+id/medicin"
+                app:layout_constraintEnd_toStartOf="@id/glodlampor"
+                app:layout_constraintStart_toEndOf="@id/forpackningar"
+                app:layout_constraintTop_toBottomOf="@id/elektronik"
 
                 />
 
@@ -201,6 +217,10 @@
                 android:layout_marginRight="1dp"
                 android:layout_marginBottom="1dp"
                 android:background="@drawable/glodlampor"
+                app:layout_constraintBottom_toTopOf="@id/metall"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/glas"
+                app:layout_constraintTop_toBottomOf="@+id/farligt_Avfall"
 
                 />
 
@@ -216,6 +236,10 @@
                 android:layout_marginEnd="1dp"
                 android:layout_marginRight="1dp"
                 android:background="@drawable/matavfall"
+                app:layout_constraintBottom_toTopOf="@+id/plast"
+                app:layout_constraintEnd_toStartOf="@+id/medicin"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/forpackningar"
 
                 />
 
@@ -231,7 +255,7 @@
                 android:layout_marginEnd="1dp"
                 android:layout_marginRight="1dp"
                 android:background="@drawable/medicin"
-                app:layout_constraintBottom_toTopOf="@+id/glas"
+                app:layout_constraintBottom_toTopOf="@+id/papper"
                 app:layout_constraintEnd_toStartOf="@+id/metall"
                 app:layout_constraintStart_toEndOf="@+id/matavfall"
                 app:layout_constraintTop_toBottomOf="@+id/glas" />
