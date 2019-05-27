@@ -70,10 +70,10 @@
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/oceanHeader"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.058" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -139,8 +139,6 @@
                 android:id="@+id/reduceShowerTimeChallengeButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_row="1"
-                android:layout_column="0"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
                 android:background="@drawable/showe_time_challenge"
@@ -148,7 +146,9 @@
                 android:text="@string/shower_time_text"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:layout_row="1"
+                android:layout_column="0" />
 
         </GridLayout>
 

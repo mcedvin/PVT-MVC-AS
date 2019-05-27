@@ -70,9 +70,14 @@
     <string name="ocean_explaination_text">Havet är hem till 80% av den biologiska mångfald vi har på jorden. Det är också den största källan av det syre vi andas.</string>
 
     <string name="nature_header_text">Natur</string>
+    <string name="nature_explaination_text">Naturen har stor inverkan på människors hälsa. Forskning har visat  att vistelser i naturliga miljöer minskar negativa känslor och stress. </string>
+
     <string name="animals_header_text">Djur</string>
     <string name="animals_explaination_text">Djuren är en viktig del av vårt ekosystem. De försörjer oss med råvaror, kunskap, trevnad och utgör den biologiska mångfalden.</string>
+
     <string name="air_header_text">Luft</string>
+    <string name="air_explaination_text">Livet på jorden är helt och hållet beroende av luften. Det är därför viktigt att vi tillsammans jobbar för en bra och hälsosam luft.</string>
+
     <string name="show_more_info_text">Läs mer</string>
     <string name="finish_challenge_text">Avklarad!</string>
     <string name="information_text">Information</string>
@@ -81,7 +86,7 @@
     <!-- Strings related to challenges categories -->
     <string name="no_plastic_text">Inga engångsartiklar i plast på \nen månad!</string>
     <string name="shower_time_text">Minska din tid \ni duschen!</string>
-    <string name="vegetarian_food_text">Två vegetariska dagar \ni veckan!</string>
+    <string name="vegetarian_food_text">Två vegetariska \ndagar i veckan!</string>
     <string name="driving_challenge_text">Reducera ditt bilåkande \nmed hälften!</string>
     <string name="plant_challenge_text">Odla dina egna \ngrönsaker!</string>
     <string name="no_plastic_food_challenge_text">Laga mat med \ningredienser utan \nplastförpackningar</string>
