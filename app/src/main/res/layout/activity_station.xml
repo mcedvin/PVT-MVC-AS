@@ -45,8 +45,8 @@
 
         <ImageButton
             android:id="@+id/closeStationInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="7dp"
+            android:layout_width="32dp"
+            android:layout_height="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
@@ -61,24 +61,39 @@
 
         <TextView
             android:id="@+id/stationName"
-            android:layout_width="283dp"
-            android:layout_height="83dp"
+            android:layout_width="290dp"
+            android:layout_height="51dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:editable="false"
             android:gravity="center"
-            android:text="Adressgatan 1\nPostadress 100 10"
+            android:text="Adressgatan"
             android:textSize="28sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.513"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/closeStationInfo" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/postalAddress"
+            android:layout_width="290dp"
+            android:layout_height="54dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:gravity="center"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stationName" />
 
         <Button
-            android:id="@+id/reportStation"
+            android:id="@+id/reportButton"
             android:layout_width="114dp"
             android:layout_height="35dp"
             android:layout_marginStart="8dp"
@@ -91,61 +106,29 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/stationName" />
-
-        <TextView
-            android:id="@+id/stationStatus"
-            android:layout_width="271dp"
-            android:layout_height="21dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:text="Måndag 20 maj     Rapporterad som full av 3 personer"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/reportStation" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="296dp"
-            android:layout_height="183dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/materialsHeader">
-
-            <ListView
-                android:id="@+id/materials"
-                android:layout_width="match_parent"
-                android:layout_height="182dp" />
-        </LinearLayout>
+            app:layout_constraintTop_toBottomOf="@+id/postalAddress" />
 
         <TextView
             android:id="@+id/materialsHeader"
-            android:layout_width="267dp"
-            android:layout_height="19dp"
+            android:layout_width="290dp"
+            android:layout_height="29dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
+            android:layout_marginBottom="4dp"
+            android:gravity="bottom"
             android:text="Kan slängas här:"
+            app:layout_constraintBottom_toTopOf="@+id/materials"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/stationStatus" />
+            app:layout_constraintTop_toBottomOf="@+id/reports"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
-            android:id="@+id/navigateToStation"
+            android:id="@+id/navigateButton"
             android:layout_width="151dp"
             android:layout_height="35dp"
             android:layout_marginStart="8dp"
@@ -158,8 +141,37 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <GridView
+            android:id="@+id/materials"
+            android:layout_width="290dp"
+            android:layout_height="198dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:numColumns="3"
+            android:stretchMode="columnWidth"
+            app:layout_constraintBottom_toTopOf="@+id/navigateButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ListView
+            android:id="@+id/reports"
+            android:layout_width="290dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/reportButton" />
 
     </android.support.constraint.ConstraintLayout>
 

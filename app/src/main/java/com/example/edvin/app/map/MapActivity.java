@@ -122,7 +122,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void setUpSearchBar() {
-        searchView = (AutoCompleteTextView) findViewById(R.id.searchView);
+        searchView = findViewById(R.id.searchView);
         searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -232,7 +232,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             public void onFailure(Call<List<Material>> call, Throwable t) {
                 filterButton.setEnabled(false);
                 filterTextView.setEnabled(false);
-                Log.d(TAG, "Failed to retrieve materials from server");
+                Log.d(TAG, "Failed to retrieve materials from server" + t.getMessage());
                 Toast.makeText(getApplicationContext(), R.string.API_fail_get_materials, Toast.LENGTH_LONG).show();
             }
 

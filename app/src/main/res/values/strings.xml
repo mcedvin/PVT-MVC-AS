@@ -507,5 +507,6 @@ Hav
 
 Avklarade Utmaningar
 </string>
+    <string name="API_fail_get_station_reports">Kunde inte hämta eventuella felanmälningar på stationen</string>
 
 </resources>
