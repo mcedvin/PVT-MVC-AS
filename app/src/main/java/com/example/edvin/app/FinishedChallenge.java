@@ -10,20 +10,26 @@ import android.util.Log;
 import android.view.View;
 
 import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareButton;
 import com.facebook.share.widget.ShareDialog;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class FinishedChallenge extends AppCompatActivity {
 
-    Bitmap image;
-    CallbackManager callbackManager;
-    ShareDialog shareDialog;
+    private Bitmap image;
+    private CallbackManager callbackManager;
+    private ShareDialog shareDialog;
+    private LoginManager loginManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,30 +44,33 @@ public class FinishedChallenge extends AppCompatActivity {
                 .addPhoto(photo)
                 .build();
 
-        ShareButton shareButton = (ShareButton)findViewById(R.id.fb_share_button);
+        ShareButton shareButton = (ShareButton) findViewById(R.id.fb_share_button);
         shareButton.setShareContent(content);
 
 
     }
 
-    public void share(View view){
-        callbackManager = CallbackManager.Factory.create();
+
+    public void share(View view) {
+
+
         shareDialog = new ShareDialog(this);
+
+
         if (ShareDialog.canShow(ShareLinkContent.class)) {
             ShareLinkContent linkContent = new ShareLinkContent.Builder()
-
-                    .setContentUrl(Uri.parse("http://developers.facebook.com/android"))
+                    .setContentUrl(Uri.parse("https://imgur.com/gfO2BFp"))
                     .build();
             shareDialog.show(linkContent);
         }
     }
+
 
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
-
 
 
 }
