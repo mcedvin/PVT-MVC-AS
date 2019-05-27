@@ -4,53 +4,30 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
-
 public class Report implements Serializable {
 
     private Long id;
 
     private Station station;
-
-    private UserAccount userAccount;
     private Date finalEndDate;
 
-    private Collection<MaterialSchedule> materialSchedules;
-    private CleaningSchedule cleaningSchedule;
+    private UserAccount userAccount;
 
+    private Collection<MaterialSchedule> materialSchedules;
+
+    private CleaningSchedule cleaningSchedule;
 
     public Report() {
 
     }
 
-    public Report(Station station, UserAccount userAccount, Collection<MaterialSchedule> materialSchedules,
-                  CleaningSchedule cleaningSchedule) {
-
+    public Report(Station station, UserAccount userAccount, Date finalEndDate, Collection<MaterialSchedule> materialSchedules, CleaningSchedule cleaningSchedule) {
         this.station = station;
         this.userAccount = userAccount;
+        this.finalEndDate = finalEndDate;
         this.materialSchedules = materialSchedules;
         this.cleaningSchedule = cleaningSchedule;
-
-        calculateEndDate(materialSchedules, cleaningSchedule);
-
     }
-
-
-    private void calculateEndDate(Collection<MaterialSchedule> materialSchedules,
-                                  CleaningSchedule cleaningSchedule) {
-
-        Date latestDate = cleaningSchedule.getDate();
-
-        for (MaterialSchedule ms : materialSchedules) {
-            Date materialScheduleDate = ms.getDate();
-            if (materialScheduleDate.after(latestDate)) {
-                latestDate = materialScheduleDate;
-            }
-        }
-
-        finalEndDate = latestDate;
-
-    }
-
 
     public Station getStation() {
         return station;
@@ -84,8 +61,21 @@ public class Report implements Serializable {
         this.id = id;
     }
 
-    private boolean isActive() {
-        return finalEndDate.after(new Date());
+    public Collection<MaterialSchedule> getMaterialSchedules() {
+        return materialSchedules;
     }
+
+    public void setMaterialSchedules(Collection<MaterialSchedule> materialSchedules) {
+        this.materialSchedules = materialSchedules;
+    }
+
+    public CleaningSchedule getCleaningSchedule() {
+        return cleaningSchedule;
+    }
+
+    public void setCleaningSchedule(CleaningSchedule cleaningSchedule) {
+        this.cleaningSchedule = cleaningSchedule;
+    }
+
 
 }

@@ -106,7 +106,7 @@
 
             <Button
                 android:id="@+id/NoPlasticChallengeButton"
-                android:layout_width="match_parent"
+                android:layout_width="162dp"
                 android:layout_height="match_parent"
                 android:layout_row="0"
                 android:layout_column="0"

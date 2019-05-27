@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".challenges.finishChallengeActivity"
-    android:background="@drawable/background_homepage">
+    tools:context=".challenges.BuyLocalChallengeActivity">
+
 
     <ImageButton
         android:id="@+id/backButton"
@@ -29,11 +29,11 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:gravity="center"
-        android:text="@string/no_plastic_text"
+        android:text="@string/buy_local_challenge_text"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.295"
         app:layout_constraintStart_toEndOf="@+id/backButton"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,7 +43,6 @@
         android:layout_height="0dp"
 
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
         android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,18 +64,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/no_plastic_challenge" />
-
-            <Button
-                android:id="@+id/shareButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/facebook_button"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:text="@string/share_on_facebook_text"
-                android:textColor="@android:color/white" />
+                android:background="@drawable/buy_local" />
 
             <TextView
                 android:id="@+id/challengeInformationKontext"
@@ -87,7 +75,7 @@
                 android:paddingLeft="10dp"
                 android:paddingTop="20dp"
                 android:paddingRight="10dp"
-                android:text="@string/information_test_1"
+                android:text="@string/information_text_1"
                 android:textIsSelectable="false"
                 android:textSize="18sp"
                 android:textStyle="italic" />
@@ -97,7 +85,7 @@
                 android:layout_width="383dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/stop_using_text"
+                android:text="@string/description"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -106,66 +94,55 @@
                 android:layout_width="383dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/stop_using2"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="383dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/use_instead_text"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="379dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:lineSpacingExtra="8sp"
-                android:text="@string/use_instead2"
+                android:text="@string/buy_local_description"
                 android:textSize="18sp" />
+
 
             <TextView
                 android:id="@+id/textView7"
-                android:layout_width="377dp"
+                android:layout_width="382dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="@string/information_test_3"
+                android:text="@string/length_buy_local"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-
                 <Button
-                    android:id="@+id/cancelButton"
-                    android:layout_width="196dp"
+                    android:id="@+id/shareButton"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginEnd="20dp"
                     android:layout_marginRight="20dp"
-                    android:background="@drawable/rounded_corners_border"
-                    android:gravity="center"
-                    android:text="@string/cancel_text"
+                    android:layout_marginBottom="24dp"
+                    android:background="@drawable/facebook_button"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="@string/share_on_facebook_text"
                     android:textColor="@android:color/white" />
 
                 <Button
-                    android:id="@+id/finishButton"
-                    android:layout_width="138dp"
+                    android:id="@+id/joinButton"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginBottom="24dp"
                     android:background="@drawable/rounded_corners_border"
-                    android:gravity="center"
-                    android:text="@string/finish_challenge_text"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:text="@string/join_text"
                     android:textColor="@android:color/white" />
-
             </LinearLayout>
 
         </LinearLayout>

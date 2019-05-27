@@ -76,7 +76,7 @@
                 android:background="@drawable/example_challenge_image" />
 
             <TextView
-                android:id="@+id/challengeInformation1"
+                android:id="@+id/challengeInformationKontext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="8sp"
@@ -87,15 +87,13 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/challengeInformation2"
+                android:id="@+id/stopUsing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:lineSpacingExtra="8sp"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text="@string/information_test_2"
-                android:textSize="18sp" />
+                android:paddingRight="10dp"/>
 
             <TextView
                 android:id="@+id/challengeInformation3"
