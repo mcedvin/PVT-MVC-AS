@@ -4,19 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".challenges.finishChallengeActivity"
-    android:background="@drawable/background_homepage">
+    tools:context=".challenges.NoPlasticChallengeActivity">
 
-    <ImageButton
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/back_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/back_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
@@ -43,7 +42,6 @@
         android:layout_height="0dp"
 
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
         android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,17 +64,6 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/no_plastic_challenge" />
-
-            <Button
-                android:id="@+id/shareButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/facebook_button"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:text="@string/share_on_facebook_text"
-                android:textColor="@android:color/white" />
 
             <TextView
                 android:id="@+id/challengeInformationKontext"
@@ -137,42 +124,46 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-
                 <Button
-                    android:id="@+id/cancelButton"
-                    android:layout_width="196dp"
+                    android:id="@+id/shareButton"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginEnd="20dp"
                     android:layout_marginRight="20dp"
-                    android:background="@drawable/rounded_corners_border"
-                    android:gravity="center"
-                    android:text="@string/cancel_text"
+                    android:layout_marginBottom="24dp"
+                    android:background="@drawable/facebook_button"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="@string/share_on_facebook_text"
                     android:textColor="@android:color/white" />
 
                 <Button
-                    android:id="@+id/finishButton"
-                    android:layout_width="138dp"
+                    android:id="@+id/joinButton"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginBottom="24dp"
                     android:background="@drawable/rounded_corners_border"
-                    android:gravity="center"
-                    android:text="@string/finish_challenge_text"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:text="@string/join_text"
                     android:textColor="@android:color/white" />
-
             </LinearLayout>
 
         </LinearLayout>
 
 
     </ScrollView>
-
 
 
 </android.support.constraint.ConstraintLayout>
