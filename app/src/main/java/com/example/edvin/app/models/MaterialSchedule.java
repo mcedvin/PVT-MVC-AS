@@ -20,4 +20,7 @@ public class MaterialSchedule extends Schedule {
         return material + super.toString();
     }
 
+    public Material getMaterial() {
+        return material;
+    }
 }
