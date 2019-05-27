@@ -68,8 +68,10 @@
 
     <string name="ocean_header_text">Havet</string>
     <string name="ocean_explaination_text">Havet är hem till 80% av den biologiska mångfald vi har på jorden. Det är också den största källan av det syre vi andas.</string>
+
     <string name="nature_header_text">Natur</string>
     <string name="animals_header_text">Djur</string>
+    <string name="animals_explaination_text">Djuren är en viktig del av vårt ekosystem. De försörjer oss med råvaror, kunskap, trevnad och utgör den biologiska mångfalden.</string>
     <string name="air_header_text">Luft</string>
     <string name="show_more_info_text">Läs mer</string>
     <string name="finish_challenge_text">Avklarad!</string>
