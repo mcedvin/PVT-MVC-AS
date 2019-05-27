@@ -49,8 +49,8 @@
         app:layout_constraintStart_toStartOf="@+id/airHeader"
         app:layout_constraintTop_toTopOf="@+id/airHeader" />
 
-    <Button
-        android:id="@+id/showMoreInfoButton"
+    <TextView
+        android:id="@+id/airExplainationText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -59,19 +59,19 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/rounded_corners_border"
+        android:gravity="center"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:text="@string/show_more_info_text"
+        android:text="@string/air_explaination_text"
         android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/ReGoPrimaryColor"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/airHeader"
-        app:layout_constraintVertical_bias="0.071" />
+        app:layout_constraintTop_toBottomOf="@+id/airHeader" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
