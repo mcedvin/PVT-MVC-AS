@@ -61,12 +61,13 @@
     <string name="use_instead2">Ta med en tygkasse när du går och handlar, lägg den i väskan så glöms den inte bort. Det bästa alternativet till plastsugrör är att inte använda sugrör alls. Om du fortfarande vill använda sugrör finns det varianter i metall som kan diskas och användas flera gånger. Planera i förväg och ta med dig egna bestick hemifrån när du tror att det kan behövas.</string>
     <string name="information_test_3">\nUtmaningen pågår under 1 månad\n</string>
     
-    <string name="information_text_1">Ovan syns bina på Ålbrunna gård,en liten gård i utkanten av Stockholms län i Upplands-Bro kommun. De säljer honung från egen bigård och ägg från deras frigående höns. Honungen produceras på ett miljömedvetet vis och hönorna får leva ett naturligt liv. Genom att köpa lokalt på gårdar som Ålbrunna kan du minska din miljöpåverkan samtidigt som du gör en tjänst för djuren</string>
+    <string name="information_text_1">Ovan syns bin från Ålbrunna gård, en liten gård i utkanten av Stockholms län i Upplands-Bro kommun. De säljer honung från egen bigård och ägg från deras frigående höns. Honungen produceras på ett miljömedvetet sätt och hönorna får leva ett naturligt liv. Genom att köpa lokalt på gårdar som Ålbrunna kan du minska din miljöpåverkan samtidigt som du gör en tjänst för djuren.</string>
     <string name="description">\nBeskrivning:</string>
     <string name="buy_local_description">\nGå en vecka av att i största möjliga mån köpa lokala råvaror. Sök upp dina närmaste handlare och se vad du kan ersätta bland dina vanliga inköp.</string>
     <string name="length_buy_local">\nUtmaningen pågår under 1 vecka\n</string>
 
     <string name="ocean_header_text">Havet</string>
+    <string name="ocean_explaination_text">Havet är hem till 80% av den biologiska mångfald vi har på jorden. Det är också den största källan av det syre vi andas.</string>
     <string name="nature_header_text">Natur</string>
     <string name="animals_header_text">Djur</string>
     <string name="air_header_text">Luft</string>
