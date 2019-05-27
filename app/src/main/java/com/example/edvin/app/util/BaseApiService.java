@@ -23,6 +23,11 @@ public interface BaseApiService {
     @GET("users")
     Call<List<User>> getUsers();
 
+    @GET("users/authenticate")
+    Call<User> getAuthenticated(@Body String[] params);
+    //TODO: check med queries..
+
+
     @GET("positions")
     Call<List<Position>> getPositions();
 
