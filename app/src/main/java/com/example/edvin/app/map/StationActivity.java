@@ -1,17 +1,17 @@
 package com.example.edvin.app.map;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -21,13 +21,14 @@ import android.widget.Toast;
 
 import com.example.edvin.app.R;
 import com.example.edvin.app.guide.GuideMainActivity;
-import com.example.edvin.app.logininterface.MainActivity;
 import com.example.edvin.app.models.CleaningSchedule;
 import com.example.edvin.app.models.LoggedInUser;
 import com.example.edvin.app.models.Material;
 import com.example.edvin.app.models.MaterialSchedule;
 import com.example.edvin.app.models.Report;
 import com.example.edvin.app.models.Station;
+import com.example.edvin.app.models.User;
+import com.example.edvin.app.models.UserAccount;
 import com.example.edvin.app.overview.OverviewActivity;
 import com.example.edvin.app.util.BaseApiService;
 import com.example.edvin.app.util.RetrofitClient;
@@ -42,7 +43,6 @@ import com.google.maps.GeoApiContext;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,10 +58,7 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
     private GoogleMap map;
     private double cameraCenterLatitude, cameraCenterLongitude;
     private float cameraZoomLevel;
-    private AutoCompleteTextView searchView;
     private BottomNavigationView bottomNavigationView;
-    private TextView filterTextView;
-    private ImageButton filterButton;
     private final String TAG = "StationActivity";
     private int[] materialImages;
     private List<Integer> reportImages;
@@ -71,7 +68,17 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
     private GridView materialsGrid;
     private ListView reportList;
     private GeoApiContext apiContext;
-    Button report;
+    private Button report;
+    private List selectedReportTypes;
+    private List selectedFullMaterials;
+    private String[] reportTypeItems = new String[]{getString(R.string.report_item_full), getString(R.string.report_item_needs_cleaning)};
+    private String[] materialItems;
+    private final int FULL = 0;
+    private Button reportDialog_positive;
+    private Button materialDialog_positive;
+    private ImageButton close;
+    private TextView stationName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,13 +87,11 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
 
         getMap();
 
-        ImageButton close = findViewById(R.id.closeStationInfo);
-
-        TextView stationName = findViewById(R.id.stationName);
+        setUpCloseButton();
 
         getIntentAndBundle();
 
-        stationName.setText(station.getStationName());
+        setUpStationTextView();
 
         setUpMaterialGrid();
 
@@ -98,16 +103,170 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
 
     }
 
+
+    private void setUpStationTextView() {
+        stationName = findViewById(R.id.stationName);
+        stationName.setText(station.getStationName());
+
+        stationName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                close.performClick();
+            }
+        });
+    }
+
+    private void setUpCloseButton() {
+        ImageButton close = findViewById(R.id.closeStationInfo);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToMap();
+            }
+        });
+
+
+
+    }
+
     private void setUpReportButton() {
         report = findViewById(R.id.reportButton);
 
         report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                openReportDialog();
             }
         });
 
+    }
+
+
+    private void openReportDialog() {
+        if (selectedReportTypes == null) {
+            selectedReportTypes = new ArrayList<>();
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(StationActivity.this);
+
+        builder.setTitle(R.string.report_dialog_header);
+
+        builder.setMultiChoiceItems(reportTypeItems, null, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                if (isChecked) {
+
+                    selectedReportTypes.add(reportTypeItems[which]);
+
+                    reportDialog_positive.setEnabled(true);
+
+                } else if (selectedReportTypes.contains(reportTypeItems[which])) {
+
+                    selectedReportTypes.remove(reportTypeItems[which]);
+
+                    if (selectedReportTypes.isEmpty()) {
+                        reportDialog_positive.setEnabled(false);
+                    }
+                }
+            }
+        }).setPositiveButton(R.string.positive_option_dialog, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+
+                if (selectedReportTypes.contains(reportTypeItems[FULL])) {
+                    openMaterialDialog();
+                } else {
+                    sendReport();
+                }
+            }
+        })
+                .setNegativeButton(R.string.cancel_option_dialog, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        selectedReportTypes.clear();
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        reportDialog_positive = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        reportDialog_positive.setEnabled(false);
+
+
+    }
+
+    private void openMaterialDialog() {
+        if (selectedFullMaterials == null) {
+            selectedFullMaterials = new ArrayList<>();
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(StationActivity.this);
+
+        builder.setTitle(R.string.materials_dialog_header);
+
+        builder.setMultiChoiceItems(materialItems, null, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                if (isChecked) {
+
+                    selectedFullMaterials.add(materialItems[which]);
+
+                    materialDialog_positive.setEnabled(true);
+
+                } else if (selectedFullMaterials.contains(materialItems[which])) {
+
+                    selectedFullMaterials.remove(materialItems[which]);
+
+                    if (selectedFullMaterials.isEmpty()) {
+                        materialDialog_positive.setEnabled(false);
+                    }
+                }
+            }
+        }).setPositiveButton(R.string.positive_option_dialog, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                sendReport();
+
+            }
+        })
+                .setNegativeButton(R.string.cancel_option_dialog, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        selectedReportTypes.clear();
+                        selectedFullMaterials.clear();
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        materialDialog_positive = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        materialDialog_positive.setEnabled(false);
+
+
+    }
+
+    private void sendReport() {
+
+        UserAccount user = getUserAccount(loggedInUser);
+
+
+
+        selectedReportTypes.clear();
+        selectedFullMaterials.clear();
+
+        confirmReportToUser();
+    }
+
+    private UserAccount getUserAccount (LoggedInUser user) {
+        return null;
+    }
+
+    private void confirmReportToUser() {
+        Toast toast = Toast.makeText(StationActivity.this, "Tack för din feedback!", Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 
     private void getIntentAndBundle() {
@@ -125,14 +284,19 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
 
         materials = (List) station.getAvailableMaterials();
 
-
         if (materials != null && !materials.isEmpty()) {
 
             materialImages = new int[materials.size()];
 
+            materialItems = new String[materials.size()];
+
             for (int i = 0; i < materials.size(); i++) {
 
-                String name = materials.get(i).getName().toLowerCase().trim();
+                String name = materials.get(i).getName();
+
+                materialItems[i] = name;
+
+                name = name.toLowerCase().trim();
 
                 switch (name) {
                     case "blandplast":
@@ -189,7 +353,7 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
 
     private void getReports() {
         BaseApiService api = RetrofitClient.getApiService();
-        Log.d(TAG, "Stationsnamn: " + station.getStationName());
+
         Call<List<Report>> call = api.getReports();
         List<Report> reports;
 
@@ -210,13 +374,13 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
 
                             if (cleaningSchedule != null) {
 
-                                if (frequencyMap.containsKey("stökig")) {
+                                if (frequencyMap.containsKey(getString(R.string.NEEDS_CLEANING))) {
 
-                                    frequencyMap.put("stökig", frequencyMap.get("Stökig") + 1);
+                                    frequencyMap.put(getString(R.string.NEEDS_CLEANING), frequencyMap.get(getString(R.string.NEEDS_CLEANING)) + 1);
 
                                 } else {
 
-                                    frequencyMap.put("stökig", 1);
+                                    frequencyMap.put(getString(R.string.NEEDS_CLEANING), 1);
                                 }
                             }
 
@@ -242,25 +406,26 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
                         reportDescriptions = new ArrayList<>();
 
                         for (Map.Entry<String, Integer> entry : frequencyMap.entrySet()) {
-                            String report = entry.getKey();
+                            String reportType = entry.getKey();
                             int noOfReports = entry.getValue();
 
-                            if (report.equals("stökig")) {
+                            if (reportType.equals(getString(R.string.NEEDS_CLEANING))) {
 
-                                reportTitles.add("Felanmälan: Rapporterad som " + report);
+                                reportTitles.add(getString(R.string.item_text_report_type_needs_cleaning) + reportType);
 
                             } else {
 
-                                reportTitles.add("Felanmälan: " + report + " rapporterad som full");
+                                reportTitles.add(getString(R.string.item_text_report_type_full_1) + reportType + getString(R.string.item_text_report_type_full_2
+                                ));
 
                             }
-                            reportDescriptions.add("Rapporterat av " + noOfReports + " personer");
+                            reportDescriptions.add(getString(R.string.report_item_description_1) + noOfReports + getString(R.string.report_item_description_2));
 
                             reportImages.add(R.drawable.report_error);
                         }
 
                     } else {
-                        reportTitles.add("Inga aktuella felanmälningar");
+                        reportTitles.add(getString(R.string.report_item_no_reports));
                         reportDescriptions.add("");
                         reportImages.add(R.drawable.report_ok);
                     }

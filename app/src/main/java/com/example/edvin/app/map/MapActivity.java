@@ -176,6 +176,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private void setUpFilterWidgets() {
         filterButton = (ImageButton) findViewById(R.id.filterButton);
 
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onFilterDialog(v);
+            }
+        });
+
         filterTextView = (TextView) findViewById(R.id.filterTextView);
 
 

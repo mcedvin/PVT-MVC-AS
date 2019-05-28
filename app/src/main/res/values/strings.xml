@@ -123,6 +123,20 @@
     <string name="INTENT_KEY_CAMERA_ZOOM">camera zoom level</string>
     <string name="FILTER_DIALOG_ACTIVE">Visar stationer enligt filterval</string>
     <string name="filter_stations_button_active">Stationer filtreras</string>
+    <string name="API_fail_get_station_reports">Kunde inte hämta eventuella felanmälningar på stationen</string>
+    <string name="cancel_option_dialog">Avbryt</string>
+    <string name="positive_option_dialog">OK</string>
+    <string name="report_dialog_header">Välj det eller de alternativ som passar</string>
+    <string name="materials_dialog_header">Vilka är fulla?</string>
+    <string name="NEEDS_CLEANING">stökig</string>
+    <string name="item_text_report_type_needs_cleaning">Felanmälan: Rapporterad som</string>
+    <string name="item_text_report_type_full_1">Felanmälan:</string>
+    <string name="item_text_report_type_full_2">rapporterad som full</string>
+    <string name="report_item_description_1">Rapporterat av</string>
+    <string name="report_item_description_2">personer</string>
+    <string name="report_item_no_reports">Inga aktuella felanmälningar</string>
+    <string name="report_item_full">Full</string>
+    <string name="report_item_needs_cleaning">Stökig</string>
 
     <string-array name="materials_array">
         <item>Alla</item>
@@ -515,6 +529,7 @@ Hav
 
 Avklarade Utmaningar
 </string>
-    <string name="API_fail_get_station_reports">Kunde inte hämta eventuella felanmälningar på stationen</string>
+
+
 
 </resources>

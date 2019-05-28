@@ -6,6 +6,7 @@ import com.example.edvin.app.models.Position;
 import com.example.edvin.app.models.Report;
 import com.example.edvin.app.models.Station;
 import com.example.edvin.app.models.User;
+import com.example.edvin.app.models.UserAccount;
 
 
 import java.util.List;
@@ -26,7 +27,6 @@ public interface BaseApiService {
     @GET("users/authenticate")
     Call<User> getAuthenticated(@Body String[] params);
     //TODO: check med queries..
-
 
     @GET("positions")
     Call<List<Position>> getPositions();
