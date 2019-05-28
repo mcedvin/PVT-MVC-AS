@@ -11,7 +11,7 @@ public class RetrofitClient {
     /********
      * URLS
      *******/
-    private static final String ROOT_URL = "https://pvtgrupp06.herokuapp.com/";
+    private static final String ROOT_URL = "https://recycling-rest.herokuapp.com/";
 
     /****
      * HTTP Client
