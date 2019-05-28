@@ -30,6 +30,7 @@
         app:menu="@menu/nav_bar_menu_for_map" />
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="340dp"
         android:layout_height="561dp"
         android:layout_marginTop="8dp"
@@ -61,11 +62,11 @@
 
         <TextView
             android:id="@+id/stationName"
-            android:layout_width="290dp"
-            android:layout_height="51dp"
+            android:layout_width="292dp"
+            android:layout_height="39dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:editable="false"
@@ -73,22 +74,21 @@
             android:text="Adressgatan"
             android:textSize="28sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/postalAddress"
-            android:layout_width="290dp"
-            android:layout_height="54dp"
+            android:layout_width="292dp"
+            android:layout_height="39dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:gravity="center"
             android:textSize="28sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/stationName" />
 
@@ -122,10 +122,9 @@
             android:text="Kan slängas här:"
             app:layout_constraintBottom_toTopOf="@+id/materials"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/reports"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.64" />
 
         <Button
             android:id="@+id/navigateButton"
@@ -166,10 +165,11 @@
             android:layout_height="120dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.411"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/reportButton" />
 

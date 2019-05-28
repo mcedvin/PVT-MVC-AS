@@ -69,9 +69,9 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
     private ListView reportList;
     private GeoApiContext apiContext;
     private Button report;
-    private List selectedReportTypes;
-    private List selectedFullMaterials;
-    private String[] reportTypeItems = new String[]{getString(R.string.report_item_full), getString(R.string.report_item_needs_cleaning)};
+    private List<String> selectedReportTypes;
+    private List<String> selectedFullMaterials;
+    private String[] reportTypeItems;
     private String[] materialItems;
     private final int FULL = 0;
     private Button reportDialog_positive;
@@ -143,6 +143,11 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
 
 
     private void openReportDialog() {
+
+        if (reportTypeItems == null) {
+            reportTypeItems = new String[]{getString(R.string.report_item_full), getString(R.string.report_item_needs_cleaning)};
+        }
+
         if (selectedReportTypes == null) {
             selectedReportTypes = new ArrayList<>();
         }
@@ -251,7 +256,34 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
 
         UserAccount user = getUserAccount(loggedInUser);
 
+        CleaningSchedule cleaningSchedule = null;
+        List<MaterialSchedule> materialSchedules = null;
 
+        if (selectedReportTypes.contains(getString(R.string.report_item_full))) {
+
+            for (MaterialSchedule ms : station.getMaterialSchedules()) {
+
+                Material m = ms.getMaterial();
+
+                if (selectedFullMaterials.contains(m.getName())) {
+
+                    if (materialSchedules == null) {
+
+                        materialSchedules = new ArrayList<>();
+                    }
+
+                    materialSchedules.add(new MaterialSchedule(ms.getDate(), ms.getMaterial()));
+                }
+
+            }
+
+        }
+
+        if (selectedReportTypes.contains(getString(R.string.report_item_needs_cleaning))) {
+            cleaningSchedule = station.getCleaningSchedule();
+        }
+
+        Report newReport = new Report(station, user, materialSchedules, cleaningSchedule);
 
         selectedReportTypes.clear();
         selectedFullMaterials.clear();

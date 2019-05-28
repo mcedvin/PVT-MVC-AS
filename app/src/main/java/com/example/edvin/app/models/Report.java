@@ -29,6 +29,34 @@ public class Report implements Serializable {
         this.cleaningSchedule = cleaningSchedule;
     }
 
+
+    public Report(Station station, UserAccount userAccount, Collection<MaterialSchedule> materialSchedules, CleaningSchedule cleaningSchedule) {
+        this.station = station;
+        this.userAccount = userAccount;
+        this.finalEndDate = finalEndDate;
+        this.materialSchedules = materialSchedules;
+        this.cleaningSchedule = cleaningSchedule;
+
+        finalEndDate = calculateEndDate(materialSchedules, cleaningSchedule);
+
+    }
+
+
+    private Date calculateEndDate(Collection<MaterialSchedule> materialSchedules, CleaningSchedule cleaningSchedule) {
+
+        Date latestDate = cleaningSchedule.getDate();
+
+        for (MaterialSchedule ms : materialSchedules) {
+            Date materialScheduleDate = ms.getDate();
+            if (materialScheduleDate.after(latestDate)) {
+                latestDate = materialScheduleDate;
+            }
+        }
+
+        return latestDate;
+
+    }
+
     public Station getStation() {
         return station;
     }
