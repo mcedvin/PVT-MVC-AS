@@ -14,6 +14,7 @@ public class ChallengesCategoryScreenActivity extends AppCompatActivity {
     Button animalsButton;
     Button airButton;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
