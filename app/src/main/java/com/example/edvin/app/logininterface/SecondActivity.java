@@ -249,16 +249,27 @@ JOELSSSSS
             /**
              * Calling JSON
              */
-            Call<List<User>> call = api.getUsers();
+            //Call<List<User>> call = api.getUsers();
+            //String[] params = {username, password};
+            String path = username+"+"+password;
+            Call<User> call = api.getAuthenticated(path);
+            //Call<List<User>> call = api.getUsersDontCheckThePassword();
 
 
             /**
              * Enqueue Callback will be call when get response...
              */
 
-            call.enqueue(new Callback<List<User>>() {
+
+
+
+
+            /**
+             * call v2 : new implementation
+             */
+            call.enqueue(new Callback<User>() {
                 @Override
-                public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                public void onResponse(Call<User> call, Response<User> response) {
 
                     dialog.dismiss();
                     if (!response.isSuccessful()) {
@@ -269,8 +280,25 @@ JOELSSSSS
                      * Got Successfully
                      */
 
-                    List<User> users = response.body();
-                    Toast.makeText(SecondActivity.this, manageLogin(users,username,password),Toast.LENGTH_SHORT).show();
+
+
+                    User checkedUser = response.body();
+
+                    if (checkedUser== null)
+                        Toast.makeText(SecondActivity.this, "no such user!",Toast.LENGTH_SHORT).show();
+                    else{
+                        Toast.makeText(SecondActivity.this, "welcome "+checkedUser.getFirstName()+"! logging in to your account..",Toast.LENGTH_SHORT).show();
+                    check = true;
+                    loggedInUser = new LoggedInUser(checkedUser.getFirstName()+" "+checkedUser.getLastName(),checkedUser.getUserAccount().getId());
+
+                    sharedPreferences = getSharedPreferences("autoLogin", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
+                    Gson gson = new Gson();
+                    String json = gson.toJson(loggedInUser);
+                    prefsEditor.putString("SerializableObject", json);
+                    prefsEditor.putInt("key",1);
+                    prefsEditor.apply();
+                    }
 
 
                     //connect to homepage
@@ -284,12 +312,11 @@ JOELSSSSS
                 }
 
                 @Override
-                public void onFailure(Call<List<User>> call, Throwable t) {
+                public void onFailure(Call<User> call, Throwable t) {
                     dialog.dismiss();
-                    Toast.makeText(SecondActivity.this,t.getMessage(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SecondActivity.this,"FAILURE!"+t.getMessage(),Toast.LENGTH_SHORT).show();
                 }
             });
-
 
 
         }
@@ -312,44 +339,6 @@ JOELSSSSS
     }
 
 
-    protected String manageLogin(List<User> users, String usertext, String p){
-
-        if(users.isEmpty()){
-            return "No users found in the server :(";
-        }else if(usertext.trim().isEmpty() && p.trim().isEmpty()){
-            return "Please enter your mail and password";
-        }
-
-
-        for (User u : users){
-            if(usertext.equals(u.getEmail())){
-                if( u.getUserAccount() != null){
-                    if(u.getUserAccount().getPassword().equals(p)){
-                        check = true;
-                         loggedInUser = new LoggedInUser(u.getFirstName()+" "+u.getLastName(),u.getUserAccount().getId());
-
-                        sharedPreferences = getSharedPreferences("autoLogin", Context.MODE_PRIVATE);
-                         SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
-                        Gson gson = new Gson();
-                        String json = gson.toJson(loggedInUser);
-                        prefsEditor.putString("SerializableObject", json);
-                        prefsEditor.putInt("key",1);
-                        prefsEditor.apply();
-
-
-                        return "Hello, "+u.getFirstName()+"! Logging in into your account..";
-                    }else
-                        return "wrong password";
-               }else
-                    return "NULL ACCOUNT";
-            }
-
-        }
-
-        return "EMAIL NOT FOUND";
-
-
-    }
 
 
 

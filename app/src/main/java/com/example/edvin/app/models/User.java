@@ -17,6 +17,7 @@ public class User {
         this.lastName = lastName;
         this.email = email;
 
+       // this.userAccount = new UserAccount(id,password,null);
         this.userAccount = new UserAccount(id,password);
     }
 

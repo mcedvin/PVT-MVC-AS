@@ -14,18 +14,21 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface BaseApiService {
 
-    @GET("users")
+   @GET("users")
     Call<List<User>> getUsers();
 
-    @GET("users/authenticate")
-    Call<User> getAuthenticated(@Body String[] params);
-    //TODO: check med queries..
+
+    @GET("users/authenticate/{myPath}")
+    Call<User> getAuthenticated(
+            @Path("myPath") String path
+    );
 
     @GET("reports/{station}")
     Call<List<Report>> getReportsForStation(@Path("station") String station);
