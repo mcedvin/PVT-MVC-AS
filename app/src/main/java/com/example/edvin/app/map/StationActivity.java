@@ -122,7 +122,7 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
     }
 
     private void setUpCloseButton() {
-        ImageButton close = findViewById(R.id.closeStationInfo);
+        close = findViewById(R.id.closeStationInfo);
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -356,7 +356,7 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
                 }
             }
 
-            MaterialAdapter adapter = new MaterialAdapter(getApplicationContext(), materialImages);
+            MaterialAdapter adapter = new MaterialAdapter(this, materialImages);
             materialsGrid = (GridView) findViewById(R.id.materials);
             materialsGrid.setAdapter(adapter);
 
@@ -446,23 +446,28 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
 
+                        Log.d(TAG, frequencyMap.entrySet().toString());
+
                         for (Map.Entry<String, Integer> entry : frequencyMap.entrySet()) {
                             String reportType = entry.getKey();
                             int noOfReports = entry.getValue();
 
-                            if (reportType.equals(getString(R.string.NEEDS_CLEANING))) {
+                            if (!reportTitles.contains(reportType)) {
 
-                                reportTitles.add(getString(R.string.item_text_report_type_needs_cleaning) + reportType);
+                                if (reportType.equals(getString(R.string.NEEDS_CLEANING))) {
 
-                            } else {
+                                    reportTitles.add(getString(R.string.item_text_report_type_needs_cleaning) + reportType);
 
-                                reportType = reportType.substring(0, 1).toUpperCase() + reportType.substring(1);
-                                reportTitles.add(reportType + getString(R.string.item_text_report_type_full));
+                                } else {
 
+                                    reportType = reportType.substring(0, 1).toUpperCase() + reportType.substring(1);
+                                    reportTitles.add(reportType + getString(R.string.item_text_report_type_full));
+
+                                }
+
+                                reportImages.add(R.drawable.report_error);
                             }
-                            reportDescriptions.add(getString(R.string.report_item_description_1) + noOfReports + getString(R.string.report_item_description_2));
 
-                            reportImages.add(R.drawable.report_error);
                         }
 
                     } else {
@@ -471,7 +476,7 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
                         reportImages.add(R.drawable.report_ok);
                     }
 
-                    ReportAdapter adapter = new ReportAdapter(getApplicationContext(), reportImages, reportTitles, reportDescriptions);
+                    ReportAdapter adapter = new ReportAdapter(getApplicationContext(), reportImages, reportTitles);
                     reportList = (ListView) findViewById(R.id.reports);
                     reportList.setAdapter(adapter);
 

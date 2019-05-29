@@ -130,7 +130,7 @@
     <string name="materials_dialog_header">Vilka är fulla?</string>
     <string name="NEEDS_CLEANING">stökig</string>
     <string name="item_text_report_type_needs_cleaning">Rapporterad som\u0020</string>
-    <string name="item_text_report_type_full">\u0020rapporterad som full\u0020</string>
+    <string name="item_text_report_type_full">\u0020rapporterad som full</string>
     <string name="report_item_description_1">Rapporterat av\u0020</string>
     <string name="report_item_description_2">\u0020personer</string>
     <string name="report_item_no_reports">Inga aktuella felanmälningar</string>
