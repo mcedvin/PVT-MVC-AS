@@ -3,6 +3,7 @@ package com.example.edvin.app.map;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
@@ -308,8 +309,7 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
         BaseApiService api = RetrofitClient.getApiService();
 
 //        Call<UserAccount> call = api.getUserAccount(user.getId());
-// @TODO replace below with above before launch of app
-
+//          @TODO replace below with above before launch of app
         Call<UserAccount> call = api.getUserAccount(1);
 
         call.enqueue(new Callback<UserAccount>() {
@@ -336,19 +336,20 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
     private void postReport(Report report) {
         BaseApiService api = RetrofitClient.getApiService();
 
-        Call<Report> call = api.postReport(report);
+        Call<Void> call = api.postReport(report);
 
-        call.enqueue(new Callback<Report>() {
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<Report> call, Response<Report> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     Log.d(TAG, "Successfully posted report");
+                    getReports();
                 }
             }
 
             @Override
-            public void onFailure(Call<Report> call, Throwable t) {
-                Log.d(TAG, "Successfully posted report");
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d(TAG, "Failed to post report: " + t.toString());
                 Toast toast = Toast.makeText(StationActivity.this,"Rapporten kunde inte skapas, ursäkta oss", Toast.LENGTH_LONG);
                 toast.show();
             }
@@ -530,9 +531,25 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
                         reportImages.add(R.drawable.report_ok);
                     }
 
-                    ReportAdapter adapter = new ReportAdapter(getApplicationContext(), reportImages, reportTitles);
                     reportList = (ListView) findViewById(R.id.reports);
-                    reportList.setAdapter(adapter);
+
+                    if (reportList.getAdapter() == null) {
+
+                        ReportAdapter adapter = new ReportAdapter(getApplicationContext(), reportImages, reportTitles);
+                        reportList.setAdapter(adapter);
+
+                    } else {
+
+                        ReportAdapter adapter = (ReportAdapter)reportList.getAdapter();
+                        adapter.getImageIDs().clear();
+                        adapter.getTitles().clear();
+                        adapter.setImageIDs(reportImages);
+                        adapter.setTitles(reportTitles);
+                        adapter.notifyDataSetChanged();
+                    }
+
+
+
 
                 } else {
                     Log.d(TAG, "Not successful when retrieving reports, server response code: " + response.code());

@@ -20,7 +20,6 @@ public class ReportAdapter extends BaseAdapter {
     private Context context;
     private List<Integer> imageIDs;
     private List<String> titles;
-    private List<String> descriptions;
     private String TAG = "ReportAdapter";
 
     public ReportAdapter(Context context, List<Integer> imageIDs, List<String> titles) {
@@ -72,8 +71,21 @@ public class ReportAdapter extends BaseAdapter {
         return item;
     }
 
+    public List<Integer> getImageIDs() {
+        return imageIDs;
+    }
 
+    public List<String> getTitles() {
+        return titles;
+    }
 
+    public void setImageIDs(List<Integer> imageIDs) {
+        this.imageIDs = imageIDs;
+    }
+
+    public void setTitles(List<String> titles) {
+        this.titles = titles;
+    }
 }
 
 

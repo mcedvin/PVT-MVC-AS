@@ -1,5 +1,8 @@
 package com.example.edvin.app.util;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,9 +21,6 @@ public class RetrofitClient {
      * URLS
      *******/
     private static final String ROOT_URL = "https://recycling-rest.herokuapp.com/";
-   // private static final String ROOT_URL = "https://pvtgrupp06.herokuapp.com/";
-
-
 
 
     /****
@@ -39,7 +39,7 @@ public class RetrofitClient {
             .setDateFormat(DateFormat.DATE_FIELD)
             .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
             .setPrettyPrinting()
-            .setVersion(1.0)
+            .setVersion(1.0).setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
             .create();
 
 
@@ -65,8 +65,7 @@ public class RetrofitClient {
                         .writeTimeout(40, TimeUnit.SECONDS)
                         .connectTimeout(30, TimeUnit.SECONDS)
                         .build())
-                .addConverterFactory(GsonConverterFactory.create())
-                //.addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
 

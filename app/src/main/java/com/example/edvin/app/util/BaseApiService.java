@@ -49,7 +49,7 @@ public interface BaseApiService {
     Call<User> createUser(@Body User user);
 
     @POST("reports/post")
-    Call<Report> postReport (@Body Report report);
+    Call<Void> postReport (@Body Report report);
 
     @PUT("users/put")
     Call<User> putUser(@Body User user);
