@@ -69,7 +69,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private LoggedInUser loggedInUser;
     private GoogleMap map;
-    private static final String TAG = "MapActivity";
+    private static final String TAG = "REGO: MapActivity";
     private static final int PERMISSION_REQUEST_ACCESS_FINE_LOCATION = 32;
     private static final int PERMISSION_REQUEST_ENABLE_GPS = 33;
     private static final LatLngBounds STOCKHOLM_BOUNDS = new LatLngBounds(

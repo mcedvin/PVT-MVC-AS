@@ -27,6 +27,7 @@ import com.example.edvin.app.models.Material;
 import com.example.edvin.app.models.MaterialSchedule;
 import com.example.edvin.app.models.Report;
 import com.example.edvin.app.models.Station;
+import com.example.edvin.app.models.User;
 import com.example.edvin.app.models.UserAccount;
 import com.example.edvin.app.overview.OverviewActivity;
 import com.example.edvin.app.util.BaseApiService;
@@ -60,7 +61,7 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
     private double cameraCenterLatitude, cameraCenterLongitude;
     private float cameraZoomLevel;
     private BottomNavigationView bottomNavigationView;
-    private final String TAG = "StationActivity";
+    private final String TAG = "REGO: StationActivity";
     private int[] materialImages;
     private List<Integer> reportImages;
     private List<String> reportTitles;
@@ -81,6 +82,7 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
     private TextView stationName;
     private final int REPORTS_API_PATH_START = 45; //index locating station name in API call to server for reports
     private TextView postalAddress;
+    private UserAccount account;
 
 
     @Override
@@ -122,7 +124,7 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
     }
 
     private void setUpCloseButton() {
-        ImageButton close = findViewById(R.id.closeStationInfo);
+        close = findViewById(R.id.closeStationInfo);
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -289,14 +291,68 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
 
         Report newReport = new Report(station, user, materialSchedules, cleaningSchedule);
 
-        selectedReportTypes.clear();
-        selectedFullMaterials.clear();
+        postReport(newReport);
+
+        if (selectedReportTypes != null) {
+            selectedReportTypes.clear();
+        }
+
+        if (selectedFullMaterials != null) {
+            selectedFullMaterials.clear();
+        }
 
         confirmReportToUser();
     }
 
     private UserAccount getUserAccount(LoggedInUser user) {
-        return null;
+        BaseApiService api = RetrofitClient.getApiService();
+
+//        Call<UserAccount> call = api.getUserAccount(user.getId());
+// @TODO replace below with above before launch of app
+
+        Call<UserAccount> call = api.getUserAccount(1);
+
+        call.enqueue(new Callback<UserAccount>() {
+            @Override
+            public void onResponse(Call<UserAccount> call, Response<UserAccount> response) {
+                if (response.isSuccessful()) {
+                    account = response.body();
+                } else {
+                    Log.d(TAG, String.valueOf(response.code()));
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<UserAccount> call, Throwable t) {
+                Log.d(TAG, "Failed to get user account from server: " + t.toString());
+            }
+        });
+
+    return account;
+
+    }
+
+    private void postReport(Report report) {
+        BaseApiService api = RetrofitClient.getApiService();
+
+        Call<Report> call = api.postReport(report);
+
+        call.enqueue(new Callback<Report>() {
+            @Override
+            public void onResponse(Call<Report> call, Response<Report> response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "Successfully posted report");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Report> call, Throwable t) {
+                Log.d(TAG, "Successfully posted report");
+                Toast toast = Toast.makeText(StationActivity.this,"Rapporten kunde inte skapas, ursäkta oss", Toast.LENGTH_LONG);
+                toast.show();
+            }
+        });
     }
 
     private void confirmReportToUser() {
@@ -395,8 +451,6 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
 
         Call<List<Report>> call = api.getReportsForStation(stationName);
 
-        List<Report> reports;
-
         call.enqueue(new Callback<List<Report>>() {
             @Override
             public void onResponse(Call<List<Report>> call, Response<List<Report>> response) {
@@ -446,23 +500,28 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
                             }
                         }
 
+                        Log.d(TAG, frequencyMap.entrySet().toString());
+
                         for (Map.Entry<String, Integer> entry : frequencyMap.entrySet()) {
                             String reportType = entry.getKey();
                             int noOfReports = entry.getValue();
 
-                            if (reportType.equals(getString(R.string.NEEDS_CLEANING))) {
+                            if (!reportTitles.contains(reportType)) {
 
-                                reportTitles.add(getString(R.string.item_text_report_type_needs_cleaning) + reportType);
+                                if (reportType.equals(getString(R.string.NEEDS_CLEANING))) {
 
-                            } else {
+                                    reportTitles.add(getString(R.string.item_text_report_type_needs_cleaning) + reportType);
 
-                                reportType = reportType.substring(0, 1).toUpperCase() + reportType.substring(1);
-                                reportTitles.add(reportType + getString(R.string.item_text_report_type_full));
+                                } else {
 
+                                    reportType = reportType.substring(0, 1).toUpperCase() + reportType.substring(1);
+                                    reportTitles.add(reportType + getString(R.string.item_text_report_type_full));
+
+                                }
+
+                                reportImages.add(R.drawable.report_error);
                             }
-                            reportDescriptions.add(getString(R.string.report_item_description_1) + noOfReports + getString(R.string.report_item_description_2));
 
-                            reportImages.add(R.drawable.report_error);
                         }
 
                     } else {
@@ -471,7 +530,7 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
                         reportImages.add(R.drawable.report_ok);
                     }
 
-                    ReportAdapter adapter = new ReportAdapter(getApplicationContext(), reportImages, reportTitles, reportDescriptions);
+                    ReportAdapter adapter = new ReportAdapter(getApplicationContext(), reportImages, reportTitles);
                     reportList = (ListView) findViewById(R.id.reports);
                     reportList.setAdapter(adapter);
 
@@ -493,28 +552,6 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
             }
 
         });
-    }
-
-
-    private String encodeURI(Station station) {
-        //encode URI
-        String path = getString(R.string.SERVER_PATH_REPORTS) + station.getStationName();
-
-        URI uri = null;
-
-        try {
-            uri = new URI(
-                    getString(R.string.SERVER_SCHEME),
-                    getString(R.string.SERVER_HOST),
-                    path,
-                    null);
-
-        } catch (URISyntaxException e) {
-            Log.d(TAG, "URI syntax exception");
-        }
-
-        //extract path from complete URI
-        return uri.toASCIIString().substring(REPORTS_API_PATH_START);
     }
 
     private void goToHomeScreen() {

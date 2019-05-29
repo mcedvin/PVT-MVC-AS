@@ -43,7 +43,7 @@ public class Station implements Serializable {
     }
 
     public String getZipCode() {
-        return zipCode;
+        return zipCode.substring(0,3) + " " + zipCode.substring(3);
     }
 
     public void setZipCode(String zipCode) {

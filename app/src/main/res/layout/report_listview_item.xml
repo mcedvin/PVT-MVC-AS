@@ -26,11 +26,5 @@
             android:textSize="15sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/listview_item_short_description_report"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="5dp"
-            android:textSize="12sp" />
     </LinearLayout>
 </LinearLayout>
