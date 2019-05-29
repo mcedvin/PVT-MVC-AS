@@ -129,14 +129,16 @@
     <string name="report_dialog_header">Välj det eller de alternativ som passar</string>
     <string name="materials_dialog_header">Vilka är fulla?</string>
     <string name="NEEDS_CLEANING">stökig</string>
-    <string name="item_text_report_type_needs_cleaning">Felanmälan: Rapporterad som</string>
-    <string name="item_text_report_type_full_1">Felanmälan:</string>
-    <string name="item_text_report_type_full_2">rapporterad som full</string>
-    <string name="report_item_description_1">Rapporterat av</string>
-    <string name="report_item_description_2">personer</string>
+    <string name="item_text_report_type_needs_cleaning">Rapporterad som\u0020</string>
+    <string name="item_text_report_type_full">\u0020rapporterad som full\u0020</string>
+    <string name="report_item_description_1">Rapporterat av\u0020</string>
+    <string name="report_item_description_2">\u0020personer</string>
     <string name="report_item_no_reports">Inga aktuella felanmälningar</string>
     <string name="report_item_full">Full</string>
     <string name="report_item_needs_cleaning">Stökig</string>
+    <string name="SERVER_SCHEME">https</string>
+    <string name="SERVER_HOST">recycling-rest.herokuapp.com</string>
+    <string name="SERVER_PATH_REPORTS">/reports/</string>
 
     <string-array name="materials_array">
         <item>Alla</item>

@@ -239,7 +239,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             public void onFailure(Call<List<Material>> call, Throwable t) {
                 filterButton.setEnabled(false);
                 filterTextView.setEnabled(false);
-                Log.d(TAG, "Failed to retrieve materials from server" + t.getMessage());
+                Log.d(TAG, "Failed to retrieve materials from server, " + t.toString());
                 Toast.makeText(getApplicationContext(), R.string.API_fail_get_materials, Toast.LENGTH_LONG).show();
             }
 
@@ -375,7 +375,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             @Override
             public void onFailure(Call<List<Station>> call, Throwable t) {
-                Log.d(TAG, "API call to get stations failed");
+                Log.d(TAG, "API call to get stations failed, " + t.toString());
                 Toast.makeText(getApplicationContext(), R.string.failed_to_get_recycling_stations, Toast.LENGTH_LONG).show();
             }
         });
@@ -392,7 +392,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                             this, R.raw.style_json));
 
             if (!success) {
-                Log.e(TAG, "Style parsing failed.");
+                Log.e(TAG, "Style parsing of map failed.");
             }
         } catch (Resources.NotFoundException e) {
             Log.e(TAG, "Can't find style template. Error: ", e);

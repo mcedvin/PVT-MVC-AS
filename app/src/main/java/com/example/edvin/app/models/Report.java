@@ -1,14 +1,17 @@
 package com.example.edvin.app.models;
 
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+
 
 public class Report implements Serializable {
 
     private Long id;
 
     private Station station;
+
     private Date finalEndDate;
 
     private UserAccount userAccount;
@@ -28,7 +31,6 @@ public class Report implements Serializable {
         this.materialSchedules = materialSchedules;
         this.cleaningSchedule = cleaningSchedule;
     }
-
 
     public Report(Station station, UserAccount userAccount, Collection<MaterialSchedule> materialSchedules, CleaningSchedule cleaningSchedule) {
         this.station = station;
@@ -105,5 +107,8 @@ public class Report implements Serializable {
         this.cleaningSchedule = cleaningSchedule;
     }
 
+    public String toString() {
+        return getStation().getStationName();
+    }
 
 }

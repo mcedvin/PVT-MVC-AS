@@ -17,7 +17,6 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public interface BaseApiService {
 
@@ -27,6 +26,9 @@ public interface BaseApiService {
     @GET("users/authenticate")
     Call<User> getAuthenticated(@Body String[] params);
     //TODO: check med queries..
+
+    @GET("reports/{station}")
+    Call<List<Report>> getReportsForStation(@Path("station") String station);
 
     @GET("positions")
     Call<List<Position>> getPositions();
@@ -45,12 +47,6 @@ public interface BaseApiService {
 
     @GET("challenges")
     Call<Challenge> getChallenges();
-
-/**/
-/* returns current reports for specified station
-/**/
-    @GET("reports/{stationName}")
-    Call<List<Report>> getReportsForStation(@Path("stationName") String stationName);
 
     @GET("reports")
     Call<List<Report>> getReports();
