@@ -27,6 +27,7 @@ import com.example.edvin.app.models.Material;
 import com.example.edvin.app.models.MaterialSchedule;
 import com.example.edvin.app.models.Report;
 import com.example.edvin.app.models.Station;
+import com.example.edvin.app.models.User;
 import com.example.edvin.app.models.UserAccount;
 import com.example.edvin.app.overview.OverviewActivity;
 import com.example.edvin.app.util.BaseApiService;
@@ -60,7 +61,7 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
     private double cameraCenterLatitude, cameraCenterLongitude;
     private float cameraZoomLevel;
     private BottomNavigationView bottomNavigationView;
-    private final String TAG = "StationActivity";
+    private final String TAG = "REGO: StationActivity";
     private int[] materialImages;
     private List<Integer> reportImages;
     private List<String> reportTitles;
@@ -81,6 +82,7 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
     private TextView stationName;
     private final int REPORTS_API_PATH_START = 45; //index locating station name in API call to server for reports
     private TextView postalAddress;
+    private UserAccount account;
 
 
     @Override
@@ -289,14 +291,68 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
 
         Report newReport = new Report(station, user, materialSchedules, cleaningSchedule);
 
-        selectedReportTypes.clear();
-        selectedFullMaterials.clear();
+        postReport(newReport);
+
+        if (selectedReportTypes != null) {
+            selectedReportTypes.clear();
+        }
+
+        if (selectedFullMaterials != null) {
+            selectedFullMaterials.clear();
+        }
 
         confirmReportToUser();
     }
 
     private UserAccount getUserAccount(LoggedInUser user) {
-        return null;
+        BaseApiService api = RetrofitClient.getApiService();
+
+//        Call<UserAccount> call = api.getUserAccount(user.getId());
+// @TODO replace below with above before launch of app
+
+        Call<UserAccount> call = api.getUserAccount(1);
+
+        call.enqueue(new Callback<UserAccount>() {
+            @Override
+            public void onResponse(Call<UserAccount> call, Response<UserAccount> response) {
+                if (response.isSuccessful()) {
+                    account = response.body();
+                } else {
+                    Log.d(TAG, String.valueOf(response.code()));
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<UserAccount> call, Throwable t) {
+                Log.d(TAG, "Failed to get user account from server: " + t.toString());
+            }
+        });
+
+    return account;
+
+    }
+
+    private void postReport(Report report) {
+        BaseApiService api = RetrofitClient.getApiService();
+
+        Call<Report> call = api.postReport(report);
+
+        call.enqueue(new Callback<Report>() {
+            @Override
+            public void onResponse(Call<Report> call, Response<Report> response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "Successfully posted report");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Report> call, Throwable t) {
+                Log.d(TAG, "Successfully posted report");
+                Toast toast = Toast.makeText(StationActivity.this,"Rapporten kunde inte skapas, ursäkta oss", Toast.LENGTH_LONG);
+                toast.show();
+            }
+        });
     }
 
     private void confirmReportToUser() {
@@ -356,7 +412,7 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
                 }
             }
 
-            MaterialAdapter adapter = new MaterialAdapter(this, materialImages);
+            MaterialAdapter adapter = new MaterialAdapter(getApplicationContext(), materialImages);
             materialsGrid = (GridView) findViewById(R.id.materials);
             materialsGrid.setAdapter(adapter);
 
@@ -394,8 +450,6 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
         String stationName = station.getStationName();
 
         Call<List<Report>> call = api.getReportsForStation(stationName);
-
-        List<Report> reports;
 
         call.enqueue(new Callback<List<Report>>() {
             @Override
@@ -498,28 +552,6 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
             }
 
         });
-    }
-
-
-    private String encodeURI(Station station) {
-        //encode URI
-        String path = getString(R.string.SERVER_PATH_REPORTS) + station.getStationName();
-
-        URI uri = null;
-
-        try {
-            uri = new URI(
-                    getString(R.string.SERVER_SCHEME),
-                    getString(R.string.SERVER_HOST),
-                    path,
-                    null);
-
-        } catch (URISyntaxException e) {
-            Log.d(TAG, "URI syntax exception");
-        }
-
-        //extract path from complete URI
-        return uri.toASCIIString().substring(REPORTS_API_PATH_START);
     }
 
     private void goToHomeScreen() {

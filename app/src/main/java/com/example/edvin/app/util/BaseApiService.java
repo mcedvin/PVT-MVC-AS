@@ -27,6 +27,9 @@ public interface BaseApiService {
     Call<User> getAuthenticated(@Body String[] params);
     //TODO: check med queries..
 
+    @GET ("/useraccounts/{id}")
+    Call<UserAccount> getUserAccount(@Path("id") int id);
+
     @GET("reports/{station}")
     Call<List<Report>> getReportsForStation(@Path("station") String station);
 
@@ -41,6 +44,9 @@ public interface BaseApiService {
 
     @POST("users/post")
     Call<User> createUser(@Body User user);
+
+    @POST("reports/post")
+    Call<Report> postReport (@Body Report report);
 
     @PUT("users/put")
     Call<User> putUser(@Body User user);
