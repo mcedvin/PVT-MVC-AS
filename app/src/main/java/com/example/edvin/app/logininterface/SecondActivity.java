@@ -91,6 +91,7 @@ public class SecondActivity extends AppCompatActivity {
         startBtn = findViewById(R.id.startBtn);
 
 
+
         /*
         callbackManager = CallbackManager.Factory.create();
         txtBirthday = (TextView) findViewById(R.id.txtBirthday);

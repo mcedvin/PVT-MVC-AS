@@ -21,7 +21,7 @@ public class LoggedInUser implements Serializable {
 
 
 
-    public LoggedInUser(String displayName, int id, Collection<ChallengeAccepted> currentChallenges,Collection<ChallengeAccepted> completedChallenges ) {
+    public LoggedInUser(String displayName, int id ) {
         this.displayName = displayName;
         this.id = id;
         //default image?
