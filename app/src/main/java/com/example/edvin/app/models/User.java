@@ -12,13 +12,13 @@ public class User {
     @SerializedName("body")
     private String text;
 
-    public User(String firstName, String lastName, String email, String password, int id) {
+    public User(String firstName, String lastName, String email, String password) {  //int id
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
 
-       // this.userAccount = new UserAccount(id,password,null);
-        this.userAccount = new UserAccount(id,password);
+       // this.userAccount = new UserAccount(id,password);
+        this.userAccount = new UserAccount(password);
     }
 
     public String getFirstName() {

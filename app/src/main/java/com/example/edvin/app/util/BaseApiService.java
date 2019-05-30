@@ -30,6 +30,9 @@ public interface BaseApiService {
             @Path("myPath") String path
     );
 
+    @GET("/users/{mail}")
+    Call<User> getOneUser( @Path("mail") String mail);
+
     @GET ("/useraccounts/{id}")
     Call<UserAccount> getUserAccount(@Path("id") int id);
 

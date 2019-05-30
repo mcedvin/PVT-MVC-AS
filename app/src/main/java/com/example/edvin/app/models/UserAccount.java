@@ -30,6 +30,13 @@ public class UserAccount {
         //this.profilePicture=profilePicture;
     }
 
+    public UserAccount(String password) {     //byte[] profilePicture
+
+        this.password = password;
+
+
+    }
+
     public int getId() {
         return id;
     }
