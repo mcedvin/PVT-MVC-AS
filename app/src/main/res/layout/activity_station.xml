@@ -98,17 +98,23 @@
 
         <Button
             android:id="@+id/reportButton"
-            android:layout_width="114dp"
-            android:layout_height="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:backgroundTint="@color/ReGoPink"
-            android:text="Rapportera"
+            android:backgroundTint="@color/ReGoReportRed"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:text="@string/report_text"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textColorLink="@color/ReGoReportRed"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/reports"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/postalAddress" />
 
@@ -132,18 +138,20 @@
 
         <Button
             android:id="@+id/navigateButton"
-            android:layout_width="151dp"
-            android:layout_height="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="4dp"
             android:backgroundTint="@color/ReGoPrimaryColor"
-            android:text="Navigera mig hit"
+            android:text="@string/navigate_text"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent" />
 
         <GridView

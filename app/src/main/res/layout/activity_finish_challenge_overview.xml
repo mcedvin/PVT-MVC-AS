@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".challenges.finishChallengeActivity"
+    tools:context=".challenges.FinishChallengeOverviewActivity"
     android:background="@drawable/background_homepage">
 
     <ImageButton
@@ -67,16 +67,23 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/no_plastic_challenge" />
 
-            <Button
-                android:id="@+id/shareButton"
+            <com.facebook.share.widget.ShareButton
+                android:id="@+id/fb_share_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@drawable/facebook_button"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:text="@string/share_on_facebook_text"
-                android:textColor="@android:color/white" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="0.5"
+                android:background="@color/com_facebook_blue"
+                android:onClick="share"
+                android:paddingLeft="40dp"
+                android:paddingTop="10dp"
+                android:paddingRight="40dp"
+                android:paddingBottom="10dp"
+                android:text="@string/facebook_apk_share"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/challengeInformationKontext"
@@ -151,7 +158,7 @@
                     android:layout_width="196dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
-                    android:background="@drawable/rounded_corners_border"
+                    android:background="@color/ReGoRed"
                     android:gravity="center"
                     android:text="@string/cancel_text"
                     android:textColor="@android:color/white" />

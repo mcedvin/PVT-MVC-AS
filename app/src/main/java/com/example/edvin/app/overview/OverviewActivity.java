@@ -9,9 +9,8 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import com.example.edvin.app.FinishedChallenge;
+import com.example.edvin.app.challenges.CompletedChallengesActivity;
 import com.example.edvin.app.R;
-import com.example.edvin.app.challenges.ChallengesActivity;
 import com.example.edvin.app.challenges.ChallengesCategoryScreenActivity;
 import com.example.edvin.app.guide.GuideMainActivity;
 import com.example.edvin.app.map.MapActivity;
@@ -42,7 +41,7 @@ public class OverviewActivity extends AppCompatActivity {
         joinNewChallenge.setOnClickListener(l -> homeToNewChallenge());
 
         showAllFinishedChallenges = findViewById(R.id.showAllFinishedChallenges);
-        showAllFinishedChallenges.setOnClickListener(l -> startActivity(new Intent(this, FinishedChallenge.class)));
+        showAllFinishedChallenges.setOnClickListener(l -> startActivity(new Intent(this, CompletedChallengesActivity.class)));
 
 
         //bottomNav = findViewById(R.id.navv_view); ********** FEL NAMN!!!!!************
