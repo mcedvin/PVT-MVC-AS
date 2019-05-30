@@ -19,7 +19,7 @@
         tools:context=".map.MapActivity" />
 
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navv_view"
+        android:id="@+id/navv_view_map"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"

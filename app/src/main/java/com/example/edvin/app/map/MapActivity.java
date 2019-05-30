@@ -101,6 +101,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+
+ // @TODO remove this comment before launch of app
 //        loggedInUser = (LoggedInUser) getIntent().getSerializableExtra(getString(R.string.INTENT_KEY_USER));
 
         getMap();
@@ -117,9 +119,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     }
 
-    private void getDataFromIntent() {
-
-    }
 
     private void setUpSearchBar() {
         searchView = findViewById(R.id.searchView);
@@ -140,7 +139,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void setUpBottomNavigationView() {
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.navv_view);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.navv_view_map);
         bottomNavigationView.setSelectedItemId(R.id.stationMenuItem);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -262,13 +261,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         Intent stationIntent = new Intent(this, StationActivity.class);
         Bundle bundle = new Bundle();
-        stationIntent.putExtra(getString(R.string.INTENT_KEY_STATION), station);
-        stationIntent.putExtra(getString(R.string.INTENT_KEY_USER), loggedInUser);
+        bundle.putSerializable(getString(R.string.INTENT_KEY_USER), loggedInUser);
+        bundle.putSerializable(getString(R.string.INTENT_KEY_STATION), station);
         bundle.putDouble(getString(R.string.INTENT_KEY_CAMERA_LAT), map.getCameraPosition().target.latitude);
         bundle.putDouble(getString(R.string.INTENT_KEY_CAMERA_LONG), map.getCameraPosition().target.longitude);
         bundle.putFloat(getString(R.string.INTENT_KEY_CAMERA_ZOOM), map.getCameraPosition().zoom);
-        stationIntent.putExtras(bundle);
+        bundle.putParcelable(getString(R.string.INTENT_KEY_USER_LOCATION), currentLocation);
 
+        ArrayList<Station> stations = new ArrayList<>();
+        stations.addAll(markersAndStations.values());
+        bundle.putSerializable(getString(R.string.INTENT_KEY_STATION_LIST), stations);
+
+        stationIntent.putExtras(bundle);
         startActivity(stationIntent);
     }
 

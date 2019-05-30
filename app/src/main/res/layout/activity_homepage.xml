@@ -22,7 +22,7 @@
 
 
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navv_view"
+        android:id="@+id/navv_view_homepage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
@@ -50,7 +50,7 @@
         android:elevation="4dp"
         android:text="@string/sparad_co2"
 
-        app:layout_constraintBottom_toBottomOf="@+id/navv_view"
+        app:layout_constraintBottom_toBottomOf="@+id/navv_view_homepage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +99,7 @@
         android:elevation="4dp"
         android:text="Visa historik"
         android:textColor="#FFF"
-        app:layout_constraintBottom_toBottomOf="@+id/navv_view"
+        app:layout_constraintBottom_toBottomOf="@+id/navv_view_homepage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"

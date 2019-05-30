@@ -139,6 +139,11 @@
     <string name="SERVER_SCHEME">https</string>
     <string name="SERVER_HOST">recycling-rest.herokuapp.com</string>
     <string name="SERVER_PATH_REPORTS">/reports/</string>
+
+
+
+
+    <string name="INTENT_KEY_STATION_LIST">listOfStations</string>
     <string name="report_text">Rapportera</string>
     <string name="navigate_text">Navigera mig hit</string>
 
@@ -533,6 +538,7 @@ Hav
 
 Avklarade Utmaningar
 </string>
+    <string name="INTENT_KEY_USER_LOCATION">location</string>
 
 
 </resources>

@@ -2,10 +2,11 @@ package com.example.edvin.app.models;
 
 
 import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.io.Serializable;
 
-public class Position implements Serializable {
+public class Position implements Serializable, Parcelable {
 
     private double x;
     private double y;
@@ -18,6 +19,23 @@ public class Position implements Serializable {
     public Position() {
 
     }
+
+    protected Position(Parcel in) {
+        x = in.readDouble();
+        y = in.readDouble();
+    }
+
+    public static final Creator<Position> CREATOR = new Creator<Position>() {
+        @Override
+        public Position createFromParcel(Parcel in) {
+            return new Position(in);
+        }
+
+        @Override
+        public Position[] newArray(int size) {
+            return new Position[size];
+        }
+    };
 
     public double getX() {
         return x;
@@ -47,4 +65,14 @@ public class Position implements Serializable {
         return "" + x + " " + y;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeDouble(x);
+        dest.writeDouble(y);
+    }
 }

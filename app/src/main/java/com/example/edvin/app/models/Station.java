@@ -1,6 +1,8 @@
 package com.example.edvin.app.models;
 
 
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -58,7 +60,7 @@ public class Station implements Serializable {
         return availableMaterials;
     }
 
-    public void setAvailableMaterials(Collection<Material> availableMaterials){
+    public void setAvailableMaterials(Collection<Material> availableMaterials) {
         this.availableMaterials = availableMaterials;
     }
 
@@ -98,5 +100,15 @@ public class Station implements Serializable {
     @Override
     public String toString() {
         return getTitle() + ", " + getZipCode() + " " + area;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Station) {
+            if (stationName.equals(((Station) other).getStationName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

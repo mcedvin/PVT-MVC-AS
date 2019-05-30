@@ -3,7 +3,7 @@ package com.example.edvin.app.map;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.media.Image;
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
@@ -28,7 +28,6 @@ import com.example.edvin.app.models.Material;
 import com.example.edvin.app.models.MaterialSchedule;
 import com.example.edvin.app.models.Report;
 import com.example.edvin.app.models.Station;
-import com.example.edvin.app.models.User;
 import com.example.edvin.app.models.UserAccount;
 import com.example.edvin.app.overview.OverviewActivity;
 import com.example.edvin.app.util.BaseApiService;
@@ -43,8 +42,6 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.maps.GeoApiContext;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -84,6 +81,9 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
     private final int REPORTS_API_PATH_START = 45; //index locating station name in API call to server for reports
     private TextView postalAddress;
     private UserAccount account;
+    private Button directionsButton;
+    private ArrayList<Station> stations;
+    private Location currentLocation;
 
 
     @Override
@@ -95,7 +95,7 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
 
         setUpCloseButton();
 
-        getIntentAndBundle();
+        getDataFromIntent();
 
         setUpStationTextView();
 
@@ -107,8 +107,33 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
 
         setUpReportButton();
 
+        setUpDirectionsButton();
+
     }
 
+    private void setUpDirectionsButton() {
+        directionsButton = findViewById(R.id.navigateButton);
+
+        directionsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "directions button was clicked!");
+                goToDirectionsActivity();
+            }
+        });
+
+    }
+
+    private void goToDirectionsActivity() {
+        Intent directionsIntent = new Intent(getApplicationContext(), DirectionActivity.class);
+        directionsIntent.putExtra(getString(R.string.INTENT_KEY_USER), loggedInUser);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(getString(R.string.INTENT_KEY_STATION), station);
+        bundle.putSerializable(getString(R.string.INTENT_KEY_STATION_LIST), stations);
+        bundle.putParcelable(getString(R.string.INTENT_KEY_USER_LOCATION), currentLocation);
+        directionsIntent.putExtras(bundle);
+        startActivity(directionsIntent);
+    }
 
     private void setUpStationTextView() {
         stationName = findViewById(R.id.stationName);
@@ -329,7 +354,7 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
             }
         });
 
-    return account;
+        return account;
 
     }
 
@@ -350,7 +375,7 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Log.d(TAG, "Failed to post report: " + t.toString());
-                Toast toast = Toast.makeText(StationActivity.this,"Rapporten kunde inte skapas, ursäkta oss", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(StationActivity.this, "Rapporten kunde inte skapas, ursäkta oss", Toast.LENGTH_LONG);
                 toast.show();
             }
         });
@@ -362,12 +387,18 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
         toast.show();
     }
 
-    private void getIntentAndBundle() {
+    private void getDataFromIntent() {
         Intent intent = getIntent();
 
-        station = (Station) intent.getSerializableExtra(getString(R.string.INTENT_KEY_STATION));
-        loggedInUser = (LoggedInUser) intent.getSerializableExtra(getString(R.string.INTENT_KEY_USER));
         Bundle fromReferringActivity = intent.getExtras();
+        station = (Station)fromReferringActivity.getSerializable(getString(R.string.INTENT_KEY_STATION));
+        stations = (ArrayList<Station>)fromReferringActivity.getSerializable(getString(R.string.INTENT_KEY_STATION_LIST));
+        loggedInUser = (LoggedInUser)fromReferringActivity.getSerializable(getString(R.string.INTENT_KEY_USER));
+        currentLocation = (Location)fromReferringActivity.getSerializable(getString(R.string.INTENT_KEY_USER_LOCATION));
+//        station = (Station) intent.getSerializableExtra(getString(R.string.INTENT_KEY_STATION));
+//        stations = intent.getParcelableArrayListExtra(getString(R.string.INTENT_KEY_STATION_LIST));
+//        loggedInUser = (LoggedInUser) intent.getSerializableExtra(getString(R.string.INTENT_KEY_USER));
+
         cameraCenterLatitude = fromReferringActivity.getDouble(getString(R.string.INTENT_KEY_CAMERA_LAT));
         cameraCenterLongitude = fromReferringActivity.getDouble(getString(R.string.INTENT_KEY_CAMERA_LONG));
         cameraZoomLevel = fromReferringActivity.getFloat(getString(R.string.INTENT_KEY_CAMERA_ZOOM));
@@ -376,6 +407,8 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
     private void setUpMaterialGrid() {
 
         materials = (List) station.getAvailableMaterials();
+
+        Log.d(TAG, materials.toString());
 
         if (materials != null && !materials.isEmpty()) {
 
@@ -421,7 +454,7 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
     }
 
     private void setUpBottomNavigationView() {
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.navv_view);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.navv_view_station);
         bottomNavigationView.setSelectedItemId(R.id.stationMenuItem);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -540,15 +573,13 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
 
                     } else {
 
-                        ReportAdapter adapter = (ReportAdapter)reportList.getAdapter();
+                        ReportAdapter adapter = (ReportAdapter) reportList.getAdapter();
                         adapter.getImageIDs().clear();
                         adapter.getTitles().clear();
                         adapter.setImageIDs(reportImages);
                         adapter.setTitles(reportTitles);
                         adapter.notifyDataSetChanged();
                     }
-
-
 
 
                 } else {
