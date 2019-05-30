@@ -45,7 +45,7 @@ public class GuideMainActivity extends AppCompatActivity {
 
 
 
-        bottomNav = findViewById(R.id.navv_view);
+        bottomNav = findViewById(R.id.navv_view_guide_main);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
         metall = (Button) findViewById(R.id.metall);
