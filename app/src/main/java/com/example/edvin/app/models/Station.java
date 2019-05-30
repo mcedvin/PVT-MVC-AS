@@ -43,13 +43,12 @@ public class Station implements Serializable {
     }
 
     public String getZipCode() {
-        return zipCode.substring(0,3) + " " + zipCode.substring(3);
+        return zipCode;
     }
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
-
 
     public void setStationName(String stationName) {
         this.stationName = stationName;
@@ -91,8 +90,13 @@ public class Station implements Serializable {
         this.materialSchedules = materialSchedules;
     }
 
+    public String getTitle() {
+        String[] arr = stationName.split("/|,");
+        return arr[0].trim();
+    }
+
     @Override
     public String toString() {
-        return stationName;
+        return getTitle() + ", " + getZipCode() + " " + area;
     }
 }

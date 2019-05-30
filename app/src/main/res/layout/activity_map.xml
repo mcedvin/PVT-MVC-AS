@@ -105,8 +105,8 @@
     </android.support.constraint.ConstraintLayout>
 
     <LinearLayout
-        android:layout_width="107dp"
-        android:layout_height="525dp"
+        android:layout_width="134dp"
+        android:layout_height="552dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
@@ -118,10 +118,11 @@
 
         <AutoCompleteTextView
             android:id="@+id/searchView"
-            android:layout_width="match_parent"
+            android:layout_width="108dp"
             android:layout_height="56dp"
             android:background="#FFFFFF"
             android:completionThreshold="1"
+            android:dropDownWidth="match_parent"
             android:hint="@string/hint_station"
             android:textSize="16sp"
             android:visibility="visible" />

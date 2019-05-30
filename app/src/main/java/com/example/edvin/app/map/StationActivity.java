@@ -112,7 +112,7 @@ public class StationActivity extends AppCompatActivity implements OnMapReadyCall
 
     private void setUpStationTextView() {
         stationName = findViewById(R.id.stationName);
-        stationName.setText(station.getStationName());
+        stationName.setText(station.getTitle());
         postalAddress = findViewById(R.id.postalAddress);
         postalAddress.setText(station.getZipCode() + " " + station.getArea());
 
