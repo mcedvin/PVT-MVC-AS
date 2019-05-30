@@ -124,38 +124,43 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-                <Button
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <com.facebook.share.widget.ShareButton
                     android:id="@+id/fb_share_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/facebook_button"
-                    android:foregroundGravity="center"
-                    android:gravity="center"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="24dp"
+                    android:onClick="share"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
-                    android:text="@string/share_on_facebook_text"
-                    android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:text="@string/com_facebook_share_button_text"
+                    android:textColor="@android:color/white" />
 
                 <Button
                     android:id="@+id/joinButton"
-                    android:layout_width="143dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginBottom="24dp"
                     android:background="@drawable/rounded_corners_border"
-                    android:gravity="center"
                     android:paddingLeft="30dp"
                     android:paddingRight="30dp"
                     android:text="@string/join_text"
-                    android:textColor="@android:color/white"
-                    android:textSize="20sp" />
-
+                    android:textColor="@android:color/white" />
             </LinearLayout>
 
+        </LinearLayout>
 
 
     </ScrollView>

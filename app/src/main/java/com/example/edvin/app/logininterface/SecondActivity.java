@@ -90,6 +90,7 @@ public class SecondActivity extends AppCompatActivity {
         userTxt = findViewById(R.id.userTxt);
         startBtn = findViewById(R.id.startBtn);
 
+
         /*
         callbackManager = CallbackManager.Factory.create();
         txtBirthday = (TextView) findViewById(R.id.txtBirthday);
