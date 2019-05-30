@@ -12,14 +12,15 @@ public class Challenge {
     private String description;
     private int duration; //timestamp?
     private byte[] image; //default image?
-    private ChallengeCategory challengeCategory;
+    //private ChallengeCategory challengeCategory;
+    private int challengeCategory;
 
 
     @SerializedName("body")
     private String text;
 
 
-    public Challenge(String n,String d,int duration,byte[] img, ChallengeCategory challengeCategory){
+    public Challenge(String n,String d,int duration,byte[] img, int challengeCategory){
         name =n;
         description=d;
         this.duration=duration;
@@ -50,7 +51,7 @@ public class Challenge {
         this.image = image;
     }
 
-    public ChallengeCategory getChallengeCategory() {
+    public int getChallengeCategory() {
         return challengeCategory;
     }
 
@@ -58,13 +59,14 @@ public class Challenge {
         return text;
     }
 
+   /*
     public enum ChallengeCategory {
         //havet naturen djuren luften
-        HAVET,
-        NATUREN,
-        DJUREN,
-        LUFTEN
+        HAVET,      =1
+        NATUREN,    =2
+        DJUREN,     =3
+        LUFTEN      =4
     }
 
-
+*/
 }
