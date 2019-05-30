@@ -139,7 +139,8 @@ public class SignupActivity extends AppCompatActivity {
                     if (t instanceof EOFException){
                         Toast.makeText(SignupActivity.this,"i think it worked.. i guess.. welcome "+ newUser.getFirstName(),Toast.LENGTH_SHORT).show();
 
-                        loggedInUser = new LoggedInUser(newUser.getFirstName()+" "+newUser.getLastName(),newUser.getUserAccount().getId());
+                        loggedInUser = new LoggedInUser(newUser.getFirstName()+" "+newUser.getLastName(),newUser.getUserAccount().getId(),
+                                newUser.getUserAccount().getCurrentChallenges(),newUser.getUserAccount().getCompletedChallenges());
 
                         sharedPreferences = getSharedPreferences("autoLogin", Context.MODE_PRIVATE);
                         SharedPreferences.Editor prefsEditor = sharedPreferences.edit();

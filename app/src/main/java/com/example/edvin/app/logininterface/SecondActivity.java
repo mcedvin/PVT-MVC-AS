@@ -291,7 +291,8 @@ JOELSSSSS
                     else{
                         Toast.makeText(SecondActivity.this, "welcome "+checkedUser.getFirstName()+"! logging in to your account..",Toast.LENGTH_SHORT).show();
                     check = true;
-                    loggedInUser = new LoggedInUser(checkedUser.getFirstName()+" "+checkedUser.getLastName(),checkedUser.getUserAccount().getId());
+                    loggedInUser = new LoggedInUser(checkedUser.getFirstName()+" "+checkedUser.getLastName(),checkedUser.getUserAccount().getId(),
+                            checkedUser.getUserAccount().getCurrentChallenges(),checkedUser.getUserAccount().getCompletedChallenges());
 
                     sharedPreferences = getSharedPreferences("autoLogin", Context.MODE_PRIVATE);
                     SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
