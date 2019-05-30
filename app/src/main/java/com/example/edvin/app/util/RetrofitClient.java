@@ -22,29 +22,6 @@ public class RetrofitClient {
      *******/
     private static final String ROOT_URL = "https://recycling-rest.herokuapp.com/";
 
-
-    /****
-     * HTTP Client
-     *
-     ****/
-    //    private static OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
-//
-//            .connectTimeout(30, TimeUnit.SECONDS)
-//            .readTimeout(40, TimeUnit.SECONDS)
-//            .writeTimeout(40, TimeUnit.SECONDS)
-//            .build();
-
-
-    /*private static Gson gson = new GsonBuilder()
-            .enableComplexMapKeySerialization()
-            .serializeNulls()
-            .setDateFormat(DateFormat.DATE_FIELD)
-            .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-            .setPrettyPrinting()
-            .setVersion(1.0).
-            .create();*/
-
-
     private static Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
             .create();
