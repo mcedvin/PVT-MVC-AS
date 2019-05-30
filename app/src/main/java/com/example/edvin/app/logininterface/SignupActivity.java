@@ -39,6 +39,7 @@ public class SignupActivity extends AppCompatActivity {
     LoggedInUser loggedInUser;
     User newUser;
     SharedPreferences sharedPreferences;
+    BaseApiService api = RetrofitClient.getApiService();
 
 
     @Override
@@ -81,9 +82,9 @@ public class SignupActivity extends AppCompatActivity {
 
 
             //Creating an object of our api interface
-            BaseApiService api = RetrofitClient.getApiService();
 
-            newUser = new User(firstName,lastName,email,password,getRandomNumberInRange(700,1200));
+
+            newUser = new User(firstName,lastName,email,password);
 
 
             /**
@@ -124,9 +125,11 @@ public class SignupActivity extends AppCompatActivity {
                      * Posted Successfully
                      */
 
-                    User postUser = new User(response.body().getFirstName(),response.body().getLastName(),response.body().getEmail(),response.body().getUserAccount().getPassword(),response.body().getUserAccount().getId());
+                    User postUser = new User(response.body().getFirstName(),response.body().getLastName(),response.body().getEmail(),response.body().getUserAccount().getPassword());
                     System.out.println(postUser.getFirstName());
                     Toast.makeText(SignupActivity.this, "Success! "+ response.code()+", Welcome "+postUser.getFirstName()+"!" ,Toast.LENGTH_SHORT).show();
+                    if(makeLoggedInUser())
+                        goToHome();
 
 
                 }
@@ -137,20 +140,12 @@ public class SignupActivity extends AppCompatActivity {
 
 
                     if (t instanceof EOFException){
-                        Toast.makeText(SignupActivity.this,"i think it worked.. i guess.. welcome "+ newUser.getFirstName(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignupActivity.this,"welcome "+ newUser.getFirstName(),Toast.LENGTH_SHORT).show();
 
-                        loggedInUser = new LoggedInUser(newUser.getFirstName()+" "+newUser.getLastName(),newUser.getUserAccount().getId(),
-                                newUser.getUserAccount().getCurrentChallenges(),newUser.getUserAccount().getCompletedChallenges());
 
-                        sharedPreferences = getSharedPreferences("autoLogin", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
-                        Gson gson = new Gson();
-                        String json = gson.toJson(loggedInUser);
-                        prefsEditor.putString("SerializableObject", json);
-                        prefsEditor.putInt("key",1);
-                        prefsEditor.apply();
 
-                        goToHome();
+                        if(makeLoggedInUser())
+                            goToHome();
 
                     }else
                     Toast.makeText(SignupActivity.this,"Failure! No response: "+t.getMessage(),Toast.LENGTH_SHORT).show();
@@ -159,6 +154,64 @@ public class SignupActivity extends AppCompatActivity {
 
 
         }
+    }
+
+    protected boolean makeLoggedInUser(){
+
+        final String email = mailTxt.getText().toString();
+
+        Call<User> call = api.getOneUser(email);
+
+
+
+
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+
+
+                if (!response.isSuccessful()) {
+                    Toast.makeText(SignupActivity.this,"Code: " + response.code(),Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                /**
+                 * Got Successfully
+                 */
+
+
+
+                User postedUser = response.body();
+
+                if (postedUser== null)
+                    Toast.makeText(SignupActivity.this, "no such user!",Toast.LENGTH_SHORT).show();
+                else{
+
+
+                    loggedInUser = new LoggedInUser(postedUser.getFirstName()+" "+postedUser.getLastName(),postedUser.getUserAccount().getId(),
+                            postedUser.getUserAccount().getCurrentChallenges(),postedUser.getUserAccount().getCompletedChallenges());
+
+                    sharedPreferences = getSharedPreferences("autoLogin", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
+                    Gson gson = new Gson();
+                    String json = gson.toJson(loggedInUser);
+                    prefsEditor.putString("SerializableObject", json);
+                    prefsEditor.putInt("key",1);
+                    prefsEditor.apply();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
+                Toast.makeText(SignupActivity.this,"FAILURE!"+t.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        if (loggedInUser==null)
+            return true;
+        else
+            return false;
     }
 
 
