@@ -1,6 +1,8 @@
 package com.example.edvin.app.map;
 
 import android.graphics.Color;
+import android.graphics.Path;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
@@ -62,7 +64,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DirectionActivity extends AppCompatActivity implements OnMapReadyCallback,
-        GoogleMap.OnMyLocationClickListener, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnPolylineClickListener {
+        GoogleMap.OnMyLocationClickListener, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnPolylineClickListener, GoogleMap.OnInfoWindowClickListener, GoogleMap.OnMarkerClickListener {
 
     private LoggedInUser loggedInUser;
     private GoogleMap map;
@@ -116,7 +118,6 @@ public class DirectionActivity extends AppCompatActivity implements OnMapReadyCa
 
     private void setUpBottomNavigationView() {
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navv_view_direction);
-        bottomNavigationView.setSelectedItemId(R.id.stationMenuItem);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -247,6 +248,8 @@ public class DirectionActivity extends AppCompatActivity implements OnMapReadyCa
         UiSettings mapUI = googleMap.getUiSettings();
         mapUI.setCompassEnabled(true);
         mapUI.setZoomControlsEnabled(true);
+        map.setOnMarkerClickListener(this);
+        map.setOnInfoWindowClickListener(this);
 
         //makes sure Google logo, My Location button & zoom controls are not hidden behind UI widgets
         //@TODO params left, top, right, bottom should be calculated from screen size instead of hardcoded
@@ -503,7 +506,7 @@ public class DirectionActivity extends AppCompatActivity implements OnMapReadyCa
         for (LatLng latLngPoint : lstLatLngRoute)
             boundsBuilder.include(latLngPoint);
 
-        int routePadding = 35;
+        int routePadding = 60;
 
         LatLngBounds latLngBounds = boundsBuilder.build();
 
@@ -514,7 +517,61 @@ public class DirectionActivity extends AppCompatActivity implements OnMapReadyCa
         );
     }
 
+
+    @Override
+    public void onInfoWindowClick(final Marker marker) {
+        Log.d(TAG, "info window clicked!");
+        openGoogleMapsDialog(marker);
+    }
+
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        Log.d(TAG, "marker clicked!");
+        if (marker.equals(target)) {
+            openGoogleMapsDialog(marker);
+        }
+        return true;
+    }
+
+    private void openGoogleMapsDialog(Marker marker) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(DirectionActivity.this);
+
+        builder.setMessage("Öppna Google Maps?")
+                .setCancelable(true)
+                .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+
+                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+
+                        String latitude = String.valueOf(marker.getPosition().latitude);
+                        String longitude = String.valueOf(marker.getPosition().longitude);
+
+                        Uri gmmIntentUri = Uri.parse("google.navigation:q=" + latitude + "," + longitude);
+
+                        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+
+                        mapIntent.setPackage("com.google.android.apps.maps");
+
+                        try {
+                            if (mapIntent.resolveActivity(DirectionActivity.this.getPackageManager()) != null) {
+                                startActivity(mapIntent);
+                            }
+                        } catch (NullPointerException e) {
+                            Log.e(TAG, "onClick: NullPointerException: Couldn't open map." + e.getMessage());
+                            Toast.makeText(DirectionActivity.this, "Kunde inte öppna Google Maps", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .setNegativeButton("Nej", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
 }
+
 
 
 

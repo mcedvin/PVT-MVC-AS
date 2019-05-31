@@ -12,7 +12,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-
     private static final String ROOT_URL = "https://recycling-rest.herokuapp.com/";
 
     private static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
