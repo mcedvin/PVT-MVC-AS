@@ -537,20 +537,20 @@ public class DirectionActivity extends AppCompatActivity implements OnMapReadyCa
     private void openGoogleMapsDialog(Marker marker) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(DirectionActivity.this);
 
-        builder.setMessage("Öppna Google Maps?")
+        builder.setMessage(getString(R.string.open_google_maps_dialog))
                 .setCancelable(true)
-                .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.positive_option_google_maps_dialog), new DialogInterface.OnClickListener() {
 
                     public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
 
                         String latitude = String.valueOf(marker.getPosition().latitude);
                         String longitude = String.valueOf(marker.getPosition().longitude);
 
-                        Uri gmmIntentUri = Uri.parse("google.navigation:q=" + latitude + "," + longitude);
+                        Uri gmmIntentUri = Uri.parse(getString(R.string.google_maps_uri_navigation) + latitude + "," + longitude);
 
                         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
 
-                        mapIntent.setPackage("com.google.android.apps.maps");
+                        mapIntent.setPackage(getString(R.string.google_maps_package));
 
                         try {
                             if (mapIntent.resolveActivity(DirectionActivity.this.getPackageManager()) != null) {
@@ -558,11 +558,11 @@ public class DirectionActivity extends AppCompatActivity implements OnMapReadyCa
                             }
                         } catch (NullPointerException e) {
                             Log.e(TAG, "onClick: NullPointerException: Couldn't open map." + e.getMessage());
-                            Toast.makeText(DirectionActivity.this, "Kunde inte öppna Google Maps", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(DirectionActivity.this, getString(R.string.error_message_open_maps), Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
-                .setNegativeButton("Nej", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getString(R.string.negative_option_google_maps_dialog), new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
                         dialog.cancel();
                     }

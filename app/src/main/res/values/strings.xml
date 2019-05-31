@@ -139,10 +139,13 @@
     <string name="SERVER_SCHEME">https</string>
     <string name="SERVER_HOST">recycling-rest.herokuapp.com</string>
     <string name="SERVER_PATH_REPORTS">/reports/</string>
-
-
-
-
+    <string name="INTENT_KEY_USER_LOCATION">location</string>
+    <string name="open_google_maps_dialog">Öppna Google Maps?</string>
+    <string name="positive_option_google_maps_dialog">Ja</string>
+    <string name="google_maps_uri_navigation">google.navigation:q=</string>
+    <string name="google_maps_package">com.google.android.apps.maps</string>
+    <string name="error_message_open_maps">Kunde inte öppna Google Maps</string>
+    <string name="negative_option_google_maps_dialog">Nej</string>
     <string name="INTENT_KEY_STATION_LIST">listOfStations</string>
     <string name="report_text">Rapportera</string>
     <string name="navigate_text">Navigera mig hit</string>
@@ -538,7 +541,7 @@ Hav
 
 Avklarade Utmaningar
 </string>
-    <string name="INTENT_KEY_USER_LOCATION">location</string>
+
 
 
 </resources>
