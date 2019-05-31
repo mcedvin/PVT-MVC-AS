@@ -16,13 +16,13 @@ public class LoggedInUser implements Serializable {
     private int id;
     private Image avatar = null; //bytes ?
 
-    private Collection<Challenge> currentChallenges;
-    private Collection<Challenge> completedChallenges;
+    private Collection<ChallengeAccepted> currentChallenges;
+    private Collection<ChallengeAccepted> completedChallenges;
 
 
 
-    public LoggedInUser(String displayName, int id ,Collection<Challenge> currentChallenges,
-                        Collection<Challenge> completedChallenges) {
+    public LoggedInUser(String displayName, int id ,Collection<ChallengeAccepted> currentChallenges,
+                        Collection<ChallengeAccepted> completedChallenges) {
         this.displayName = displayName;
         this.id = id;
 
@@ -51,11 +51,26 @@ public class LoggedInUser implements Serializable {
 
 
 public boolean hasCurrent(Challenge ch){
-        return currentChallenges.contains(ch);
+
+        if(currentChallenges.size()==0)
+            return false;
+
+        for (ChallengeAccepted ca: currentChallenges){
+            if(ca.getChallenge().isEqual(ch))
+                return true;
+        }
+        return false;
 }
 
 public boolean hasCompleted(Challenge ch){
-        return completedChallenges.contains(ch);
+    if(completedChallenges.size()==0)
+        return false;
+
+    for (ChallengeAccepted ca: completedChallenges){
+        if(ca.getChallenge().isEqual(ch))
+            return true;
+    }
+    return false;
 }
 
 

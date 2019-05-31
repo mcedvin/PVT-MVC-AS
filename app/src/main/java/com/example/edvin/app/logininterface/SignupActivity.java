@@ -191,19 +191,9 @@ public class SignupActivity extends AppCompatActivity {
                 else{
 
 
-                    Collection<Challenge> current = new ArrayList<>();
-
-                    for(ChallengeAccepted ca :postedUser.getUserAccount().getCurrentChallenges() ){
-                        current.add(ca.getChallenge());
-                    }
-                    Collection<Challenge> complete = new ArrayList<>();
-
-                    for(ChallengeAccepted ca :postedUser.getUserAccount().getCompletedChallenges() ){
-                        complete.add(ca.getChallenge());
-                    }
 
                     loggedInUser = new LoggedInUser(postedUser.getFirstName()+" "+postedUser.getLastName(),postedUser.getUserAccount().getId(),
-                            current,complete);
+                            postedUser.getUserAccount().getCurrentChallenges(),postedUser.getUserAccount().getCompletedChallenges() );
                     sharedPreferences = getSharedPreferences("autoLogin", Context.MODE_PRIVATE);
                     SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
                     Gson gson = new Gson();

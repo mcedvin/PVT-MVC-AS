@@ -296,19 +296,9 @@ JOELSSSSS
                         Toast.makeText(SecondActivity.this, "welcome "+checkedUser.getFirstName()+"! logging in to your account..",Toast.LENGTH_SHORT).show();
                     check = true;
 
-                    Collection<Challenge> current = new ArrayList<>();
-
-                    for(ChallengeAccepted ca :checkedUser.getUserAccount().getCurrentChallenges() ){
-                        current.add(ca.getChallenge());
-                    }
-                        Collection<Challenge> complete = new ArrayList<>();
-
-                        for(ChallengeAccepted ca :checkedUser.getUserAccount().getCompletedChallenges() ){
-                            complete.add(ca.getChallenge());
-                        }
 
                     loggedInUser = new LoggedInUser(checkedUser.getFirstName()+" "+checkedUser.getLastName(),checkedUser.getUserAccount().getId(),
-                            current,complete);
+                            checkedUser.getUserAccount().getCurrentChallenges(),checkedUser.getUserAccount().getCompletedChallenges());
 
                     sharedPreferences = getSharedPreferences("autoLogin", Context.MODE_PRIVATE);
                     SharedPreferences.Editor prefsEditor = sharedPreferences.edit();

@@ -59,6 +59,11 @@ public class Challenge {
         return text;
     }
 
+    public boolean isEqual(Challenge c){
+
+        return name.equals(c.getName());
+    }
+
     /*
     public enum ChallengeCategory {
         //havet naturen djuren luften
