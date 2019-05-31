@@ -17,4 +17,12 @@
     <color name="lightGrey">#B8B8B8</color>
     <color name="coralColor">#EEB1B1</color>
 
+
+    <!-->Progress button<-->
+    <color name="colorButtonCompleteState">#19CC95</color>
+    <color name="colorProgressIndicatorBackground">#BBBBBB</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorStroke">#19CC95</color>
+    <color name="colorRed">#ffcd0a51</color>
+
 </resources>

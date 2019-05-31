@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.edvin.app.R;
+import com.example.edvin.app.models.Challenge;
+import com.example.edvin.app.models.ChallengeAccepted;
 import com.example.edvin.app.models.LoggedInUser;
 import com.example.edvin.app.models.UserAccount;
 import com.example.edvin.app.overview.OverviewActivity;
@@ -22,6 +24,8 @@ import com.example.edvin.app.util.RetrofitClient;
 import com.google.gson.Gson;
 
 import java.io.EOFException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
 
 import retrofit2.Call;
@@ -187,9 +191,19 @@ public class SignupActivity extends AppCompatActivity {
                 else{
 
 
-                    loggedInUser = new LoggedInUser(postedUser.getFirstName()+" "+postedUser.getLastName(),postedUser.getUserAccount().getId(),
-                            postedUser.getUserAccount().getCurrentChallenges(),postedUser.getUserAccount().getCompletedChallenges());
+                    Collection<Challenge> current = new ArrayList<>();
 
+                    for(ChallengeAccepted ca :postedUser.getUserAccount().getCurrentChallenges() ){
+                        current.add(ca.getChallenge());
+                    }
+                    Collection<Challenge> complete = new ArrayList<>();
+
+                    for(ChallengeAccepted ca :postedUser.getUserAccount().getCompletedChallenges() ){
+                        complete.add(ca.getChallenge());
+                    }
+
+                    loggedInUser = new LoggedInUser(postedUser.getFirstName()+" "+postedUser.getLastName(),postedUser.getUserAccount().getId(),
+                            current,complete);
                     sharedPreferences = getSharedPreferences("autoLogin", Context.MODE_PRIVATE);
                     SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
                     Gson gson = new Gson();

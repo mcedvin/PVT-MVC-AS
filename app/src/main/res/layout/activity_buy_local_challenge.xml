@@ -133,7 +133,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
-                <Button
+                <!--<Button
                     android:id="@+id/joinButton"
                     android:layout_width="143dp"
                     android:layout_height="wrap_content"
@@ -150,7 +150,38 @@
                     android:text="@string/join_text"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="20sp" />-->
+
+
+                <com.nihaskalam.progressbuttonlibrary.CircularProgressButton
+                    android:id="@+id/circularButton"
+                    android:layout_width="143dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_weight="0.5"
+                    android:background="@color/ReGoPrimaryColor"
+                    android:onClick="onClickProgress"
+                    android:textColor="#FFFF"
+                    android:gravity="center"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:textSize="20sp"
+                    android:textAllCaps="false"
+                    app:pb_colorIndicator="#8fff"
+                    app:pb_cornerRadius="48dp"
+                    app:pb_iconCancel="@drawable/ic_action_cross"
+                    app:pb_iconComplete="@drawable/ic_action_accept"
+                    app:pb_iconError="@drawable/ic_action_cancel"
+                    app:pb_selectorCancel="@color/pb_cancel_state_selector"
+                    app:pb_selectorComplete="@color/complete_state_selector"
+                    app:pb_selectorError="@color/error_state_selector"
+                    app:pb_selectorIdle="@color/idle_state_selector"
+                    app:pb_textColorAfterClick="#ffff"
+                    app:pb_textIdle="Gå Med" />
 
             </LinearLayout>
 

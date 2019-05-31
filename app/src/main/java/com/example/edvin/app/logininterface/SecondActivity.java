@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.edvin.app.models.Challenge;
+import com.example.edvin.app.models.ChallengeAccepted;
 import com.example.edvin.app.models.LoggedInUser;
 import com.example.edvin.app.overview.OverviewActivity;
 import com.example.edvin.app.settings.SettingsActivity;
@@ -43,7 +45,9 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import com.example.edvin.app.R;
@@ -291,8 +295,20 @@ JOELSSSSS
                     else{
                         Toast.makeText(SecondActivity.this, "welcome "+checkedUser.getFirstName()+"! logging in to your account..",Toast.LENGTH_SHORT).show();
                     check = true;
+
+                    Collection<Challenge> current = new ArrayList<>();
+
+                    for(ChallengeAccepted ca :checkedUser.getUserAccount().getCurrentChallenges() ){
+                        current.add(ca.getChallenge());
+                    }
+                        Collection<Challenge> complete = new ArrayList<>();
+
+                        for(ChallengeAccepted ca :checkedUser.getUserAccount().getCompletedChallenges() ){
+                            complete.add(ca.getChallenge());
+                        }
+
                     loggedInUser = new LoggedInUser(checkedUser.getFirstName()+" "+checkedUser.getLastName(),checkedUser.getUserAccount().getId(),
-                            checkedUser.getUserAccount().getCurrentChallenges(),checkedUser.getUserAccount().getCompletedChallenges());
+                            current,complete);
 
                     sharedPreferences = getSharedPreferences("autoLogin", Context.MODE_PRIVATE);
                     SharedPreferences.Editor prefsEditor = sharedPreferences.edit();

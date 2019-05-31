@@ -32,7 +32,8 @@ public class OverviewActivity extends AppCompatActivity {
         /**
          * info from användare
          */
-//        loggedInUser = (LoggedInUser) getIntent().getExtras().getSerializable(getString(R.string.INTENT_KEY_USER));
+        //loggedInUser = (LoggedInUser) getIntent().getExtras().getSerializable(getString(R.string.INTENT_KEY_USER));
+
 
         settingsButton = findViewById(R.id.settingsButton);
         settingsButton.setOnClickListener(l -> homeToSetting());
@@ -53,28 +54,28 @@ public class OverviewActivity extends AppCompatActivity {
     private void homeToGuide() {
 
         Intent mintent = new Intent(this, GuideMainActivity.class);
-        mintent.putExtra("serialize_data",loggedInUser);
+        mintent.putExtra(getString(R.string.INTENT_KEY_USER),loggedInUser);
         startActivity(mintent);
     }
 
     private void homeToSetting() {
 
         Intent mintent = new Intent(this, SettingsActivity.class);
-        mintent.putExtra("serialize_data",loggedInUser);
+        mintent.putExtra(getString(R.string.INTENT_KEY_USER),loggedInUser);
         startActivity(mintent);
     }
 
     private void homeToNewChallenge() {
 
         Intent mintent = new Intent(this, ChallengesCategoryScreenActivity.class);
-        mintent.putExtra("serialize_data",loggedInUser);
+        mintent.putExtra(getString(R.string.INTENT_KEY_USER),loggedInUser);
         startActivity(mintent);
     }
 
     private void goToMap() {
 
         Intent mintent = new Intent(this, MapActivity.class);
-        mintent.putExtra("serialize_data",loggedInUser);
+        mintent.putExtra(getString(R.string.INTENT_KEY_USER),loggedInUser);
         startActivity(mintent);
     }
 

@@ -63,4 +63,12 @@ public interface BaseApiService {
     @GET("reports")
     Call<List<Report>> getReports();
 
+
+    @PUT("/challenges/put")
+   Call<Void> putChallenge(@Body Challenge challenge);
+
+    @GET("challenges/{name}")
+    Call<Challenge> getChallenge(@Path("name") String name);
+
+
 }

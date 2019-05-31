@@ -59,7 +59,7 @@ public class Challenge {
         return text;
     }
 
-   /*
+    /*
     public enum ChallengeCategory {
         //havet naturen djuren luften
         HAVET,      =1
