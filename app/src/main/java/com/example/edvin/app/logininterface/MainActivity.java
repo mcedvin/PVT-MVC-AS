@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         mDialog = new ProgressDialog(MainActivity.this);
         mDialog.setMessage("Loading...");
         mDialog.setTitle("Welcome!");

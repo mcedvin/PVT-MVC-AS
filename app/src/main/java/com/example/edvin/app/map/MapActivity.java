@@ -101,9 +101,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-
- // @TODO remove this comment before launch of app
-//        loggedInUser = (LoggedInUser) getIntent().getSerializableExtra(getString(R.string.INTENT_KEY_USER));
+        loggedInUser = (LoggedInUser) getIntent().getSerializableExtra(getString(R.string.INTENT_KEY_USER));
 
         getMap();
 
