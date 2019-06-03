@@ -242,8 +242,8 @@ JOELSSSSS
              * Progress Dialog for User Interaction
              */
             dialog = new ProgressDialog(SecondActivity.this);
-            dialog.setTitle("Getting JSON data");
-            dialog.setMessage("Please wait...");
+            dialog.setTitle("Hämtar JSON data");
+            dialog.setMessage("Ett ögonblick...");
             dialog.show();
 
 
@@ -291,9 +291,9 @@ JOELSSSSS
                     User checkedUser = response.body();
 
                     if (checkedUser== null)
-                        Toast.makeText(SecondActivity.this, "no such user!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SecondActivity.this, "användaren finns inte!",Toast.LENGTH_SHORT).show();
                     else{
-                        Toast.makeText(SecondActivity.this, "welcome "+checkedUser.getFirstName()+"! logging in to your account..",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SecondActivity.this, "Välkommen "+checkedUser.getFirstName()+"! Loggar in på ditt konto..",Toast.LENGTH_SHORT).show();
                     check = true;
 
 
