@@ -1,21 +1,26 @@
 package com.example.edvin.app.overview;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.edvin.app.challenges.CompletedChallengesActivity;
 import com.example.edvin.app.R;
 import com.example.edvin.app.challenges.ChallengesCategoryScreenActivity;
+import com.example.edvin.app.challenges.NoPlasticChallengeActivity;
 import com.example.edvin.app.guide.GuideMainActivity;
 import com.example.edvin.app.map.MapActivity;
 import com.example.edvin.app.models.LoggedInUser;
 import com.example.edvin.app.settings.SettingsActivity;
+import com.google.gson.Gson;
 
 public class OverviewActivity extends AppCompatActivity {
 
@@ -23,18 +28,25 @@ public class OverviewActivity extends AppCompatActivity {
     ImageButton settingsButton;
     LoggedInUser loggedInUser;
     Button showAllFinishedChallenges;
+    SharedPreferences sharedpreferences;
+    Button NoPlast;
+    String challenge1= "NoPlast";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_overview);
+        NoPlast = findViewById(R.id.NoPlasticChallengeButton);
+        NoPlast.setVisibility(View.INVISIBLE);
+
 
         /**
          * info from användare
          */
-        //loggedInUser = (LoggedInUser) getIntent().getExtras().getSerializable(getString(R.string.INTENT_KEY_USER));
-
-
+        //TODO: LOAD ALWAYS LIKE THIS IN ALL THE CLASSES
+        //loggedInUser = (LoggedInUser) getIntent().getExtras().getSerializable("user");
+        getTheUser();
+        setTheButton();
         settingsButton = findViewById(R.id.settingsButton);
         settingsButton.setOnClickListener(l -> homeToSetting());
 
@@ -107,6 +119,25 @@ public class OverviewActivity extends AppCompatActivity {
 
                     return true;
                 }
-            };
+    };
+
+    public void getTheUser(){
+        sharedpreferences = getSharedPreferences("autoLogin", Context.MODE_PRIVATE);
+        int j = sharedpreferences.getInt("key", 0);
+
+        Gson gson = new Gson();
+        String json = sharedpreferences.getString("SerializableObject", "");
+        loggedInUser = gson.fromJson(json, LoggedInUser.class);
+        System.out.println(loggedInUser.getId());
+    }
+
+    public void setTheButton(){
+        if(loggedInUser.getCurrentChallenges().contains(challenge1)) {
+            NoPlast.setVisibility(View.VISIBLE);
+            NoPlast.setOnClickListener(l -> startActivity(new Intent(this, NoPlasticChallengeActivity.class)));
+        }else
+            NoPlast.setOnClickListener(null);
+
+    }
 
 }

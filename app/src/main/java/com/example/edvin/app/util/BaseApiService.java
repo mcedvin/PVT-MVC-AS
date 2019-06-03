@@ -7,7 +7,11 @@ import com.example.edvin.app.models.Report;
 import com.example.edvin.app.models.Station;
 import com.example.edvin.app.models.User;
 import com.example.edvin.app.models.UserAccount;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
+
+import org.json.JSONArray;
 
 import java.util.List;
 
@@ -55,7 +59,7 @@ public interface BaseApiService {
     Call<Void> postReport (@Body Report report);
 
     @PUT("users/put")
-    Call<User> putUser(@Body User user);
+    Call<Void> putUser(@Body User user);
 
     @GET("challenges")
     Call<Challenge> getChallenges();
@@ -70,5 +74,10 @@ public interface BaseApiService {
     @GET("challenges/{name}")
     Call<Challenge> getChallenge(@Path("name") String name);
 
+    @PUT("useraccounts/acceptchallenge")
+    Call<Void> acceptChallenge(@Body JsonArray jo);
+
+   @PUT("useraccounts/completechallenge")
+   Call<Void> completeChallenge(@Body JsonArray jo);
 
 }

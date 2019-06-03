@@ -40,11 +40,12 @@ public class MainActivity extends AppCompatActivity {
             mDialog.dismiss();
             Gson gson = new Gson();
             String json = sharedpreferences.getString("SerializableObject", "");
+
             loggedInUser = gson.fromJson(json, LoggedInUser.class);
 
             Intent activity = new Intent(getApplicationContext(), OverviewActivity.class);
 
-            activity.putExtra(getString(R.string.INTENT_KEY_USER),loggedInUser);
+            //activity.putExtra(getString(R.string.INTENT_KEY_USER),loggedInUser);
             startActivity(activity);
         }
         mDialog.dismiss();

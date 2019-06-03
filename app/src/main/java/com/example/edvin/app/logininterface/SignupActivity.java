@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,6 +44,7 @@ public class SignupActivity extends AppCompatActivity {
     LoggedInUser loggedInUser;
     User newUser;
     SharedPreferences sharedPreferences;
+    ProgressDialog dialog;
     BaseApiService api = RetrofitClient.getApiService();
 
 
@@ -66,7 +68,7 @@ public class SignupActivity extends AppCompatActivity {
 
         if (InternetConnection.checkConnection(getApplicationContext())) {
 
-            final ProgressDialog dialog;
+
             final String firstName = fnameTxt.getText().toString();
             final String lastName = lnameTxt.getText().toString();
             final String email = mailTxt.getText().toString();
@@ -95,19 +97,19 @@ public class SignupActivity extends AppCompatActivity {
              * Calling JSON
              */
             //Call<User> call = api.createUser(newUser);
-            Call<User> call = api.putUser(newUser);
+            Call<Void> call = api.putUser(newUser);
 
 
             /**
              * Enqueue Callback will be call when get response...
              */
 
-            call.enqueue(new Callback<User>() {
+            call.enqueue(new Callback<Void>() {
                 @Override
-                public void onResponse(Call<User> call, Response<User> response) {
+                public void onResponse(Call<Void> call, Response<Void> response) {
 
 
-                    dialog.dismiss();
+
                     if (!response.isSuccessful()) {
                         switch (response.code()) {
                             case 404:
@@ -129,29 +131,20 @@ public class SignupActivity extends AppCompatActivity {
                      * Posted Successfully
                      */
 
-                    User postUser = new User(response.body().getFirstName(),response.body().getLastName(),response.body().getEmail(),response.body().getUserAccount().getPassword());
-                    System.out.println(postUser.getFirstName());
-                    Toast.makeText(SignupActivity.this, "Success! "+ response.code()+", Welcome "+postUser.getFirstName()+"!" ,Toast.LENGTH_SHORT).show();
-                    if(makeLoggedInUser())
-                        goToHome();
+                    //User postUser = new User(response.body().getFirstName(),response.body().getLastName(),response.body().getEmail(),response.body().getUserAccount().getPassword());
+                    //System.out.println(postUser.getFirstName());
+                    Toast.makeText(SignupActivity.this, "Success! "+ response.code(),Toast.LENGTH_SHORT).show();
+                    dialog.setMessage("almost done!");
+                    makeLoggedInUser(email);
 
+
+                        goToHome();
 
                 }
 
                 @Override
-                public void onFailure(Call<User> call, Throwable t) {
+                public void onFailure(Call<Void> call, Throwable t) {
                     dialog.dismiss();
-
-
-                    if (t instanceof EOFException){
-                        Toast.makeText(SignupActivity.this,"welcome "+ newUser.getFirstName(),Toast.LENGTH_SHORT).show();
-
-
-
-                        if(makeLoggedInUser())
-                            goToHome();
-
-                    }else
                     Toast.makeText(SignupActivity.this,"Failure! No response: "+t.getMessage(),Toast.LENGTH_SHORT).show();
                 }
             });
@@ -160,9 +153,9 @@ public class SignupActivity extends AppCompatActivity {
         }
     }
 
-    protected boolean makeLoggedInUser(){
+    public void makeLoggedInUser(String email){
 
-        final String email = mailTxt.getText().toString();
+
 
         Call<User> call = api.getOneUser(email);
 
@@ -173,7 +166,7 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
 
-
+                dialog.dismiss();
                 if (!response.isSuccessful()) {
                     Toast.makeText(SignupActivity.this,"Code: " + response.code(),Toast.LENGTH_SHORT).show();
                     return;
@@ -184,16 +177,31 @@ public class SignupActivity extends AppCompatActivity {
 
 
 
-                User postedUser = response.body();
+                User newAdded = response.body();
 
-                if (postedUser== null)
+
+                Log.d("rego",newAdded.getFirstName() + "***********");
+
+
+                if (newAdded== null)
                     Toast.makeText(SignupActivity.this, "no such user!",Toast.LENGTH_SHORT).show();
                 else{
 
 
 
-                    loggedInUser = new LoggedInUser(postedUser.getFirstName()+" "+postedUser.getLastName(),postedUser.getUserAccount().getId(),
-                            postedUser.getUserAccount().getCurrentChallenges(),postedUser.getUserAccount().getCompletedChallenges() );
+                    ArrayList<String> current = new ArrayList<>();
+
+                    for (ChallengeAccepted ca: newAdded.getUserAccount().getCurrentChallenges()){
+                        current.add(ca.getChallenge().getName());
+                    }
+
+                    ArrayList<String> completed = new ArrayList<>();
+
+                    for (ChallengeAccepted ca: newAdded.getUserAccount().getCompletedChallenges()){
+                        completed.add(ca.getChallenge().getName());
+                    }
+                    loggedInUser = new LoggedInUser(newAdded.getFirstName()+" "+newAdded.getLastName(),newAdded.getUserAccount().getId(),
+                            current,completed);
                     sharedPreferences = getSharedPreferences("autoLogin", Context.MODE_PRIVATE);
                     SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
                     Gson gson = new Gson();
@@ -201,28 +209,24 @@ public class SignupActivity extends AppCompatActivity {
                     prefsEditor.putString("SerializableObject", json);
                     prefsEditor.putInt("key",1);
                     prefsEditor.apply();
+                    Toast.makeText(SignupActivity.this,"Välkommen "+ newAdded.getFirstName()+"!",Toast.LENGTH_SHORT).show();
                 }
 
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-
+                dialog.dismiss();
                 Toast.makeText(SignupActivity.this,"FAILURE!"+t.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
-
-        if (loggedInUser==null)
-            return true;
-        else
-            return false;
     }
 
 
     protected void goToHome(){
 
         Intent intent = new Intent(this, OverviewActivity.class);
-        intent.putExtra(getString(R.string.INTENT_KEY_USER),loggedInUser);
+        //intent.putExtra(getString(R.string.INTENT_KEY_USER),loggedInUser);
         startActivity(intent);
     }
 

@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
 
         android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
         android:background="@drawable/newbg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -57,36 +58,27 @@
 
 
         <GridLayout
-            android:layout_width="wrap_content"
+            android:layout_width="342dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
 
+
             <Button
-                android:id="@+id/reduceShowerTimeChallengeButton"
-                android:layout_width="match_parent"
+                android:id="@+id/NoPlasticChallengeButton"
+                android:layout_width="162dp"
                 android:layout_height="match_parent"
                 android:layout_row="0"
                 android:layout_column="0"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:gravity="center"
-                android:text="kommer sen"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white"
-                android:textSize="18sp" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_row="0"
-                android:layout_column="1"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:gravity="center"
-                android:text="kommer sen"
+                android:background="@drawable/challenge_no_plastic"
+                android:text="@string/no_plastic_text"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:textSize="14sp" />
+
+
+        </GridLayout>
 
             <!-- <Button
                 android:id="@+id/electricityChallengeButton"
@@ -136,7 +128,6 @@
 
                         -->
 
-        </GridLayout>
 
 
 

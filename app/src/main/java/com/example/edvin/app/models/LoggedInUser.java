@@ -4,6 +4,7 @@ import android.media.Image;
 import android.widget.ImageView;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -16,13 +17,22 @@ public class LoggedInUser implements Serializable {
     private int id;
     private Image avatar = null; //bytes ?
 
-    private Collection<ChallengeAccepted> currentChallenges;
-    private Collection<ChallengeAccepted> completedChallenges;
+    private ArrayList<String> currentChallenges;
+    private ArrayList<String> completedChallenges;
+
+    public ArrayList<String> getCurrentChallenges() {
+        return currentChallenges;
+    }
+
+    public ArrayList<String> getCompletedChallenges() {
+        return completedChallenges;
+    }
+
+    //TODO: CHANGE CHALLENGES TO STRINGS
 
 
-
-    public LoggedInUser(String displayName, int id ,Collection<ChallengeAccepted> currentChallenges,
-                        Collection<ChallengeAccepted> completedChallenges) {
+    public LoggedInUser(String displayName, int id , ArrayList<String> currentChallenges,
+                        ArrayList<String> completedChallenges) {
         this.displayName = displayName;
         this.id = id;
 
@@ -50,24 +60,24 @@ public class LoggedInUser implements Serializable {
     }
 
 
-public boolean hasCurrent(Challenge ch){
+public boolean hasCurrent(String challengeName){
 
         if(currentChallenges.size()==0)
             return false;
 
-        for (ChallengeAccepted ca: currentChallenges){
-            if(ca.getChallenge().isEqual(ch))
+        for (String ca: currentChallenges){
+            if(ca.equals(challengeName))
                 return true;
         }
         return false;
 }
 
-public boolean hasCompleted(Challenge ch){
+public boolean hasCompleted(String challengeName){
     if(completedChallenges.size()==0)
         return false;
 
-    for (ChallengeAccepted ca: completedChallenges){
-        if(ca.getChallenge().isEqual(ch))
+    for (String ca: completedChallenges){
+        if(ca.equals(challengeName))
             return true;
     }
     return false;
