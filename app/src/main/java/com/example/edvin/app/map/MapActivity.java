@@ -229,7 +229,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
                 } else {
-                    Log.d(TAG, "Server response code: " + response.code());
+                    Log.d(TAG, "Server response code when trying to retrieve recycable materials: " + response.code());
                 }
 
             }
@@ -377,7 +377,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     }
 
                 } else {
-                    Log.d(TAG, "Server response code: " + response.code());
+                    Log.d(TAG, "Server response code when trying to retrieve recycling stations: " + response.code());
                 }
             }
 
@@ -403,7 +403,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 Log.e(TAG, "Style parsing of map failed.");
             }
         } catch (Resources.NotFoundException e) {
-            Log.e(TAG, "Can't find style template. Error: ", e);
+            Log.e(TAG, "Can't find style template for map. Error: ", e);
         }
 
         UiSettings mapUI = googleMap.getUiSettings();
@@ -475,13 +475,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                         @Override
                         public void onSuccess(Location location) {
-                            Log.d(TAG, "onSuccess() called, got last known location but might be null");
+                            Log.d(TAG, "onSuccess() called, got last known location from FusedLocationClientProvider but might be null");
                             // Got last known location. In some rare situations this can be null.
                             if (location != null) {
                                 // Logic to handle location object
                                 currentLocation = location;
                             } else {
-                                Log.d(TAG, "location is null");
+                                Log.d(TAG, "The device's current location is null");
                             }
                             adjustCameraZoomOnMap();
                         }
