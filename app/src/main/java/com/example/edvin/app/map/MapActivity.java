@@ -176,7 +176,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         filterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onFilterDialog(v);
+                if (materialsForFiltering != null) {
+                    onFilterDialog(v);
+                }
             }
         });
 
