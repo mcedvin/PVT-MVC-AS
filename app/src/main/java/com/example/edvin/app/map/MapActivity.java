@@ -176,7 +176,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         filterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onFilterDialog(v);
+                if (materialsForFiltering != null) {
+                    onFilterDialog(v);
+                }
             }
         });
 
@@ -345,30 +347,34 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 if (response.isSuccessful()) {
 
                     List<Station> stations = response.body();
-                    Log.d(TAG, "OnResponse() got stations: " + stations.toString());
 
-                    for (Station s : stations) {
+                    if (stations != null) {
 
-                        Position p = s.getPosition();
-                        LatLng latlong = new LatLng(p.getX(), p.getY());
+                        Log.d(TAG, "OnResponse() got stations: " + stations.toString());
 
-                        Marker marker = map.addMarker(new MarkerOptions().position(latlong).title(p.toString()).snippet("").icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultstation_marker)));
-                        marker.hideInfoWindow();
-                        markersAndStations.put(marker, s);
+                        for (Station s : stations) {
 
-                        Collection<Material> materials = s.getAvailableMaterials();
+                            Position p = s.getPosition();
+                            LatLng latlong = new LatLng(p.getX(), p.getY());
 
-                        for (Material m : materials) {
+                            Marker marker = map.addMarker(new MarkerOptions().position(latlong).title(p.toString()).snippet("").icon(BitmapDescriptorFactory.fromResource(R.drawable.defaultstation_marker)));
+                            marker.hideInfoWindow();
+                            markersAndStations.put(marker, s);
 
-                            if (materialsForFiltering == null) {
+                            Collection<Material> materials = s.getAvailableMaterials();
 
-                                materialsForFiltering = new TreeSet<>();
+                            for (Material m : materials) {
+
+                                if (materialsForFiltering == null) {
+
+                                    materialsForFiltering = new TreeSet<>();
+                                }
+
+                                materialsForFiltering.add(m.getName());
                             }
-
-                            materialsForFiltering.add(m.getName());
                         }
+                        setUpAutoCompleteSearch();
                     }
-                    setUpAutoCompleteSearch();
 
                 } else {
                     Log.d(TAG, "Server response code: " + response.code());
