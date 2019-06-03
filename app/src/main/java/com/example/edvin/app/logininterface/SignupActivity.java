@@ -207,6 +207,7 @@ public class SignupActivity extends AppCompatActivity {
                     Gson gson = new Gson();
                     String json = gson.toJson(loggedInUser);
                     prefsEditor.putString("SerializableObject", json);
+                    prefsEditor.putString("mail",email);
                     prefsEditor.putInt("key",1);
                     prefsEditor.apply();
                     Toast.makeText(SignupActivity.this,"Välkommen "+ newAdded.getFirstName()+"!",Toast.LENGTH_SHORT).show();
@@ -226,7 +227,7 @@ public class SignupActivity extends AppCompatActivity {
     protected void goToHome(){
 
         Intent intent = new Intent(this, OverviewActivity.class);
-        //intent.putExtra(getString(R.string.INTENT_KEY_USER),loggedInUser);
+        //intent.putExtra("email","");
         startActivity(intent);
     }
 

@@ -7,20 +7,32 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.edvin.app.challenges.CompletedChallengesActivity;
 import com.example.edvin.app.R;
 import com.example.edvin.app.challenges.ChallengesCategoryScreenActivity;
 import com.example.edvin.app.challenges.NoPlasticChallengeActivity;
 import com.example.edvin.app.guide.GuideMainActivity;
+import com.example.edvin.app.logininterface.SignupActivity;
 import com.example.edvin.app.map.MapActivity;
+import com.example.edvin.app.models.ChallengeAccepted;
 import com.example.edvin.app.models.LoggedInUser;
+import com.example.edvin.app.models.User;
 import com.example.edvin.app.settings.SettingsActivity;
+import com.example.edvin.app.util.BaseApiService;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class OverviewActivity extends AppCompatActivity {
 
@@ -31,6 +43,8 @@ public class OverviewActivity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     Button NoPlast;
     String challenge1= "NoPlast";
+    BaseApiService api;
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +54,19 @@ public class OverviewActivity extends AppCompatActivity {
         NoPlast.setVisibility(View.INVISIBLE);
 
 
+
         /**
          * info from användare
          */
         //TODO: LOAD ALWAYS LIKE THIS IN ALL THE CLASSES
         //loggedInUser = (LoggedInUser) getIntent().getExtras().getSerializable("user");
         getTheUser();
+        if(loggedInUser==null){
+            sharedpreferences = getSharedPreferences("autoLogin", Context.MODE_PRIVATE);
+            email = sharedpreferences.getString("mail",null);
+            makeLoggedInUser(email);}
+        System.out.println(loggedInUser.getId());
+
         setTheButton();
         settingsButton = findViewById(R.id.settingsButton);
         settingsButton.setOnClickListener(l -> homeToSetting());
@@ -128,7 +149,7 @@ public class OverviewActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String json = sharedpreferences.getString("SerializableObject", "");
         loggedInUser = gson.fromJson(json, LoggedInUser.class);
-        System.out.println(loggedInUser.getId());
+        //
     }
 
     public void setTheButton(){
@@ -138,6 +159,76 @@ public class OverviewActivity extends AppCompatActivity {
         }else
             NoPlast.setOnClickListener(null);
 
+    }
+
+
+    public void makeLoggedInUser(String email){
+
+
+
+        Call<User> call = api.getOneUser(email);
+
+
+
+
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+
+
+                if (!response.isSuccessful()) {
+                    Toast.makeText(OverviewActivity.this,"Code: " + response.code(),Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                /**
+                 * Got Successfully
+                 */
+
+
+
+                User newAdded = response.body();
+
+
+                Log.d("rego",newAdded.getFirstName() + "***********");
+
+
+                if (newAdded== null)
+                    Toast.makeText(OverviewActivity.this, "no such user!",Toast.LENGTH_SHORT).show();
+                else{
+
+
+
+                    ArrayList<String> current = new ArrayList<>();
+
+                    for (ChallengeAccepted ca: newAdded.getUserAccount().getCurrentChallenges()){
+                        current.add(ca.getChallenge().getName());
+                    }
+
+                    ArrayList<String> completed = new ArrayList<>();
+
+                    for (ChallengeAccepted ca: newAdded.getUserAccount().getCompletedChallenges()){
+                        completed.add(ca.getChallenge().getName());
+                    }
+                    loggedInUser = new LoggedInUser(newAdded.getFirstName()+" "+newAdded.getLastName(),newAdded.getUserAccount().getId(),
+                            current,completed);
+                    sharedpreferences = getSharedPreferences("autoLogin", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor prefsEditor = sharedpreferences.edit();
+                    Gson gson = new Gson();
+                    String json = gson.toJson(loggedInUser);
+                    prefsEditor.putString("SerializableObject", json);
+                    prefsEditor.putInt("key",1);
+                    prefsEditor.apply();
+                    Toast.makeText(OverviewActivity.this,"Välkommen "+ newAdded.getFirstName()+"!",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
+                Toast.makeText(OverviewActivity.this,"FAILURE!"+t.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }
