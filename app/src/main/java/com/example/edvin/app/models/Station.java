@@ -16,6 +16,7 @@ public class Station implements Serializable {
     private Position position;
     @SerializedName("postNumber")
     private String zipCode;
+    private int ZIPCODE_WITH_SPACE;
 
     private String area;
     private Collection<Material> availableMaterials = new ArrayList<Material>();
@@ -45,7 +46,11 @@ public class Station implements Serializable {
     }
 
     public String getZipCode() {
-        return zipCode;
+        if (zipCode.length() == ZIPCODE_WITH_SPACE) {
+            return zipCode;
+        } else {
+            return zipCode.substring(0,3) + " " + zipCode.substring(3);
+        }
     }
 
     public void setZipCode(String zipCode) {
